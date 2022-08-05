@@ -1,8 +1,11 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="flex flex-col">
-    <div class="bg-slate-900 p-6">
-        <p class="text-slate-100">word-lp</p>
+<div id="wordlp" class="@(IsDark ? "dark-mode" : "")">
+    <div class="p-6 flex justify-between">
+        <div>word-lp</div>
+        <div>
+            <button @onclick="ToggleDark">toggleDark</button>
+        </div>            
     </div>
 
     <main class="flex flex-col flex-grow">
@@ -11,3 +14,11 @@
         </article>
     </main>
 </div>
+
+@code {
+
+    private bool IsDark { get; set; }
+
+    private void ToggleDark() => IsDark = !IsDark;
+
+}
