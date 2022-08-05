@@ -5,6 +5,7 @@
 
 header {
     align-items: center;
+    border-bottom: 1px solid #94a3b8;
     display: flex;
     height: 65px;
     padding: 0.75rem 1.25rem;
@@ -21,6 +22,10 @@ header {
     header > .header-end {
         justify-content: flex-end;
     }
+
+.dark-mode header {
+    border-color: #475569;
+}
 
 #logo-text {
     display: flex;
