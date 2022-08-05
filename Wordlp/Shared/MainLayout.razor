@@ -2,11 +2,11 @@
 
 <div id="wordlp" class="@(IsDark ? "dark-mode" : "")">
 
-    <header>
+    <header class="app-header">
         <div class="header-start">
 
         </div>
-        <p id="logo-text">
+        <p class="app-title">
             @foreach(var letter in "WORDLP")
             {
                 <div>@letter</div>
@@ -14,7 +14,7 @@
         </p>
         <div class="header-end">
             <button id="dark-mode-toggler" @onclick="ToggleDark">
-                <i class="@(IsDark? "fa-solid" : "fa-regular") fa-moon" />
+                <i class="@(IsDark? "fa-solid" : "fa-regular") fa-moon fa-lg" />
             </button>
         </div>        
     </header>

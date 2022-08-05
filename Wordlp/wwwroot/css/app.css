@@ -1,4 +1,17 @@
-﻿* {
+﻿:root {
+    --slate-50: #f8fafc;
+    --slate-100: #f1f5f9;
+    --slate-200: #e2e8f0;
+    --slate-300: #cbd5e1;
+    --slate-400: #94a3b8;
+    --slate-500: #64748b;
+    --slate-600: #475569;
+    --slate-700: #334155;
+    --slate-800: #1e293b;
+    --slate-900: #0f172a;
+}
+
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -9,12 +22,129 @@ html, body {
 }
 
 #wordlp {
-    background-color: #e2e8f0;
-    color: #0f172a;
+    background-color: var(--slate-200);
+    color: var(--slate-700);
+    display: flex;
+    flex-direction: column;
     height: 100vh;
 }
 
+button {
+    border: none;
+    cursor: pointer;
+}
+
+.app-header {
+    align-items: center;
+    border-bottom: 1px solid var(--slate-400);
+    display: flex;
+    height: 65px;
+    padding: 0.75rem 1.25rem;
+    justify-content: space-between;
+    width: 100%;
+}
+
+    .app-header > .header-start,
+    .app-header > .header-end {
+        display: flex;
+        width: 120px;
+    }
+
+    .app-header > .header-end {
+        justify-content: flex-end;
+    }
+
+    .app-header > .app-title {
+        display: flex;
+        margin: auto;
+    }
+
+        .app-header > .app-title > div {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            width: 30px;
+        }
+
+    .app-header button#dark-mode-toggler {
+        color: var(--slate-700);
+        background: transparent;
+    }
+
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    height: 100%;
+    justify-content: center;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 12px 8px;
+    width: 100%;
+}
+
+.board {
+    display: grid;
+    grid-template-rows: repeat(6, 1fr);
+    grid-gap: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+}
+
+    .board .row {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-gap: 5px;
+    }
+
+        .board .row > .cell {
+            border: 2px solid var(--slate-400);
+            height: 62px;
+            width: 62px;
+        }
+
+.keyboard .row {
+    display: flex;
+    margin: 0 auto 8px;
+    width: 100%;
+}
+
+    .keyboard .row > .spacer {
+        flex: 0.5;
+    }
+
+    .keyboard .row > button {
+        background-color: var(--slate-300);
+        border-radius: 8px;
+        margin: 0 6px 0 0;
+        height: 58px;
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-transform: uppercase;
+    }
+
+/* Dark Mode */
 #wordlp.dark-mode {
-    background-color: #0f172a;
-    color: #e2e8f0;
+    background-color: var(--slate-900);
+    color: var(--slate-300);
+}
+
+.dark-mode .app-header {
+    border-color: var(--slate-600);
+}
+
+.dark-mode .app-header button#dark-mode-toggler {
+    color: var(--slate-300);
+}
+
+.dark-mode .board .row > .cell {
+    border-color: var(--slate-600);
+}
+
+.dark-mode .keyboard .row > button {
+    background-color: var(--slate-700);
+    color: var(--slate-300);
 }
