@@ -1,4 +1,9 @@
-﻿header {
+﻿#wordlp {
+    display: flex;
+    flex-direction: column;
+}
+
+header {
     align-items: center;
     display: flex;
     height: 65px;
@@ -27,4 +32,16 @@
     font-weight: bold;
     text-align: center;
     width: 30px;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    height: 100%;
+    justify-content: center;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 12px 8px;
+    width: 100%;
 }

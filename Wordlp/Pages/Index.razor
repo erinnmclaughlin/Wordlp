@@ -15,6 +15,31 @@
     }
 </div>
 
+<div class="keyboard">
+    <div class="row">
+        @foreach (var key in "QWERTYUIOP")
+        {
+            <button type="button">@key</button>
+        }
+    </div>
+    <div class="row">
+        <div class="spacer"></div>
+        @foreach (var key in "ASDFGHJKL")
+        {
+            <button type="button">@key</button>
+        }
+        <div class="spacer"></div>
+    </div>
+    <div class="row">
+        <button type="button" style="flex: 1.5;">ENTER</button>
+        @foreach (var key in "ZXCVBNM")
+        {
+            <button type="button">@key</button>
+        }
+        <button type="button" style="flex: 1.5;">BKSP</button>
+    </div>
+</div>
+
 @*@if (RandomWord != null)
 {
     <div class="mb-3">
