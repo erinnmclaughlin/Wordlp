@@ -1,7 +1,16 @@
 ﻿@page "/"
+@inject WordCollection WordCollection
 
 <PageTitle>Word-LP</PageTitle>
 
 <h1>Hello, world!</h1>
 
 Welcome to your new app.
+
+<dl>
+    @foreach (var word in WordCollection.Words)
+    {
+        <dt>@word.Value</dt>
+        <dt>@word.Description</dt>
+    }
+</dl>
