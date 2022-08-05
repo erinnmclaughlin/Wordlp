@@ -1,12 +1,23 @@
 ﻿@inherits LayoutComponentBase
 
 <div id="wordlp" class="@(IsDark ? "dark-mode" : "")">
-    <div class="p-6 flex justify-between">
-        <div>word-lp</div>
-        <div>
-            <button @onclick="ToggleDark">toggleDark</button>
-        </div>            
-    </div>
+
+    <header>
+        <div class="header-start">
+
+        </div>
+        <p id="logo-text">
+            @foreach(var letter in "WORDLP")
+            {
+                <div>@letter</div>
+            }
+        </p>
+        <div class="header-end">
+            <button id="dark-mode-toggler" @onclick="ToggleDark">
+                <i class="@(IsDark? "fa-solid" : "fa-regular") fa-moon" />
+            </button>
+        </div>        
+    </header>
 
     <main class="flex flex-col flex-grow">
         <article class="p-4">

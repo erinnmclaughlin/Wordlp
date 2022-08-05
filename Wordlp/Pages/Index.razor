@@ -3,7 +3,19 @@
 
 <PageTitle>Word-LP</PageTitle>
 
-@if (RandomWord != null)
+<div class="board">
+    @for (int i = 0; i <6; i++)
+    {
+        <div class="row">
+            @for (int j = 0; j < 5; j++)
+            {
+                <div class="cell"></div>
+            }
+        </div>
+    }
+</div>
+
+@*@if (RandomWord != null)
 {
     <div class="mb-3">
         <h3 class="text-lg font-bold tracking-wide">@RandomWord.Value</h3>
@@ -11,7 +23,7 @@
     </div>
     
     <button class="py-1 px-2 bg-slate-300 rounded text-sm border border-slate-400" @onclick="GetRandomWord">Next Word</button>
-}
+}*@
 
 @code {
 

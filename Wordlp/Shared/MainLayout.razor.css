@@ -1,0 +1,30 @@
+﻿header {
+    align-items: center;
+    display: flex;
+    height: 65px;
+    padding: 0.75rem 1.25rem;
+    justify-content: space-between;
+    width: 100%;
+}
+
+    header > .header-start,
+    header > .header-end {
+        display: flex;
+        width: 120px;
+    }
+
+    header > .header-end {
+        justify-content: flex-end;
+    }
+
+#logo-text {
+    display: flex;
+    margin: auto;
+}
+
+#logo-text > div  {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    width: 30px;
+}
