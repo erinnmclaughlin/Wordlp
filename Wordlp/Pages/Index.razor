@@ -3,14 +3,27 @@
 
 <PageTitle>Word-LP</PageTitle>
 
-<h1>Hello, world!</h1>
+@if (RandomWord != null)
+{
+    <div class="mb-3">
+        <h3 class="text-lg font-bold tracking-wide">@RandomWord.Value</h3>
+        <p>@RandomWord.Description</p>
+    </div>
+    
+    <button class="py-1 px-2 bg-slate-300 rounded text-sm border border-slate-400" @onclick="GetRandomWord">Next Word</button>
+}
 
-Welcome to your new app.
+@code {
 
-<dl>
-    @foreach (var word in WordCollection.Words)
+    private Word? RandomWord { get; set; }
+
+    protected override void OnInitialized()
     {
-        <dt>@word.Value</dt>
-        <dt>@word.Description</dt>
+        GetRandomWord();
     }
-</dl>
+
+    private void GetRandomWord()
+    {
+        RandomWord = WordCollection.GetRandomWord();
+    }
+}
