@@ -71,10 +71,10 @@ button {
     }
 
         .app-header > .app-title > div {
-            font-size: 24px;
+            font-size: 18px;
             font-weight: bold;
             text-align: center;
-            width: 30px;
+            width: 18px;
         }
 
     .app-header button#dark-mode-toggler {
@@ -98,8 +98,7 @@ main {
     display: grid;
     grid-template-rows: repeat(6, 1fr);
     grid-gap: 5px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: auto;
     width: fit-content;
 }
 
@@ -140,6 +139,7 @@ main {
         .keyboard .row > button {
             background-color: var(--slate-300);
             border-radius: 8px;
+            color: var(--slate-700);
             margin: 0 6px 0 0;
             height: 58px;
             flex: 1;
