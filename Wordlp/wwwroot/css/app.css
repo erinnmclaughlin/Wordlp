@@ -17,8 +17,17 @@
     padding: 0;
 }
 
+html {
+    height: 100%;
+}
+
 html, body {
     font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+body, #app, #wordlp {
+    height: 100%;
+    overflow-y: hidden;
 }
 
 #wordlp {
@@ -26,7 +35,6 @@ html, body {
     color: var(--slate-700);
     display: flex;
     flex-direction: column;
-    height: 100vh;
 }
 
 button {
