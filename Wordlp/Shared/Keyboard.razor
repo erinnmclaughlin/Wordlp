@@ -1,0 +1,63 @@
+﻿<div @ref="KeyboardReference" tabindex="0" class="keyboard" @onkeydown="HandleKeyPress" @onblur="FocusKeyboard">
+    <div class="row">
+        @foreach (var key in "QWERTYUIOP")
+        {
+            <button type="button">@key</button>
+        }
+    </div>
+    <div class="row">
+        <div class="spacer"></div>
+        @foreach (var key in "ASDFGHJKL")
+        {
+            <button type="button">@key</button>
+        }
+        <div class="spacer"></div>
+    </div>
+    <div class="row">
+        <button type="button" style="flex: 1.5;">ENTER</button>
+        @foreach (var key in "ZXCVBNM")
+        {
+            <button type="button">@key</button>
+        }
+        <button type="button" style="flex: 1.5;">BKSP</button>
+    </div>
+</div>
+
+@code {
+
+    private const string Letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private ElementReference KeyboardReference { get; set; }
+
+    [Parameter] public EventCallback<char> OnKeyPress { get; set; }
+    [Parameter] public EventCallback OnBackspace { get; set; }
+    [Parameter] public EventCallback OnSubmit { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+            await FocusKeyboard();
+
+    }
+
+    public async Task FocusKeyboard()
+    {
+        await KeyboardReference.FocusAsync();
+    }
+
+    private async Task HandleKeyPress(KeyboardEventArgs e)
+    {
+        var key = e.Key.ToUpper();
+
+        if (key == "BACKSPACE")
+        {
+            await OnBackspace.InvokeAsync();
+            return;
+        }
+
+        if (Letters.Contains(key))
+        {
+            await OnKeyPress.InvokeAsync(key[0]);
+            return;
+        }
+    }
+}

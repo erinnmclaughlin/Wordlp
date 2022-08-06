@@ -23,46 +23,16 @@
     }
 </div>
 
-<div @ref="Keyboard" tabindex="0" class="keyboard" @onkeydown="HandleKeyPress" @onblur="FocusKeyboard">
-    <div class="row">
-        @foreach (var key in "QWERTYUIOP")
-        {
-            <button type="button">@key</button>
-        }
-    </div>
-    <div class="row">
-        <div class="spacer"></div>
-        @foreach (var key in "ASDFGHJKL")
-        {
-            <button type="button">@key</button>
-        }
-        <div class="spacer"></div>
-    </div>
-    <div class="row">
-        <button type="button" style="flex: 1.5;">ENTER</button>
-        @foreach (var key in "ZXCVBNM")
-        {
-            <button type="button">@key</button>
-        }
-        <button type="button" style="flex: 1.5;">BKSP</button>
-    </div>
-</div>
+<Keyboard OnKeyPress="AddLetter" OnBackspace="Backspace" />
+
 
 @code {
 
-    private const string Letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
     private int GuessIndex { get; set; } = 0;
     private string Guess { get; set; } = string.Empty;
 
     private Word? RandomWord { get; set; }
-    private ElementReference Keyboard { get; set; }
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-            await FocusKeyboard();
-
-    }
 
     protected override void OnInitialized()
     {
@@ -74,23 +44,19 @@
         RandomWord = WordCollection.GetRandomWord();
     }
 
-    private async Task FocusKeyboard()
+    public void Backspace()
     {
-        await Keyboard.FocusAsync();
+        Guess = Guess.Substring(0, Math.Max(0, Guess.Length - 1));
     }
 
-    private void HandleKeyPress(KeyboardEventArgs e)
+    public void AddLetter(char letter)
     {
-        var key = e.Key.ToUpper();
+        Console.WriteLine(letter);
 
-        if (key == "BACKSPACE")
-        {
-            Guess = Guess.Substring(0, Math.Max(0, Guess.Length - 1));
+        if (Guess.Length >= 5)
             return;
-        }
 
-        if (Guess.Length < 5 && Letters.Contains(key))
-            Guess += key;
-        
+        Guess += letter;
+        Console.WriteLine(Guess);
     }
 }
