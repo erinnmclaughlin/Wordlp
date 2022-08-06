@@ -14,20 +14,46 @@
     }
 
     .keyboard .row > button {
+        align-items: center;
         background-color: var(--slate-300);
         border-radius: 8px;
         color: var(--slate-700);
-        margin: 0 6px 0 0;
-        height: 58px;
-        flex: 1;
         display: flex;
+        flex: 1;
+        font-weight: 600;
+        height: 58px;
         justify-content: center;
-        align-items: center;
+        margin: 0 6px 0 0;
         text-transform: uppercase;
     }
 
+        .keyboard .row > button.guessed {
+            background-color: var(--slate-450);
+            color: white;
+        }
+
+            .keyboard .row > button.guessed.match {
+                background-color: var(--green);
+            }
+
+            .keyboard .row > button.guessed.contains {
+                background-color: var(--yellow);
+            }
+
 /* Dark Mode */
 .dark-mode .keyboard .row > button {
-    background-color: var(--slate-700);
+    background-color: var(--slate-600);
     color: var(--slate-300);
 }
+
+    .dark-mode .keyboard .row > button.guessed {
+        background-color: var(--slate-800);
+    }
+
+    .dark-mode .keyboard .row > button.guessed.match {
+        background-color: var(--dark-mode-green);
+    }
+
+    .dark-mode .keyboard .row > button.guessed.contains {
+        background-color: var(--dark-mode-yellow);
+    }

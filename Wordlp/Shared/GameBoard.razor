@@ -1,43 +1,21 @@
-﻿<div class="board">
+﻿@inject Game Game
 
-    <!-- Previous Guesses -->
-    @foreach (var previousGuess in PreviousGuesses)
+<div class="board">
+    @for (int i = 0; i < Game.MaxGuesses; i++)
     {
-        <div class="row">
-            @foreach (var letter in previousGuess)
-            {
-                <div class="cell has-letter">
-                    <span>@letter</span>
-                </div>
-            }
-        </div>
-    }
+        var rowIndex = i;
 
-    <!-- Current Guess-->
-    @if (PreviousGuesses.Count < 6)
-    {
         <div class="row">
-            @for (int i = 0; i < 5; i++)
+            @for (int j = 0; j < Game.WordLength; j++)
             {
-                var local_i = i;
+                var letterIndex = j;
 
-                <div class="cell">
-                    @if (Guess.ElementAtOrDefault(local_i) != default)
+                <div class="@GetCellCss(rowIndex, letterIndex)">
+                    @if (GetCellValue(rowIndex, letterIndex) is char letter)
                     {
-                        <span>@Guess[local_i]</span>
+                        <span>@letter</span>
                     }
                 </div>
-            }
-        </div>
-    }    
-
-    <!-- Next Guesses -->
-    @for (int i = 0; i < UpcomingGuesses; i++)
-    {
-       <div class="row">
-            @for (int j = 0; j < 5; j++)
-            {
-                <div class="cell"></div>
             }
         </div>
     }
@@ -46,7 +24,36 @@
 @code {
 
     [Parameter] public string Guess { get; set; } = string.Empty;
-    [Parameter] public List<string> PreviousGuesses { get; set; } = new();
 
-    private int UpcomingGuesses => PreviousGuesses.Count == 6 ? 0 : 6 - PreviousGuesses.Count - 1;
+    private string GetCellCss(int rowIndex, int letterIndex)
+    {
+        List<string> classes = new() { "cell" };
+
+        if (Game.GetGuessByIndex(rowIndex) is Guess previousGuess)
+        {
+            classes.Add("guessed");
+            classes.Add(previousGuess.GetResultAt(letterIndex) switch
+            {
+                GuessResult.Match => "match",
+                GuessResult.Contains => "contains",
+                _ => string.Empty
+            });
+        }
+        else if (Game.CurrentGuess == rowIndex && letterIndex < Guess.Length)
+        {
+            classes.Add("has-letter");
+        }
+        
+        return string.Join(" ", classes.Where(c => !string.IsNullOrWhiteSpace(c)));
+    }
+
+    private char? GetCellValue(int rowIndex, int letterIndex)
+    {
+        if (Game.Guesses.ElementAtOrDefault(rowIndex) is Guess previousGuess)
+            return previousGuess.Letters[letterIndex].Value;
+        else if (Game.CurrentGuess == rowIndex && letterIndex < Guess.Length)
+            return Guess[letterIndex];
+
+        return null;
+    }
 }

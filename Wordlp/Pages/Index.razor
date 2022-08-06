@@ -1,26 +1,14 @@
 ﻿@page "/"
-@inject WordCollection WordCollection
+@inject Game Game
 
 <PageTitle>Word-LP</PageTitle>
 
-<GameBoard Guess="@Guess" PreviousGuesses="PreviousGuesses" />
+<GameBoard Guess="@Guess" />
 <Keyboard OnKeyPress="AddLetter" OnBackspace="Backspace" OnSubmit="SubmitGuess" />
 
 @code {
 
-    private List<string> PreviousGuesses { get; set; } = new();
     private string Guess { get; set; } = string.Empty;
-    private Word? RandomWord { get; set; }
-
-    protected override void OnInitialized()
-    {
-        GetRandomWord();
-    }
-
-    private void GetRandomWord()
-    {
-        RandomWord = WordCollection.GetRandomWord();
-    }
 
     public void AddLetter(char letter)
     {
@@ -32,14 +20,16 @@
 
     public void Backspace()
     {
-        Guess = Guess.Substring(0, Math.Max(0, Guess.Length - 1));
+        if (Guess.Length == 0)
+            return;
+
+        Guess = Guess.Remove(Guess.Length - 1);
     }
 
     public void SubmitGuess()
     {
-        if (Guess.Length != 5) return;
-
-        PreviousGuesses.Add(Guess);
+        if (!Game.IsValidGuess(Guess)) return;
+        Game.SubmitGuess(Guess);
         Guess = string.Empty;
     }
 }

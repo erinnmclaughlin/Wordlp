@@ -14,12 +14,26 @@
 
         .board .row > .cell {
             align-items: center;
-            border: 2px solid var(--slate-400);
+            border: 2px solid var(--slate-300);
             display: flex;
             height: 62px;
             justify-content: center;
             width: 62px;
         }
+
+            .board .row > .cell.guessed {
+                background-color: var(--slate-450);
+                border: none;
+                color: white;
+            }
+
+            .board .row > .cell.match {
+                background-color: var(--green);
+            }
+
+            .board .row > .cell.contains {
+                background-color: var(--yellow);
+            }
 
             .board .row > .cell > span {
                 font-size: 32px;
@@ -28,5 +42,17 @@
 
 /* Dark Mode */
 .dark-mode .board .row > .cell {
-    border-color: var(--slate-600);
+    border-color: var(--slate-700);
 }
+
+    .dark-mode .board .row > .cell.guessed {
+        background-color: var(--slate-700);
+    }
+
+        .dark-mode .board .row > .cell.guessed.match {
+            background-color: var(--dark-mode-green);
+        }
+
+        .dark-mode .board .row > .cell.guessed.contains {
+            background-color: var(--dark-mode-yellow);
+        }
