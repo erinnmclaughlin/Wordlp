@@ -1,0 +1,52 @@
+﻿<div class="board">
+
+    <!-- Previous Guesses -->
+    @foreach (var previousGuess in PreviousGuesses)
+    {
+        <div class="row">
+            @foreach (var letter in previousGuess)
+            {
+                <div class="cell has-letter">
+                    <span>@letter</span>
+                </div>
+            }
+        </div>
+    }
+
+    <!-- Current Guess-->
+    @if (PreviousGuesses.Count < 6)
+    {
+        <div class="row">
+            @for (int i = 0; i < 5; i++)
+            {
+                var local_i = i;
+
+                <div class="cell">
+                    @if (Guess.ElementAtOrDefault(local_i) != default)
+                    {
+                        <span>@Guess[local_i]</span>
+                    }
+                </div>
+            }
+        </div>
+    }    
+
+    <!-- Next Guesses -->
+    @for (int i = 0; i < UpcomingGuesses; i++)
+    {
+       <div class="row">
+            @for (int j = 0; j < 5; j++)
+            {
+                <div class="cell"></div>
+            }
+        </div>
+    }
+</div>
+
+@code {
+
+    [Parameter] public string Guess { get; set; } = string.Empty;
+    [Parameter] public List<string> PreviousGuesses { get; set; } = new();
+
+    private int UpcomingGuesses => PreviousGuesses.Count == 6 ? 0 : 6 - PreviousGuesses.Count - 1;
+}

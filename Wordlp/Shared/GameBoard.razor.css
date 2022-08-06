@@ -1,0 +1,32 @@
+﻿.board {
+    display: grid;
+    grid-template-rows: repeat(6, 1fr);
+    grid-gap: 5px;
+    margin: 0 auto;
+    width: fit-content;
+}
+
+    .board .row {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-gap: 5px;
+    }
+
+        .board .row > .cell {
+            align-items: center;
+            border: 2px solid var(--slate-400);
+            display: flex;
+            height: 62px;
+            justify-content: center;
+            width: 62px;
+        }
+
+            .board .row > .cell > span {
+                font-size: 32px;
+                font-weight: 600;
+            }
+
+/* Dark Mode */
+.dark-mode .board .row > .cell {
+    border-color: var(--slate-600);
+}

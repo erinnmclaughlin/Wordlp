@@ -58,6 +58,12 @@
             return;
         }
 
+        if (key == "ENTER")
+        {
+            await OnSubmit.InvokeAsync();
+            return;
+        }
+
         if (Letters.Contains(key))
         {
             await OnKeyPress.InvokeAsync(key[0]);

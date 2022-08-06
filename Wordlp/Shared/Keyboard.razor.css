@@ -1,0 +1,33 @@
+﻿.keyboard:focus {
+    outline: none;
+}
+
+.keyboard .row {
+    display: flex;
+    margin: 0 auto 8px;
+    touch-action: manipulation;
+    width: 100%;
+}
+
+    .keyboard .row > .spacer {
+        flex: 0.5;
+    }
+
+    .keyboard .row > button {
+        background-color: var(--slate-300);
+        border-radius: 8px;
+        color: var(--slate-700);
+        margin: 0 6px 0 0;
+        height: 58px;
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-transform: uppercase;
+    }
+
+/* Dark Mode */
+.dark-mode .keyboard .row > button {
+    background-color: var(--slate-700);
+    color: var(--slate-300);
+}
