@@ -9,13 +9,21 @@
         <div class="row">
             @for (int j = 0; j < 5; j++)
             {
-                <div class="cell"></div>
+                var local_i = i;
+                var local_j = j;
+
+                <div class="cell">
+                    @if (GuessIndex == local_i && Guess.ElementAtOrDefault(local_j) != default)
+                    {
+                        <span>@Guess[local_j]</span>
+                    }
+                </div>
             }
         </div>
     }
 </div>
 
-<div class="keyboard">
+<div @ref="Keyboard" tabindex="0" class="keyboard" @onkeydown="HandleKeyPress" @onblur="FocusKeyboard">
     <div class="row">
         @foreach (var key in "QWERTYUIOP")
         {
@@ -40,19 +48,21 @@
     </div>
 </div>
 
-@*@if (RandomWord != null)
-{
-    <div class="mb-3">
-        <h3 class="text-lg font-bold tracking-wide">@RandomWord.Value</h3>
-        <p>@RandomWord.Description</p>
-    </div>
-    
-    <button class="py-1 px-2 bg-slate-300 rounded text-sm border border-slate-400" @onclick="GetRandomWord">Next Word</button>
-}*@
-
 @code {
 
+    private const string Letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private int GuessIndex { get; set; } = 0;
+    private string Guess { get; set; } = string.Empty;
+
     private Word? RandomWord { get; set; }
+    private ElementReference Keyboard { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+            await FocusKeyboard();
+
+    }
 
     protected override void OnInitialized()
     {
@@ -62,5 +72,25 @@
     private void GetRandomWord()
     {
         RandomWord = WordCollection.GetRandomWord();
+    }
+
+    private async Task FocusKeyboard()
+    {
+        await Keyboard.FocusAsync();
+    }
+
+    private void HandleKeyPress(KeyboardEventArgs e)
+    {
+        var key = e.Key.ToUpper();
+
+        if (key == "BACKSPACE")
+        {
+            Guess = Guess.Substring(0, Math.Max(0, Guess.Length - 1));
+            return;
+        }
+
+        if (Guess.Length < 5 && Letters.Contains(key))
+            Guess += key;
+        
     }
 }

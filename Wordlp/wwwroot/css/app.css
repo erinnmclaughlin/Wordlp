@@ -99,32 +99,44 @@ main {
     }
 
         .board .row > .cell {
+            align-items: center;
             border: 2px solid var(--slate-400);
+            display: flex;
             height: 62px;
+            justify-content: center;
             width: 62px;
         }
+            
+            .board .row > .cell > span {
+                font-size: 32px;
+                font-weight: 600;
+            }
 
-.keyboard .row {
-    display: flex;
-    margin: 0 auto 8px;
-    width: 100%;
+.keyboard:focus {
+    outline: none;
 }
 
-    .keyboard .row > .spacer {
-        flex: 0.5;
+    .keyboard .row {
+        display: flex;
+        margin: 0 auto 8px;
+        width: 100%;
     }
 
-    .keyboard .row > button {
-        background-color: var(--slate-300);
-        border-radius: 8px;
-        margin: 0 6px 0 0;
-        height: 58px;
-        flex: 1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-transform: uppercase;
-    }
+        .keyboard .row > .spacer {
+            flex: 0.5;
+        }
+
+        .keyboard .row > button {
+            background-color: var(--slate-300);
+            border-radius: 8px;
+            margin: 0 6px 0 0;
+            height: 58px;
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-transform: uppercase;
+        }
 
 /* Dark Mode */
 #wordlp.dark-mode {
