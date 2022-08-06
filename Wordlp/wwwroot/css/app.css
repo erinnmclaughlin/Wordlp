@@ -40,6 +40,7 @@ body, #app, #wordlp {
 button {
     border: none;
     cursor: pointer;
+    touch-action: manipulation;
 }
 
 .app-header {
