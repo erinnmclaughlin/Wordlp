@@ -2,14 +2,14 @@
     <div class="row">
         @foreach (var key in "QWERTYUIOP")
         {
-            <button type="button">@key</button>
+            <button type="button" @onclick="() => OnKeyPress.InvokeAsync(key)">@key</button>
         }
     </div>
     <div class="row">
         <div class="spacer"></div>
         @foreach (var key in "ASDFGHJKL")
         {
-            <button type="button">@key</button>
+            <button type="button" @onclick="() => OnKeyPress.InvokeAsync(key)">@key</button>
         }
         <div class="spacer"></div>
     </div>
@@ -17,9 +17,13 @@
         <button type="button" style="flex: 1.5;">ENTER</button>
         @foreach (var key in "ZXCVBNM")
         {
-            <button type="button">@key</button>
+            <button type="button" @onclick="() => OnKeyPress.InvokeAsync(key)">@key</button>
         }
-        <button type="button" style="flex: 1.5;">BKSP</button>
+        <button type="button" style="flex: 1.5;" @onclick="() => OnBackspace.InvokeAsync()">
+            <span>
+                <i class="fa-solid fa-delete-left fa-xl" />
+            </span>
+        </button>
     </div>
 </div>
 
