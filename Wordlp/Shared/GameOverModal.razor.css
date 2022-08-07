@@ -20,8 +20,17 @@
     z-index: 10;
 }
 
+.modal button.close {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+}
+
 .modal > .modal-content {
-    padding: 8px;
+    color: var(--slate-500);
+    font-style: italic;
+    padding: 0 8px;
+    text-align: center;
 }
 
 .solution {
@@ -36,4 +45,8 @@
 .dark-mode .modal {
     background-color: var(--slate-900);
     box-shadow: 0 -4px 7px rgba(0, 0, 0, 0.7);
+}
+
+.dark-mode .modal > .modal-content {
+    color: var(--slate-400);
 }

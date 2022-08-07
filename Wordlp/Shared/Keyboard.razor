@@ -16,17 +16,14 @@
         <div class="spacer"></div>
     </div>
     <div class="row">
-        <button type="button" style="flex: 1.5;" @onclick="() => OnSubmit.InvokeAsync()">
+        <button type="button" style="flex: 1.5;" @onclick="OnSubmit">
             ENTER
-            @*<span>
-                <i class="fa-solid fa-turn-down fa-xl" style="transform: rotate(90deg);"></i>
-            </span>*@
         </button>
         @foreach (var key in "ZXCVBNM")
         {
             <button class="@GetKeyCss(key)" type="button" @onclick="() => OnKeyPress.InvokeAsync(key)">@key</button>
         }
-        <button type="button" style="flex: 1.5;" @onclick="() => OnBackspace.InvokeAsync()">
+        <button type="button" style="flex: 1.5;" @onclick="OnBackspace">
             <span>
                 <i class="fa-solid fa-delete-left fa-xl" />
             </span>
@@ -52,7 +49,8 @@
 
     public async Task FocusKeyboard()
     {
-        await KeyboardReference.FocusAsync();
+        if (!Game.GameOver)
+            await KeyboardReference.FocusAsync();
     }
 
     private string GetKeyCss(char letter)

@@ -5,17 +5,39 @@
 
 <CascadingValue Value="Game">
     <GameBoard Guess="@Guess" />
-    <Keyboard OnKeyPress="AddLetter" OnBackspace="Backspace" OnSubmit="SubmitGuess" />
-    <GameOverModal OnClose="StartNewGame" />
+    @if (Game.GameOver)
+    {
+        <div style="display: flex; height: 200px">
+            <div style="margin: 0 auto;">
+                <button class="restart-game-button" type="button" @onclick="StartNewGame">
+                    <span>
+                        <i class="fa-solid fa-arrows-rotate" />
+                    </span>
+                    <span style="font-size: 1rem;">Play Again</span>
+                </button>
+            </div>
+        </div>
+    }
+    else
+    {
+        <Keyboard OnKeyPress="AddLetter" OnBackspace="Backspace" OnSubmit="SubmitGuess" />
+    }
+    
+    @if (ShowModal)
+    {
+        <GameOverModal OnClose="CloseModal" />
+    }
+    
 </CascadingValue>
 
 @code {
 
     private string Guess { get; set; } = string.Empty;
+    private bool ShowModal { get; set; }
 
     public void AddLetter(char letter)
     {
-        if (Guess.Length >= 5)
+        if (Game.GameOver || Guess.Length >= 5)
             return;
 
         Guess += letter;
@@ -23,17 +45,26 @@
 
     public void Backspace()
     {
-        if (Guess.Length == 0)
+        if (Game.GameOver || Guess.Length == 0)
             return;
 
         Guess = Guess.Remove(Guess.Length - 1);
     }
 
+    public void CloseModal()
+    {
+        ShowModal = false;
+        StateHasChanged();
+    }
+
     public void SubmitGuess()
     {
-        if (!Game.IsValidGuess(Guess)) return;
+        if (Game.GameOver || !Game.IsValidGuess(Guess)) return;
         Game.SubmitGuess(Guess);
         Guess = string.Empty;
+
+        if (Game.GameOver)
+            ShowModal = true;
     }
 
     public void StartNewGame()

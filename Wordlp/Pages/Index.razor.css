@@ -1,0 +1,18 @@
+﻿button.restart-game-button {
+    padding: 1rem 1.75rem;
+
+    background-color: var(--green);
+    color: var(--slate-100);
+
+    font-size: 1rem;
+    font-weight: 500;
+
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 999px;
+}
+
+.dark-mode button.restart-game-button {
+    background-color: var(--dark-mode-green);
+}

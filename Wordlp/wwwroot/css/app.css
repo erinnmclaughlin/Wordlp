@@ -48,12 +48,18 @@ html, body, #app, #wordlp {
 }
 
 button {
+    background-color: transparent;
     border: none;
+    color: var(--slate-700);
     cursor: pointer;
 }
 
 /* Dark Mode */
 #wordlp.dark-mode {
     background-color: var(--slate-900);
+    color: var(--slate-300);
+}
+
+.dark-mode button {
     color: var(--slate-300);
 }
