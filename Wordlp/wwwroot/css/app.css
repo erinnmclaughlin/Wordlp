@@ -38,6 +38,7 @@
 
 html, body, #app, #wordlp {
     height: 100%;
+    overflow: hidden;
 }
 
 #wordlp {
