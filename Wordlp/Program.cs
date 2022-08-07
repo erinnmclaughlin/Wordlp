@@ -1,3 +1,4 @@
+using Blazored.LocalStorage;
 using BlazorPro.BlazorSize;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -22,6 +23,7 @@ builder.Services.AddSingleton(_ => words);
 builder.Services.AddSingleton<Game>();
 builder.Services.AddMediaQueryService();
 builder.Services.AddScoped<IResizeListener, ResizeListener>();
+builder.Services.AddBlazoredLocalStorage();
 
 await builder.Build().RunAsync();
 

@@ -1,4 +1,5 @@
 ﻿@inherits LayoutComponentBase
+@inject ILocalStorageService LocalStorage
 
 <div id="wordlp" class="@(IsDark ? "dark-mode" : "")">
 
@@ -25,9 +26,21 @@
 </div>
 
 @code {
-
+    private const string DarkModeKey = "wordlp-DarkMode";
     private bool IsDark { get; set; }
 
-    private void ToggleDark() => IsDark = !IsDark;
+    private async Task ToggleDark()
+    {
+        IsDark = !IsDark;
+        await LocalStorage.SetItemAsync(DarkModeKey, IsDark);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (!await LocalStorage.ContainKeyAsync(DarkModeKey))
+            await LocalStorage.SetItemAsync(DarkModeKey, true);
+
+        IsDark = await LocalStorage.GetItemAsync<bool>(DarkModeKey);
+    }
 
 }
