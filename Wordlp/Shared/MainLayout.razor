@@ -1,7 +1,6 @@
 ﻿@inherits LayoutComponentBase
 @inject ILocalStorageService LocalStorage
 @inject IResizeListener ResizeListener
-@implements IDisposable
 
 <div id="wordlp" class="@(IsDark ? "dark-mode" : "")" style="height: @(Height)px;">
 
@@ -31,12 +30,6 @@
     private const string DarkModeKey = "wordlp-DarkMode";
     private bool IsDark { get; set; }
     private double Height { get; set; }
-
-    public void Dispose()
-    {
-        ResizeListener.OnResized -= HandleResize;
-        GC.SuppressFinalize(this);
-    }
 
     protected override async Task OnInitializedAsync()
     {
