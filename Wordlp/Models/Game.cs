@@ -51,14 +51,36 @@ public class Game
         return word.Length == 5 && ValidWords.Contains(word, StringComparer.InvariantCultureIgnoreCase);
     }
 
-    public void SubmitGuess(string word)
+    public void SubmitGuess(string guess)
     {
         List<GuessedLetter> letters = new();
 
-        for (int i = 0; i < word.Length; i++)
+        for (int i = 0; i < guess.Length; i++)
         {
-            var letter = word[i];
-            letters.Add(new GuessedLetter(letter, VerifyLetterPosition(letter, i)));
+            var letter = guess[i];
+
+            /* No match */
+            if (!Word.Value.Contains(letter))
+            {
+                letters.Add(new GuessedLetter(letter, GuessResult.None));
+                continue;
+            }
+            
+            /* Exact match */
+            if (Word.Value[i] == letter)
+            {
+                letters.Add(new GuessedLetter(letter, GuessResult.Match));
+                continue;
+            }
+
+            /* Partial match */
+            if (Word.Letters.Any(l => l.Value == letter && guess[l.Index] != l.Value))
+            {
+                letters.Add(new GuessedLetter(letter, GuessResult.Contains));
+                continue;
+            }
+
+            letters.Add(new GuessedLetter(letter, GuessResult.None));
         }
 
         Guesses.Add(new Guess(letters));
