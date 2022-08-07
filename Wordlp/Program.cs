@@ -22,7 +22,7 @@ builder.Services.AddSingleton(_ => validGuesses);
 builder.Services.AddSingleton(_ => words);
 builder.Services.AddSingleton<Game>();
 builder.Services.AddMediaQueryService();
-builder.Services.AddResizeListener();
+builder.Services.AddScoped<IResizeListener, ResizeListener>();
 builder.Services.AddBlazoredLocalStorage();
 
 await builder.Build().RunAsync();
