@@ -8,13 +8,20 @@
     @if (GameService.IsGameOver)
     {
         <div style="display: flex; height: 200px">
-            <div style="margin: 0 auto;">
-                <button class="restart-game-button" type="button" @onclick="StartNewGame">
-                    <span>
-                        <i class="fa-solid fa-arrows-rotate" />
-                    </span>
-                    <span style="font-size: 1rem;">Play Again</span>
-                </button>
+            <div style="display: flex; margin: 0 auto;">
+                <div style="display: flex; gap: 0.5rem; flex-direction: column;">
+                    <button class="restart-game-button" type="button" @onclick="StartNewGame">
+                        <span>
+                            <i class="fa-solid fa-arrows-rotate" />
+                        </span>
+                        <span style="font-size: 1rem;">Play Again</span>
+                    </button>
+
+                    <a class="view-history-button" href="history">
+                        View History
+                    </a>
+                </div>
+                
             </div>
         </div>
     }

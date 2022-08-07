@@ -54,6 +54,11 @@ button {
     cursor: pointer;
 }
 
+a {
+    text-decoration: none;
+    color: currentColor;
+}
+
 /* Dark Mode */
 #wordlp.dark-mode {
     background-color: var(--slate-900);

@@ -7,12 +7,12 @@
         <div class="header-start">
 
         </div>
-        <p class="app-title">
+        <a href="" class="app-title">
             @foreach(var letter in "WORDLP")
             {
                 <div>@letter</div>
             }
-        </p>
+        </a>
         <div class="header-end">
             <button id="dark-mode-toggler" @onclick="() => DarkMode.Toggle()">
                 <i class="@(DarkMode.IsEnabled ? "fa-solid" : "fa-regular") fa-moon fa-lg" />

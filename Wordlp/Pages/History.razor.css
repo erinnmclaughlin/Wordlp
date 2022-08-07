@@ -1,0 +1,56 @@
+﻿.history {
+    display: grid;
+    gap: 8px;
+    grid-template-rows: 1fr;
+    max-height: 100vh;
+    overflow-y: auto;
+    padding: 12px 8px;
+}
+
+    .history .word {
+        display: flex;
+        flex-direction: column;
+        border: 2px solid var(--slate-250);
+        height: 150px;
+        margin: auto;
+        width: 90%;
+        align-items: flex-start;
+        padding: 8px;
+        background-color: var(--slate-100);
+    }
+
+        .history .word .letters {
+            align-items: center;
+            display: flex;
+            gap: 5px;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto;
+        }
+
+            .history .word .letters > div {
+                align-items: center;
+                background-color: var(--slate-450);
+                color: white;
+                display: flex;
+                justify-content: center;
+                height: 32px;
+                width: 32px;
+            }
+
+            .history .word.known .letters > div {
+                background-color: var(--green);
+            }
+
+        .history .description {
+            font-style: italic;
+            font-size: 0.9rem;
+            color: var(--slate-500);
+            margin: auto;
+        }
+
+/* Dark Mode */
+.dark-mode .history .word {
+    border-color: var(--slate-700);
+}

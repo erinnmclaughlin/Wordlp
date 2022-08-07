@@ -1,17 +1,24 @@
-﻿button.restart-game-button {
+﻿button.restart-game-button,
+a.view-history-button {
     padding: 1rem 1.75rem;
-
-    background-color: var(--green);
-    color: var(--slate-100);
-
     font-size: 1rem;
     font-weight: 500;
-
     display: flex;
     align-items: center;
     gap: 0.5rem;
     border-radius: 999px;
 }
+
+button.restart-game-button {
+    background-color: var(--green);
+    color: var(--slate-100);
+}
+
+a.view-history-button {
+    background-color: var(--slate-300);
+    color: var(--slate-700);
+}
+
 
 .dark-mode button.restart-game-button {
     background-color: var(--dark-mode-green);

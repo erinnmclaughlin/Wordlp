@@ -13,10 +13,14 @@ public class PlayerHistoryService
         LocalStorage = localStorage;
     }
 
+    public async Task<List<GameResult>> GetHistory()
+    {
+        return await LocalStorage.GetItemAsync<List<GameResult>>(Key) ?? new();
+    }
+
     public async Task SubmitAttempt(Word word, int attemptCount)
     {
-        var history = await LocalStorage.GetItemAsync<List<GameResult>>(Key) ?? new();
-
+        var history = await GetHistory();
         var lastResult = history.FirstOrDefault(h => h.Word.Value == word.Value);
 
         if (lastResult != null)

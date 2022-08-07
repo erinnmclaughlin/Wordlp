@@ -1,0 +1,30 @@
+﻿@page "/history"
+@inject PlayerHistoryService PlayerHistory
+
+<div class="history">
+    @foreach (var result in PreviousResults)
+    {
+        <div class="word known">
+            <div class="letters">
+                @foreach (var letter in result.Word.Value)
+                {
+                    <div>@letter</div>
+                }
+            </div>
+            <div class="description">
+                @result.Word.Description
+            </div>
+        </div>
+    }
+</div>
+
+
+@code {
+
+    private List<GameResult> PreviousResults { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        PreviousResults = await PlayerHistory.GetHistory();
+    }
+}
