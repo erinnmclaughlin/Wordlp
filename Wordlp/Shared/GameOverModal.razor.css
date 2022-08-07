@@ -13,6 +13,7 @@
     border-top-right-radius: 4px;
     box-shadow: 0 -4px 7px rgba(0, 0, 0, 0.2);
     bottom: 0;
+    left: 0;
     min-height: 70%;
     position: absolute;
     width: 100%;
