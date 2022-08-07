@@ -1,5 +1,4 @@
-﻿using Blazored.LocalStorage;
-using Wordlp.Models;
+﻿using Wordlp.Models;
 
 namespace Wordlp.Services;
 
@@ -8,20 +7,20 @@ public class GameService
     public const int MaxGuesses = 6;
     public const int WordLength = 5;
 
-    private ILocalStorageService LocalStorage { get; set; }
-    private ValidWords ValidWords { get; set; }
-    private WordCollection Words { get; set; }
+    private PlayerHistoryService PlayerHistory { get; }
+    private ValidWords ValidWords { get; }
+    private WordCollection Words { get; }
 
     public List<Guess> Guesses { get; set; } = new();
     public Word Word { get; set; } = null!;
 
     public int CurrentGuess => Guesses.Count;
-    public bool GameOver { get; private set; }
+    public bool IsGameOver { get; private set; }
     public int RemainingGuesses => MaxGuesses - CurrentGuess;
 
-    public GameService(ILocalStorageService localStorage, ValidWords validWords, WordCollection words)
+    public GameService(PlayerHistoryService playerHistory, ValidWords validWords, WordCollection words)
     {
-        LocalStorage = localStorage;
+        PlayerHistory = playerHistory;
         ValidWords = validWords;
         Words = words;
 
@@ -60,10 +59,10 @@ public class GameService
     {
         Guesses = new();
         Word = Words.GetRandomWord();
-        GameOver = false;
+        IsGameOver = false;
     }
 
-    public void SubmitGuess(string guessedWord)
+    public async Task SubmitGuess(string guessedWord)
     {
         List<GuessedLetter> letters = new();
 
@@ -98,8 +97,14 @@ public class GameService
         var guess = new Guess(letters);
         Guesses.Add(guess);
 
-        if (Guesses.Count == MaxGuesses || guess.Letters.All(l => l.Result == GuessResult.Match))
-            GameOver = true;
+        if (Guesses.Count == MaxGuesses || guess.IsWin())
+            await GameOver();
+    }
+
+    public async Task GameOver()
+    {
+        IsGameOver = true;
+        await PlayerHistory.SubmitAttempt(Word, Guesses.Count);
     }
 
     public GuessResult VerifyLetterPosition(char letter, int index)

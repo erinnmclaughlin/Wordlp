@@ -20,10 +20,11 @@ var words = await LoadWords();
 builder.Services.AddScoped(_ => http);
 builder.Services.AddSingleton(_ => validGuesses);
 builder.Services.AddSingleton(_ => words);
+builder.Services.AddScoped<BrowserResizeService>();
 builder.Services.AddScoped<DarkModeService>();
 builder.Services.AddScoped<GameService>();
+builder.Services.AddScoped<PlayerHistoryService>();
 builder.Services.AddBlazoredLocalStorage();
-builder.Services.AddScoped<BrowserResizeService>();
 
 await builder.Build().RunAsync();
 

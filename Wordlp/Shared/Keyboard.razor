@@ -49,7 +49,7 @@
 
     public async Task FocusKeyboard()
     {
-        if (!GameService.GameOver)
+        if (!GameService.IsGameOver)
             await KeyboardReference.FocusAsync();
     }
 

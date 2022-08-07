@@ -5,7 +5,7 @@
 
 <CascadingValue Value="GameService">
     <GameBoard Guess="@Guess" />
-    @if (GameService.GameOver)
+    @if (GameService.IsGameOver)
     {
         <div style="display: flex; height: 200px">
             <div style="margin: 0 auto;">
@@ -37,7 +37,7 @@
 
     public void AddLetter(char letter)
     {
-        if (GameService.GameOver || Guess.Length >= 5)
+        if (GameService.IsGameOver || Guess.Length >= 5)
             return;
 
         Guess += letter;
@@ -45,7 +45,7 @@
 
     public void Backspace()
     {
-        if (GameService.GameOver || Guess.Length == 0)
+        if (GameService.IsGameOver || Guess.Length == 0)
             return;
 
         Guess = Guess.Remove(Guess.Length - 1);
@@ -57,13 +57,15 @@
         StateHasChanged();
     }
 
-    public void SubmitGuess()
+    public async Task SubmitGuess()
     {
-        if (GameService.GameOver || !GameService.IsValidGuess(Guess)) return;
-        GameService.SubmitGuess(Guess);
+        if (GameService.IsGameOver || !GameService.IsValidGuess(Guess)) 
+        return;
+
+        await GameService.SubmitGuess(Guess);
         Guess = string.Empty;
 
-        if (GameService.GameOver)
+        if (GameService.IsGameOver)
             ShowModal = true;
     }
 

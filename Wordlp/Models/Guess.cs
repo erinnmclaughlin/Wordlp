@@ -13,6 +13,11 @@ public record Guess(List<GuessedLetter> Letters)
     {
         return Letters.ElementAt(index).Result;
     }
+
+    public bool IsWin()
+    {
+        return Letters.All(l => l.Result == GuessResult.Match);
+    }
 }
 
 public record GuessedLetter(char Value, GuessResult Result);
