@@ -26,10 +26,20 @@
             border: 2px solid var(--slate-300);
             box-sizing: border-box;
             display: inline-flex;
+            font-size: 2rem;
+            font-weight: bold;
             justify-content: center;
+            line-height: 2rem;
             vertical-align: middle;
             width: 100%;
         }
+
+            @media (max-height: 600px) {
+                .board .row .cell {
+                    font-size: 1em;
+                    line-height: 1em;
+                }
+            }
 
             .board .row .cell::before {
                 content: "";
@@ -49,11 +59,6 @@
 
             .board .row .cell.contains {
                 background-color: var(--yellow);
-            }
-
-            .board .row .cell > span {
-                font-size: 32px;
-                font-weight: 600;
             }
 
 /* Dark Mode */

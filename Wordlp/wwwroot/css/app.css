@@ -33,19 +33,11 @@
 * {
     margin: 0;
     padding: 0;
-}
-
-html {
-    height: 100%;
-}
-
-html, body {
     font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
-body, #app, #wordlp {
-    height: min(100vh, 100%);
-    overflow-y: hidden;
+html, body, #app, #wordlp {
+    height: 100%;
 }
 
 #wordlp {
@@ -56,7 +48,6 @@ body, #app, #wordlp {
 button {
     border: none;
     cursor: pointer;
-    touch-action: manipulation;
 }
 
 /* Dark Mode */

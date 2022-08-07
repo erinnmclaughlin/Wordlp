@@ -1,5 +1,6 @@
 ﻿.keyboard {
     height: var(--keyboard-height);
+    margin: 0 8px;
 }
 
 .keyboard:focus {
