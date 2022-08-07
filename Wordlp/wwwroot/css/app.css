@@ -40,8 +40,6 @@ body, #app, #wordlp {
 #wordlp {
     background-color: var(--slate-200);
     color: var(--slate-700);
-    display: flex;
-    flex-direction: column;
 }
 
 button {

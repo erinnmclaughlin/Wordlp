@@ -1,25 +1,28 @@
 ﻿@inject Game Game
 
-<div class="board">
-    @for (int i = 0; i < Game.MaxGuesses; i++)
-    {
-        var rowIndex = i;
+<div class="board-container">
+    <div class="board">
+        @for (int i = 0; i < Game.MaxGuesses; i++)
+        {
+            var rowIndex = i;
 
-        <div class="row">
-            @for (int j = 0; j < Game.WordLength; j++)
-            {
-                var letterIndex = j;
+            <div class="row">
+                @for (int j = 0; j < Game.WordLength; j++)
+                {
+                    var letterIndex = j;
 
-                <div class="@GetCellCss(rowIndex, letterIndex)">
-                    @if (GetCellValue(rowIndex, letterIndex) is char letter)
-                    {
-                        <span>@letter</span>
-                    }
-                </div>
-            }
-        </div>
-    }
+                    <div class="@GetCellCss(rowIndex, letterIndex)">
+                        @if (GetCellValue(rowIndex, letterIndex) is char letter)
+                        {
+                            <span>@letter</span>
+                        }
+                    </div>
+                }
+            </div>
+        }
+    </div>
 </div>
+
 
 @code {
 

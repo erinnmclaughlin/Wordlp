@@ -1,4 +1,11 @@
-﻿.board {
+﻿.board-container {
+    align-items: center;
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+}
+
+.board {
     display: grid;
     grid-template-rows: repeat(6, 1fr);
     grid-gap: 5px;
