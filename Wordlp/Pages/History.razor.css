@@ -14,9 +14,11 @@
         height: 150px;
         margin: auto;
         width: 90%;
-        align-items: flex-start;
+        align-items: center;
         padding: 8px;
         background-color: var(--slate-100);
+        justify-content: center;
+        gap: 12px;
     }
 
         .history .word .letters {
@@ -35,8 +37,8 @@
                 color: white;
                 display: flex;
                 justify-content: center;
-                height: 32px;
-                width: 32px;
+                height: 38px;
+                width: 38px;
             }
 
             .history .word.known .letters > div {
@@ -47,10 +49,19 @@
             font-style: italic;
             font-size: 0.9rem;
             color: var(--slate-500);
-            margin: auto;
+            text-align: center;
         }
 
 /* Dark Mode */
 .dark-mode .history .word {
     border-color: var(--slate-700);
+    background-color: var(--slate-800);
+}
+
+    .dark-mode .history .word.known .letters > div {
+        background-color: var(--dark-mode-green);
+    }
+
+.dark-mode .history .description {
+    color: var(--slate-400);
 }
