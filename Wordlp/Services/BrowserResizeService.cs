@@ -1,6 +1,6 @@
 ﻿using Microsoft.JSInterop;
 
-namespace Wordlp;
+namespace Wordlp.Services;
 
 // https://github.com/chrissainty/BlazorBrowserResize/blob/master/BrowserResize/BrowserResize/BrowserResizeService.cs
 public class BrowserResizeService

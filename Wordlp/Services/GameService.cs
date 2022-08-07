@@ -1,22 +1,27 @@
-﻿namespace Wordlp.Models;
+﻿using Blazored.LocalStorage;
+using Wordlp.Models;
 
-public class Game
+namespace Wordlp.Services;
+
+public class GameService
 {
     public const int MaxGuesses = 6;
     public const int WordLength = 5;
 
+    private ILocalStorageService LocalStorage { get; set; }
     private ValidWords ValidWords { get; set; }
     private WordCollection Words { get; set; }
 
-    public List<Guess> Guesses { get; set; }
-    public Word Word { get; set; }
+    public List<Guess> Guesses { get; set; } = new();
+    public Word Word { get; set; } = null!;
 
     public int CurrentGuess => Guesses.Count;
     public bool GameOver { get; private set; }
     public int RemainingGuesses => MaxGuesses - CurrentGuess;
 
-    public Game(ValidWords validWords, WordCollection words)
+    public GameService(ILocalStorageService localStorage, ValidWords validWords, WordCollection words)
     {
+        LocalStorage = localStorage;
         ValidWords = validWords;
         Words = words;
 
@@ -72,7 +77,7 @@ public class Game
                 letters.Add(new GuessedLetter(letter, GuessResult.None));
                 continue;
             }
-            
+
             /* Exact match */
             if (Word.Value[i] == letter)
             {

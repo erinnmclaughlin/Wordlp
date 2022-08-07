@@ -1,4 +1,4 @@
-﻿@inject Game Game
+﻿@inject GameService GameService
 
 <div @ref="KeyboardReference" tabindex="0" class="keyboard" @onkeydown="HandleKeyPress" @onblur="FocusKeyboard">
     <div class="row">
@@ -49,17 +49,17 @@
 
     public async Task FocusKeyboard()
     {
-        if (!Game.GameOver)
+        if (!GameService.GameOver)
             await KeyboardReference.FocusAsync();
     }
 
     private string GetKeyCss(char letter)
     {
-        if (!Game.HasBeenGuessed(letter)) return string.Empty;
+        if (!GameService.HasBeenGuessed(letter)) return string.Empty;
 
         List<string> classes = new() { "guessed" };
 
-        classes.Add(Game.GetLetterResult(letter) switch
+        classes.Add(GameService.GetLetterResult(letter) switch
         {
             GuessResult.Match => "match",
             GuessResult.Contains => "contains",

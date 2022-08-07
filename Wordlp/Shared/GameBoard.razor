@@ -3,12 +3,12 @@
 
 <div class="board-container">
     <div class="board" style="height: @(Height)px; width: @(Width)px;">
-        @for (int i = 0; i < Game.MaxGuesses; i++)
+        @for (int i = 0; i < GameService.MaxGuesses; i++)
         {
             var rowIndex = i;
 
             <div class="row">
-                @for (int j = 0; j < Game.WordLength; j++)
+                @for (int j = 0; j < GameService.WordLength; j++)
                 {
                     var letterIndex = j;
 
@@ -32,7 +32,7 @@
     private int Height { get; set; }
     private int Width { get; set; }
 
-    [CascadingParameter] private Game Game { get; set; } = null!;
+    [CascadingParameter] private GameService Game { get; set; } = null!;
     [Parameter] public string Guess { get; set; } = string.Empty;
 
     public void Dispose()

@@ -1,11 +1,11 @@
 ﻿@page "/"
-@inject Game Game
+@inject GameService GameService
 
 <PageTitle>Word-LP</PageTitle>
 
-<CascadingValue Value="Game">
+<CascadingValue Value="GameService">
     <GameBoard Guess="@Guess" />
-    @if (Game.GameOver)
+    @if (GameService.GameOver)
     {
         <div style="display: flex; height: 200px">
             <div style="margin: 0 auto;">
@@ -37,7 +37,7 @@
 
     public void AddLetter(char letter)
     {
-        if (Game.GameOver || Guess.Length >= 5)
+        if (GameService.GameOver || Guess.Length >= 5)
             return;
 
         Guess += letter;
@@ -45,7 +45,7 @@
 
     public void Backspace()
     {
-        if (Game.GameOver || Guess.Length == 0)
+        if (GameService.GameOver || Guess.Length == 0)
             return;
 
         Guess = Guess.Remove(Guess.Length - 1);
@@ -59,16 +59,16 @@
 
     public void SubmitGuess()
     {
-        if (Game.GameOver || !Game.IsValidGuess(Guess)) return;
-        Game.SubmitGuess(Guess);
+        if (GameService.GameOver || !GameService.IsValidGuess(Guess)) return;
+        GameService.SubmitGuess(Guess);
         Guess = string.Empty;
 
-        if (Game.GameOver)
+        if (GameService.GameOver)
             ShowModal = true;
     }
 
     public void StartNewGame()
     {
-        Game.StartNewGame();
+        GameService.StartNewGame();
     }
 }

@@ -5,6 +5,7 @@ using System.Net.Http.Json;
 using System.Text.Json;
 using Wordlp;
 using Wordlp.Models;
+using Wordlp.Services;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -19,7 +20,8 @@ var words = await LoadWords();
 builder.Services.AddScoped(_ => http);
 builder.Services.AddSingleton(_ => validGuesses);
 builder.Services.AddSingleton(_ => words);
-builder.Services.AddSingleton<Game>();
+builder.Services.AddScoped<DarkModeService>();
+builder.Services.AddScoped<GameService>();
 builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddScoped<BrowserResizeService>();
 

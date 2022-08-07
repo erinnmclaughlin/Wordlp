@@ -1,7 +1,7 @@
 ﻿@inherits LayoutComponentBase
-@inject ILocalStorageService LocalStorage
+@inject DarkModeService DarkMode
 
-<div id="wordlp" class="@(IsDark ? "dark-mode" : "")">
+<div id="wordlp" class="@(DarkMode.IsEnabled ? "dark-mode" : "")">
 
     <header class="app-header">
         <div class="header-start">
@@ -14,8 +14,8 @@
             }
         </p>
         <div class="header-end">
-            <button id="dark-mode-toggler" @onclick="ToggleDark">
-                <i class="@(IsDark? "fa-solid" : "fa-regular") fa-moon fa-lg" />
+            <button id="dark-mode-toggler" @onclick="() => DarkMode.Toggle()">
+                <i class="@(DarkMode.IsEnabled ? "fa-solid" : "fa-regular") fa-moon fa-lg" />
             </button>
         </div>        
     </header>
@@ -27,20 +27,8 @@
 
 @code {
 
-    private const string DarkModeKey = "wordlp-DarkMode";
-    private bool IsDark { get; set; }
-
     protected override async Task OnInitializedAsync()
     {
-        if (!await LocalStorage.ContainKeyAsync(DarkModeKey))
-            await LocalStorage.SetItemAsync(DarkModeKey, true);
-
-        IsDark = await LocalStorage.GetItemAsync<bool>(DarkModeKey);
-    }
-
-    private async Task ToggleDark()
-    {
-        IsDark = !IsDark;
-        await LocalStorage.SetItemAsync(DarkModeKey, IsDark);
+        await DarkMode.InitializeAsync();
     }
 }
