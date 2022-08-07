@@ -1,5 +1,4 @@
 using Blazored.LocalStorage;
-using BlazorPro.BlazorSize;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using System.Net.Http.Json;
@@ -21,9 +20,8 @@ builder.Services.AddScoped(_ => http);
 builder.Services.AddSingleton(_ => validGuesses);
 builder.Services.AddSingleton(_ => words);
 builder.Services.AddSingleton<Game>();
-builder.Services.AddMediaQueryService();
-builder.Services.AddScoped<IResizeListener, ResizeListener>();
 builder.Services.AddBlazoredLocalStorage();
+builder.Services.AddScoped<BrowserResizeService>();
 
 await builder.Build().RunAsync();
 

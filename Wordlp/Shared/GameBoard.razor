@@ -1,9 +1,9 @@
-﻿@inject Game Game
-@inject IResizeListener ResizeListener
+﻿@inject BrowserResizeService Browser
+@inject Game Game
 @implements IDisposable
 
 <div class="board-container">
-    <div class="board" style="height: @(Size.Height)px; width: @(Size.Width)px;">
+    <div class="board" style="height: @(Height)px; width: @(Width)px;">
         @for (int i = 0; i < Game.MaxGuesses; i++)
         {
             var rowIndex = i;
@@ -30,23 +30,21 @@
 
 @code {
 
-    private BrowserWindowSize Size { get; set; } = new BrowserWindowSize
-    {
-        Height = 420,
-        Width = 350
-    };
+    private int Height { get; set; }
+    private int Width { get; set; }
 
     [Parameter] public string Guess { get; set; } = string.Empty;
 
     public void Dispose()
-    {
-        ResizeListener.OnResized -= HandleResize;
+    {        
+        BrowserResizeService.OnResize -= ResetHeight;
+        GC.SuppressFinalize(this);
     }
 
     protected override async Task OnInitializedAsync()
     {
-        Size = await ResizeListener.GetBrowserWindowSize();
-        ResizeListener.OnResized += HandleResize;
+        BrowserResizeService.OnResize += ResetHeight;
+        await ResetHeight();
     }
 
     private string GetCellCss(int rowIndex, int letterIndex)
@@ -81,17 +79,10 @@
         return null;
     }
 
-    private void HandleResize(object? _, BrowserWindowSize size)
+    private async Task ResetHeight()
     {
-        var height = size.Height - 200 - 40;
-        var width = height / 6 * 5;
-
-        Size = new BrowserWindowSize
-        {
-            Height = height,
-            Width = width
-        };
-
+        Height = (await Browser.GetInnerHeight()) - 200 - 41;
+        Width = Height / 6 * 5;
         StateHasChanged();
     }
 }

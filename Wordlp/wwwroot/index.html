@@ -18,6 +18,18 @@
     <div id="app">Loading...</div>
     <script src="_framework/blazor.webassembly.js"></script>
     <script>navigator.serviceWorker.register('service-worker.js');</script>
+
+    <script>
+        window.addEventListener('resize', resized);
+
+        function getInnerHeight() {
+            return window.innerHeight;
+        }
+
+        function resized() {
+            DotNet.invokeMethodAsync('Wordlp', 'OnBrowserResize');
+        }
+    </script>
 </body>
 
 </html>
