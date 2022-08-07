@@ -1,5 +1,4 @@
 ﻿@inject BrowserResizeService Browser
-@inject Game Game
 @implements IDisposable
 
 <div class="board-container">
@@ -33,6 +32,7 @@
     private int Height { get; set; }
     private int Width { get; set; }
 
+    [CascadingParameter] private Game Game { get; set; } = null!;
     [Parameter] public string Guess { get; set; } = string.Empty;
 
     public void Dispose()

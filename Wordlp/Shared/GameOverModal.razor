@@ -1,0 +1,16 @@
+﻿@if (Game.GameOver)
+{
+    <div class="modal-background" @onclick="() => OnClose.InvokeAsync()"></div>
+
+    <div class="modal">
+        <div class="solution">@Game.Word.Value</div>
+        <div class="modal-content">
+            <p>@Game.Word.Description</p>
+        </div>
+    </div>
+}
+
+@code {
+    [CascadingParameter] private Game Game { get; set; } = null!;
+    [Parameter] public EventCallback OnClose { get; set; }
+}

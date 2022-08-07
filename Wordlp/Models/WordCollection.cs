@@ -7,6 +7,10 @@ public class WordCollection
     public Word GetRandomWord()
     {
         var randomIndex = new Random().Next(0, Words.Count - 1);
-        return Words.ElementAt(randomIndex);
+        var word = Words.ElementAt(randomIndex);
+
+        Console.WriteLine(word.Value);
+
+        return word;
     }
 }

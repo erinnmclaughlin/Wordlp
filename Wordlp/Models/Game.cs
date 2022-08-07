@@ -12,6 +12,7 @@ public class Game
     public Word Word { get; set; }
 
     public int CurrentGuess => Guesses.Count;
+    public bool GameOver { get; private set; }
     public int RemainingGuesses => MaxGuesses - CurrentGuess;
 
     public Game(ValidWords validWords, WordCollection words)
@@ -19,8 +20,7 @@ public class Game
         ValidWords = validWords;
         Words = words;
 
-        Guesses = new List<Guess>();
-        Word = Words.GetRandomWord();
+        StartNewGame();
     }
 
     public Guess? GetGuessByIndex(int index)
@@ -51,13 +51,20 @@ public class Game
         return word.Length == 5 && ValidWords.Contains(word, StringComparer.InvariantCultureIgnoreCase);
     }
 
-    public void SubmitGuess(string guess)
+    public void StartNewGame()
+    {
+        Guesses = new();
+        Word = Words.GetRandomWord();
+        GameOver = false;
+    }
+
+    public void SubmitGuess(string guessedWord)
     {
         List<GuessedLetter> letters = new();
 
-        for (int i = 0; i < guess.Length; i++)
+        for (int i = 0; i < guessedWord.Length; i++)
         {
-            var letter = guess[i];
+            var letter = guessedWord[i];
 
             /* No match */
             if (!Word.Value.Contains(letter))
@@ -74,7 +81,7 @@ public class Game
             }
 
             /* Partial match */
-            if (Word.Letters.Any(l => l.Value == letter && guess[l.Index] != l.Value))
+            if (Word.Letters.Any(l => l.Value == letter && guessedWord[l.Index] != l.Value))
             {
                 letters.Add(new GuessedLetter(letter, GuessResult.Contains));
                 continue;
@@ -83,7 +90,11 @@ public class Game
             letters.Add(new GuessedLetter(letter, GuessResult.None));
         }
 
-        Guesses.Add(new Guess(letters));
+        var guess = new Guess(letters);
+        Guesses.Add(guess);
+
+        if (Guesses.Count == MaxGuesses || guess.Letters.All(l => l.Result == GuessResult.Match))
+            GameOver = true;
     }
 
     public GuessResult VerifyLetterPosition(char letter, int index)
