@@ -40,8 +40,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-        ResizeListener.OnResized += HandleResize;
-
         if (!await LocalStorage.ContainKeyAsync(DarkModeKey))
             await LocalStorage.SetItemAsync(DarkModeKey, true);
 
@@ -50,6 +48,12 @@
 
         var size = await ResizeListener.GetBrowserWindowSize();
         Height = size.Height;
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+            ResizeListener.OnResized += HandleResize;
     }
 
     private void HandleResize(object? _, BrowserWindowSize size)
