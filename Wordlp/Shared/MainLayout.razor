@@ -1,8 +1,7 @@
 ﻿@inherits LayoutComponentBase
 @inject ILocalStorageService LocalStorage
-@inject IResizeListener ResizeListener
 
-<div id="wordlp" class="@(IsDark ? "dark-mode" : "")" style="height: @(Height)px;">
+<div id="wordlp" class="@(IsDark ? "dark-mode" : "")">
 
     <header class="app-header">
         <div class="header-start">
@@ -27,9 +26,9 @@
 </div>
 
 @code {
+
     private const string DarkModeKey = "wordlp-DarkMode";
     private bool IsDark { get; set; }
-    private double Height { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -37,22 +36,6 @@
             await LocalStorage.SetItemAsync(DarkModeKey, true);
 
         IsDark = await LocalStorage.GetItemAsync<bool>(DarkModeKey);
-        StateHasChanged();
-
-        var size = await ResizeListener.GetBrowserWindowSize();
-        Height = size.Height;
-    }
-
-    protected override void OnAfterRender(bool firstRender)
-    {
-        if (firstRender)
-            ResizeListener.OnResized += HandleResize;
-    }
-
-    private void HandleResize(object? _, BrowserWindowSize size)
-    {
-        Height = size.Height;
-        StateHasChanged();
     }
 
     private async Task ToggleDark()
