@@ -13,12 +13,14 @@
                 {
                     var letterIndex = j;
 
-                    <div class="@GetCellCss(rowIndex, letterIndex)">
-                        @if (GetCellValue(rowIndex, letterIndex) is char letter)
-                        {
-                            <span>@letter</span>
-                        }
-                    </div>
+                    <div>
+                        <div class="@GetCellCss(rowIndex, letterIndex)">
+                            @if (GetCellValue(rowIndex, letterIndex) is char letter)
+                            {
+                                <span>@letter</span>
+                            }
+                        </div>
+                    </div>                    
                 }
             </div>
         }

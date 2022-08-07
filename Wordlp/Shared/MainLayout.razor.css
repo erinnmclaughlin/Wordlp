@@ -6,7 +6,6 @@
     min-height: 40px;
     padding: 0rem 1.25rem;
     justify-content: space-between;
-    width: 100%;
 }
 
     .app-header > .header-start,
@@ -45,7 +44,6 @@ main {
     height: calc(100% - var(--header-height));
     max-width: 500px;
     margin: 0 auto;
-    padding: 0 8px;
     width: 100%;
 }
 

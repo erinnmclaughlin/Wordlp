@@ -23,15 +23,14 @@
     --keyboard-height: 200px;
 }
 
-@media (min-width: 415px) {
+/*@media (min-width: 415px) {
     :root {
         --header-height: 65px;
     }
 }
-
+*/
 
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
 }

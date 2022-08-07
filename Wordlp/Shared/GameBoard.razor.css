@@ -6,6 +6,7 @@
 }
 
 .board {
+    box-sizing: border-box;
     display: grid;
     grid-template-rows: repeat(6, 1fr);
     grid-gap: 5px;
@@ -20,45 +21,54 @@
         grid-gap: 5px;
     }
 
-        .board .row > .cell {
+        .board .row .cell {
             align-items: center;
             border: 2px solid var(--slate-300);
-            display: flex;
+            box-sizing: border-box;
+            display: inline-flex;
             justify-content: center;
+            vertical-align: middle;
+            width: 100%;
         }
 
-            .board .row > .cell.guessed {
+            .board .row .cell::before {
+                content: "";
+                display: inline-block;
+                padding-bottom: 100%;
+            }
+
+            .board .row .cell.guessed {
                 background-color: var(--slate-450);
                 border: none;
                 color: white;
             }
 
-            .board .row > .cell.match {
+            .board .row .cell.match {
                 background-color: var(--green);
             }
 
-            .board .row > .cell.contains {
+            .board .row .cell.contains {
                 background-color: var(--yellow);
             }
 
-            .board .row > .cell > span {
+            .board .row .cell > span {
                 font-size: 32px;
                 font-weight: 600;
             }
 
 /* Dark Mode */
-.dark-mode .board .row > .cell {
+.dark-mode .board .row .cell {
     border-color: var(--slate-700);
 }
 
-    .dark-mode .board .row > .cell.guessed {
+    .dark-mode .board .row .cell.guessed {
         background-color: var(--slate-700);
     }
 
-        .dark-mode .board .row > .cell.guessed.match {
+        .dark-mode .board .row .cell.guessed.match {
             background-color: var(--dark-mode-green);
         }
 
-        .dark-mode .board .row > .cell.guessed.contains {
+        .dark-mode .board .row .cell.guessed.contains {
             background-color: var(--dark-mode-yellow);
         }
