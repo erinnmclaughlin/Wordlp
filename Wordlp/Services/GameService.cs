@@ -85,7 +85,7 @@ public class GameService
             }
 
             /* Partial match */
-            if (Word.Letters.Any(l => l.Value == letter && guessedWord[l.Index] != l.Value))
+            if (Word.GetLetters().Any(l => l.Value == letter && guessedWord[l.Index] != l.Value))
             {
                 letters.Add(new GuessedLetter(letter, GuessResult.Contains));
                 continue;

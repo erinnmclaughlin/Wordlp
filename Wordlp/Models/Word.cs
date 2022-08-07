@@ -2,18 +2,15 @@
 
 public record Word(string Value, string Description)
 {
-    public List<Letter> Letters
+    public List<Letter> GetLetters()
     {
-        get
+        var letters = new List<Letter>();
+        for (int i = 0; i < Value.Length; i++)
         {
-            var letters = new List<Letter>();
-            for (int i = 0; i < Value.Length; i++)
-            {
-                letters.Add(new Letter(Value[i], i));
-            }
-
-            return letters;
+            letters.Add(new Letter(Value[i], i));
         }
+
+        return letters;
     }
 }
 
