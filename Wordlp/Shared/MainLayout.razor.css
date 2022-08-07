@@ -1,14 +1,4 @@
-﻿#wordlp {
-    --header-height: 40px;
-}
-
-@media (min-width: 415px) {
-    #wordlp {
-        --header-height: 65px;
-    }
-}
-
-.app-header {
+﻿.app-header {
     align-items: center;
     border-bottom: 1px solid var(--slate-400);
     display: flex;

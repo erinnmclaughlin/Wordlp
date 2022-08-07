@@ -9,8 +9,9 @@
     display: grid;
     grid-template-rows: repeat(6, 1fr);
     grid-gap: 5px;
-    margin: 0 auto;
-    width: fit-content;
+    max-width: 350px;
+    max-height: 420px;
+    padding: 10px;
 }
 
     .board .row {
@@ -23,16 +24,7 @@
             align-items: center;
             border: 2px solid var(--slate-300);
             display: flex;
-            height: 62px;
             justify-content: center;
-            width: 62px;
-        }
-
-        @media (max-height: 600px) {
-            .board .row > .cell {
-                height: 47px;
-                width: 47px;
-            }
         }
 
             .board .row > .cell.guessed {

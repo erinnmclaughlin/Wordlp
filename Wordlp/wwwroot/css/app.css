@@ -1,4 +1,8 @@
 ﻿:root {
+    /* Colors */
+    --dark-mode-green: #538d4e;
+    --yellow: #c9b458;
+    --dark-mode-yellow: #b59f3b;
     --slate-50: #f8fafc;
     --slate-100: #f1f5f9;
     --slate-200: #e2e8f0;
@@ -13,10 +17,18 @@
     --slate-800: #1e293b;
     --slate-900: #0f172a;
     --green: #6aaa64;
-    --dark-mode-green: #538d4e;
-    --yellow: #c9b458;
-    --dark-mode-yellow: #b59f3b;
+
+    /* Sizes */
+    --header-height: 40px;
+    --keyboard-height: 200px;
 }
+
+@media (min-width: 415px) {
+    :root {
+        --header-height: 65px;
+    }
+}
+
 
 * {
     box-sizing: border-box;

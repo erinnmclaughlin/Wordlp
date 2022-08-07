@@ -1,7 +1,9 @@
 ﻿@inject Game Game
+@inject IResizeListener ResizeListener
+@implements IDisposable
 
 <div class="board-container">
-    <div class="board">
+    <div class="board" style="height: @(Size.Height)px; width: @(Size.Width)px;">
         @for (int i = 0; i < Game.MaxGuesses; i++)
         {
             var rowIndex = i;
@@ -26,7 +28,24 @@
 
 @code {
 
+    private BrowserWindowSize Size { get; set; } = new BrowserWindowSize
+    {
+        Height = 420,
+        Width = 350
+    };
+
     [Parameter] public string Guess { get; set; } = string.Empty;
+
+    public void Dispose()
+    {
+        ResizeListener.OnResized -= HandleResize;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Size = await ResizeListener.GetBrowserWindowSize();
+        ResizeListener.OnResized += HandleResize;
+    }
 
     private string GetCellCss(int rowIndex, int letterIndex)
     {
@@ -46,7 +65,7 @@
         {
             classes.Add("has-letter");
         }
-        
+
         return string.Join(" ", classes.Where(c => !string.IsNullOrWhiteSpace(c)));
     }
 
@@ -58,5 +77,19 @@
             return Guess[letterIndex];
 
         return null;
+    }
+
+    private void HandleResize(object? _, BrowserWindowSize size)
+    {
+        var height = size.Height - 200 - 40;
+        var width = height / 6 * 5;
+
+        Size = new BrowserWindowSize
+        {
+            Height = height,
+            Width = width
+        };
+
+        StateHasChanged();
     }
 }

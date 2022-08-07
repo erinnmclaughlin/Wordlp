@@ -1,4 +1,8 @@
-﻿.keyboard:focus {
+﻿.keyboard {
+    height: var(--keyboard-height);
+}
+
+.keyboard:focus {
     outline: none;
 }
 
