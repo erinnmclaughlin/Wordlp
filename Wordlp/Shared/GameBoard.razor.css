@@ -21,6 +21,10 @@
         grid-gap: 5px;
     }
 
+        .board .row > div {
+            display: inline-flex;
+        }
+
         .board .row .cell {
             align-items: center;
             border: 2px solid var(--slate-300);
