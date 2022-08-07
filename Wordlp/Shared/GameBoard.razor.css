@@ -28,6 +28,13 @@
             width: 62px;
         }
 
+        @media (max-height: 600px) {
+            .board .row > .cell {
+                height: 47px;
+                width: 47px;
+            }
+        }
+
             .board .row > .cell.guessed {
                 background-color: var(--slate-450);
                 border: none;
