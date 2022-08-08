@@ -2,7 +2,7 @@
 @inject PlayerHistoryService PlayerHistory
 @implements IDisposable
 
-<div class="history" style="height: @(Height)px; max-height: @(Height)px;">
+<div class="history" style="max-height: 100%;">
     @foreach (var result in PreviousResults)
     {
         <div class="word known">
@@ -47,7 +47,7 @@
 
     private async Task ResetHeight()
     {
-        Height = (await Browser.GetInnerHeight()) - 41;
+        Height = (await Browser.GetInnerHeight()) - 41 - 24;
         StateHasChanged();
     }
 }
