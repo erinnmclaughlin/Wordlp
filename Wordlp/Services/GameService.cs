@@ -8,6 +8,7 @@ public class GameService
     public const int WordLength = 5;
 
     public event EventHandler? OnGameModeChanged;
+    public event EventHandler? OnGameStart;
 
     private PlayerHistoryService PlayerHistory { get; }
     private ValidWords ValidWords { get; }
@@ -63,6 +64,8 @@ public class GameService
         Guesses = new();
         Word = Words.GetRandomWord();
         IsGameOver = false;
+
+        OnGameStart?.Invoke(this, EventArgs.Empty);
     }
 
     public async Task SubmitGuess(string guessedWord)

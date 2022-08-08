@@ -1,0 +1,21 @@
+﻿<div style="display: flex; height: 200px">
+    <div style="display: flex; margin: auto;">
+        <div style="display: flex; gap: 0.5rem; flex-direction: column;">
+            <button class="restart-game-button" type="button" @onclick="GameService.StartNewGame">
+                <span>
+                    <i class="fa-solid fa-arrows-rotate" />
+                </span>
+                <span style="font-size: 1rem;">Play Again</span>
+            </button>
+
+            <button class="view-history-button" @onclick="() => GameService.ChangeMode(GameMode.History)">
+                View History
+            </button>
+        </div>
+                
+    </div>
+</div>
+
+@code {
+    [CascadingParameter] private GameService GameService { get; set; } = null!;
+}

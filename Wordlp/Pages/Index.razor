@@ -15,15 +15,15 @@ else if (GameService.CurrentMode == GameMode.History)
 
     public void Dispose()
     {
-        GameService.OnGameModeChanged -= HandleGameModeChanged;
+        GameService.OnGameModeChanged -= StateHasChanged;
     }
 
     protected override void OnInitialized()
     {
-        GameService.OnGameModeChanged += HandleGameModeChanged;
+        GameService.OnGameModeChanged += StateHasChanged;
     }
 
-    private void HandleGameModeChanged(object? obj, EventArgs e)
+    private void StateHasChanged(object? obj, EventArgs e)
     {
         StateHasChanged();
     }

@@ -1,4 +1,5 @@
 ﻿@inject GameService GameService
+@implements IDisposable
 
 <PageTitle>Word-LP</PageTitle>
 
@@ -6,23 +7,7 @@
     <GameBoard Guess="@Guess" />
     @if (GameService.IsGameOver)
     {
-        <div style="display: flex; height: 200px">
-            <div style="display: flex; margin: auto;">
-                <div style="display: flex; gap: 0.5rem; flex-direction: column;">
-                    <button class="restart-game-button" type="button" @onclick="StartNewGame">
-                        <span>
-                            <i class="fa-solid fa-arrows-rotate" />
-                        </span>
-                        <span style="font-size: 1rem;">Play Again</span>
-                    </button>
-
-                    <button class="view-history-button" @onclick="() => GameService.ChangeMode(GameMode.History)">
-                        View History
-                    </button>
-                </div>
-                
-            </div>
-        </div>
+        <GameOverButtons />
     }
     else
     {
@@ -66,7 +51,7 @@
     public async Task SubmitGuess()
     {
         if (GameService.IsGameOver || !GameService.IsValidGuess(Guess)) 
-        return;
+            return;
 
         await GameService.SubmitGuess(Guess);
         Guess = string.Empty;
@@ -75,8 +60,19 @@
             ShowModal = true;
     }
 
-    public void StartNewGame()
+    public void Dispose()
     {
-        GameService.StartNewGame();
+        GameService.OnGameStart -= HandleGameStart;
+    }
+
+    protected override void OnInitialized()
+    {
+        GameService.OnGameStart += HandleGameStart;
+    }
+
+    private void HandleGameStart(object? obj, EventArgs e)
+    {
+        CloseModal();
+        StateHasChanged();
     }
 }
