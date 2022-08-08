@@ -20,6 +20,7 @@
 
     .app-header > .header-end {
         justify-content: flex-end;
+        gap: 8px;
     }
 
     .app-header > .app-title {
@@ -33,6 +34,7 @@
             width: 18px;
         }
 
+    .app-header button#history-button,
     .app-header button#dark-mode-toggler {
         color: var(--slate-700);
         background: transparent;
@@ -52,6 +54,7 @@ main {
     border-color: var(--slate-600);
 }
 
+    .dark-mode .app-header button#history-button,
     .dark-mode .app-header button#dark-mode-toggler {
         color: var(--slate-300);
     }

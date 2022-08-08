@@ -15,8 +15,11 @@
             }
         </button>
         <div class="header-end">
+            <button id="history-button" @onclick="() => GameService.ChangeMode(GameMode.History)">
+                <i class="fa-solid fa-clock-rotate-left fa-xl" />
+            </button>
             <button id="dark-mode-toggler" @onclick="() => DarkMode.Toggle()">
-                <i class="@(DarkMode.IsEnabled ? "fa-solid" : "fa-regular") fa-moon fa-lg" />
+                <i class="@(DarkMode.IsEnabled ? "fa-solid" : "fa-regular") fa-moon fa-xl" />
             </button>
         </div>        
     </header>
