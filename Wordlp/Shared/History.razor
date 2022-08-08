@@ -47,7 +47,7 @@
 
     private async Task ResetHeight()
     {
-        Height = (await Browser.GetInnerHeight()) - 40;
+        Height = (await Browser.GetInnerHeight()) - 40 - 24;
         StateHasChanged();
     }
 }
