@@ -8,7 +8,7 @@
 <CascadingValue Value="CurrentPage">
     <div id="wordlp" class="@(DarkMode.IsEnabled ? "dark-mode" : "")">
     
-        <GameHeader />
+        <GameHeader IsDarkMode="DarkMode.IsEnabled" OnToggleDarkMode="() => DarkMode.Toggle()" />
 
         <main style="height: @(Height)px; max-height: @(Height)px;">
             @if (CurrentPage == GamePages.Game)
