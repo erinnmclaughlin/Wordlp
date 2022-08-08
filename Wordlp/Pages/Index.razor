@@ -1,0 +1,31 @@
+﻿@page "/"
+@inject GameService GameService
+@implements IDisposable
+
+@if (GameService.CurrentMode == GameMode.Game)
+{
+    <Game />
+}
+else if (GameService.CurrentMode == GameMode.History)
+{
+    <History />
+}
+
+@code {
+
+    public void Dispose()
+    {
+        GameService.OnGameModeChanged -= HandleGameModeChanged;
+    }
+
+    protected override void OnInitialized()
+    {
+        GameService.OnGameModeChanged += HandleGameModeChanged;
+    }
+
+    private void HandleGameModeChanged(object? obj, EventArgs e)
+    {
+        StateHasChanged();
+    }
+
+}

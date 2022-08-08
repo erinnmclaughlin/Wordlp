@@ -1,5 +1,4 @@
-﻿@page "/"
-@inject GameService GameService
+﻿@inject GameService GameService
 
 <PageTitle>Word-LP</PageTitle>
 
@@ -17,9 +16,9 @@
                         <span style="font-size: 1rem;">Play Again</span>
                     </button>
 
-                    <a class="view-history-button" href="history">
+                    <button class="view-history-button" @onclick="() => GameService.ChangeMode(GameMode.History)">
                         View History
-                    </a>
+                    </button>
                 </div>
                 
             </div>

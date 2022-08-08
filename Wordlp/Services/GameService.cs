@@ -7,12 +7,15 @@ public class GameService
     public const int MaxGuesses = 6;
     public const int WordLength = 5;
 
+    public event EventHandler? OnGameModeChanged;
+
     private PlayerHistoryService PlayerHistory { get; }
     private ValidWords ValidWords { get; }
     private WordCollection Words { get; }
 
-    public List<Guess> Guesses { get; set; } = new();
-    public Word Word { get; set; } = null!;
+    public GameMode CurrentMode { get; private set; } = GameMode.Game;
+    public List<Guess> Guesses { get; private set; } = new();
+    public Word Word { get; private set; } = null!;
 
     public int CurrentGuess => Guesses.Count;
     public bool IsGameOver { get; private set; }
@@ -116,5 +119,13 @@ public class GameService
             return GuessResult.Contains;
 
         return GuessResult.None;
+    }
+
+    public void ChangeMode(GameMode mode)
+    {
+        if (CurrentMode == mode) return;
+
+        CurrentMode = mode;
+        OnGameModeChanged?.Invoke(this, EventArgs.Empty);
     }
 }
