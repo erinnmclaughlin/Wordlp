@@ -38,12 +38,16 @@
     public void Dispose()
     {
         BrowserResizeService.OnResize -= ResetHeight;
+        GameService.OnGameModeChanged -= HandleGameModeChanged;
+
         GC.SuppressFinalize(this);
     }
 
     protected override async Task OnInitializedAsync()
     {
         BrowserResizeService.OnResize += ResetHeight;
+        GameService.OnGameModeChanged += HandleGameModeChanged;
+
         await ResetHeight();
         await DarkMode.InitializeAsync();
     }
@@ -60,6 +64,11 @@
     private async Task ResetHeight()
     {
         Height = (await Browser.GetInnerHeight()) - 40;
+        StateHasChanged();
+    }
+
+    private void HandleGameModeChanged(object? o, EventArgs e)
+    {
         StateHasChanged();
     }
 
