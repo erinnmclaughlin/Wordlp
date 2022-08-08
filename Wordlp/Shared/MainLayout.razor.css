@@ -12,31 +12,26 @@
     .app-header > .header-end {
         display: flex;
         width: 120px;
+        gap: 8px;
+        height: 100%;
     }
-
+    
     .app-header > .header-start {
-        display: none;
+        justify-content: flex-start;
     }
 
     .app-header > .header-end {
         justify-content: flex-end;
-        gap: 8px;
-        height: 100%;
     }
 
     .app-header > .app-title {
-        display: flex;
+        cursor: default;
+        letter-spacing: 5px;
+        font-size: 18px;
+        font-weight: bold;
     }
 
-        .app-header > .app-title > div {
-            font-size: 18px;
-            font-weight: bold;
-            text-align: center;
-            width: 18px;
-        }
-
-    .app-header button#history-button,
-    .app-header button#dark-mode-toggler {
+    .app-header button.icon-button {
         color: var(--slate-700);
         background: transparent;
     }
@@ -45,9 +40,10 @@ main {
     display: flex;
     flex-direction: column;
     height: calc(100% - var(--header-height));
-    max-width: 500px;
     margin: 0 auto;
     width: 100%;
+    align-items: center;
+    overflow-y: auto;
 }
 
 /* Dark Mode */
@@ -55,7 +51,6 @@ main {
     border-color: var(--slate-600);
 }
 
-    .dark-mode .app-header button#history-button,
-    .dark-mode .app-header button#dark-mode-toggler {
+    .dark-mode .app-header button.icon-button {
         color: var(--slate-300);
     }

@@ -1,8 +1,6 @@
-﻿@inject BrowserResizeService Browser
-@inject PlayerHistoryService PlayerHistory
-@implements IDisposable
+﻿@inject PlayerHistoryService PlayerHistory
 
-<div class="history" style="height: @(Height)px; max-height: @(Height)px;">
+<div class="history">
     @foreach (var result in PreviousResults)
     {
         <div class="word known">
@@ -27,27 +25,10 @@
 
 @code {
 
-    private int Height { get; set; }
-
     private List<GameResult> PreviousResults { get; set; } = new();
-
-    public void Dispose()
-    {
-        BrowserResizeService.OnResize -= ResetHeight;
-        GC.SuppressFinalize(this);
-    }
 
     protected override async Task OnInitializedAsync()
     {
-        BrowserResizeService.OnResize += ResetHeight;
-
-        PreviousResults = await PlayerHistory.GetHistory();
-        await ResetHeight();
-    }
-
-    private async Task ResetHeight()
-    {
-        Height = (await Browser.GetInnerHeight()) - 40;
-        StateHasChanged();
+        PreviousResults = await PlayerHistory.GetHistory();;
     }
 }

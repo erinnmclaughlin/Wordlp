@@ -1,6 +1,8 @@
 ﻿.keyboard {
     height: var(--keyboard-height);
     margin: 0 8px;
+    max-width: 500px;
+    width: calc(100% - 16px);
 }
 
 .keyboard:focus {
@@ -28,7 +30,7 @@
         font-weight: 600;
         height: 58px;
         justify-content: center;
-        margin: 0 6px 0 0;
+        margin: 0 3px;
         text-transform: uppercase;
     }
 

@@ -1,38 +1,66 @@
 ﻿@inherits LayoutComponentBase
+@inject BrowserResizeService Browser
 @inject DarkModeService DarkMode
 @inject GameService GameService
+@implements IDisposable
 
 <div id="wordlp" class="@(DarkMode.IsEnabled ? "dark-mode" : "")">
 
     <header class="app-header">
         <div class="header-start">
-
+           @if (GameService.CurrentMode != GameMode.Game)
+           {
+               <button class="icon-button" @onclick="() => GameService.ChangeMode(GameMode.Game)">
+                   <i class="fa-solid fa-arrow-left fa-xl" />
+               </button>
+           }
         </div>
-        <button @onclick="() => GameService.ChangeMode(GameMode.Game)" class="app-title">
-            @foreach(var letter in "WORDLP")
-            {
-                <div>@letter</div>
-            }
-        </button>
+        <div class="app-title">@GetAppTitle()</div>
         <div class="header-end">
-            <button id="history-button" @onclick="() => GameService.ChangeMode(GameMode.History)">
+            <button class="icon-button" @onclick="() => GameService.ChangeMode(GameMode.History)">
                 <i class="fa-solid fa-clock-rotate-left fa-xl" />
             </button>
-            <button id="dark-mode-toggler" @onclick="() => DarkMode.Toggle()">
+            <button class="icon-button" @onclick="() => DarkMode.Toggle()">
                 <i class="@(DarkMode.IsEnabled ? "fa-solid" : "fa-regular") fa-moon fa-xl" />
             </button>
         </div>        
     </header>
 
-    <main>
+    <main style="height: @(Height)px; max-height: @(Height)px;">
         @Body
     </main>
 </div>
 
 @code {
 
+    private int Height { get; set; }
+
+    public void Dispose()
+    {
+        BrowserResizeService.OnResize -= ResetHeight;
+        GC.SuppressFinalize(this);
+    }
+
     protected override async Task OnInitializedAsync()
     {
+        BrowserResizeService.OnResize += ResetHeight;
+        await ResetHeight();
         await DarkMode.InitializeAsync();
     }
+
+    private string GetAppTitle()
+    {
+        return GameService.CurrentMode switch
+        {
+            GameMode.History => "HISTORY",
+            _ => "WORDLP"
+        };
+    }
+
+    private async Task ResetHeight()
+    {
+        Height = (await Browser.GetInnerHeight()) - 40;
+        StateHasChanged();
+    }
+
 }
