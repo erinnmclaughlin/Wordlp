@@ -7,7 +7,7 @@
         {
             var rowIndex = i;
 
-            <div class="row">
+            <div class="row @(rowIndex == Game.CurrentGuess && PlayShakeAnimation ? "shake" : "")">
                 @for (int j = 0; j < GameService.WordLength; j++)
                 {
                     var letterIndex = j;
@@ -32,8 +32,10 @@
     private int Height { get; set; }
     private int Width { get; set; }
 
+
     [CascadingParameter] private GameService Game { get; set; } = null!;
     [Parameter] public string Guess { get; set; } = string.Empty;
+    [Parameter] public bool PlayShakeAnimation { get; set; }
 
     public void Dispose()
     {

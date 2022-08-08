@@ -1,4 +1,6 @@
-﻿:root {
+﻿@import url('animations.css');
+
+:root {
     /* Colors */
     --dark-mode-green: #538d4e;
     --yellow: #c9b458;
