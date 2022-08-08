@@ -27,8 +27,6 @@ public class GameService
         PlayerHistory = playerHistory;
         ValidWords = validWords;
         Words = words;
-
-        StartNewGame();
     }
 
     public Guess? GetGuessByIndex(int index)
@@ -59,12 +57,12 @@ public class GameService
         return word.Length == 5 && ValidWords.Contains(word, StringComparer.InvariantCultureIgnoreCase);
     }
 
-    public void StartNewGame()
+    public async Task StartNewGame()
     {
         Guesses = new();
-        Word = Words.GetRandomWord();
         IsGameOver = false;
 
+        await GetNewWord();
         OnGameStart?.Invoke(this, EventArgs.Empty);
     }
 
@@ -130,5 +128,21 @@ public class GameService
 
         CurrentMode = mode;
         OnGameModeChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    private async Task GetNewWord()
+    {
+        var guessedWords = await PlayerHistory.GetHistory();
+        var unguessedWords = Words.Words.Where(w => !guessedWords.Any(g => g.Word.Value == w.Value));
+
+        if (unguessedWords.Any() == false)
+            unguessedWords = Words.Words;
+
+        var randomIndex = new Random().Next(0, unguessedWords.Count() - 1);
+        var word = unguessedWords.ElementAt(randomIndex);
+
+        Console.WriteLine(word.Value);
+
+        Word = word;
     }
 }

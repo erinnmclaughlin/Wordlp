@@ -80,6 +80,11 @@
         GameService.OnGameStart += HandleGameStart;
     }
 
+    protected override async Task OnInitializedAsync()
+    {
+        await GameService.StartNewGame();
+    }
+
     private void HandleGameStart(object? obj, EventArgs e)
     {
         CloseModal();
