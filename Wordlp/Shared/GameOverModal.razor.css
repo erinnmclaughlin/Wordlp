@@ -22,8 +22,10 @@
 
 .modal button.close {
     position: absolute;
-    top: 8px;
-    right: 12px;
+    top: 0;
+    right: 0;
+    height: 38px;
+    width: 38px;
 }
 
 .modal > .modal-content {
