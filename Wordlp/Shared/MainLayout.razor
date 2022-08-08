@@ -1,5 +1,6 @@
 ﻿@inherits LayoutComponentBase
 @inject DarkModeService DarkMode
+@inject NavigationManager NavManager
 
 <div id="wordlp" class="@(DarkMode.IsEnabled ? "dark-mode" : "")">
 
@@ -7,7 +8,7 @@
         <div class="header-start">
 
         </div>
-        <a href="#" class="app-title">
+        <a @onclick="@(() => NavManager.NavigateTo(""))" class="app-title">
             @foreach(var letter in "WORDLP")
             {
                 <div>@letter</div>

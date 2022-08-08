@@ -1,5 +1,6 @@
 ﻿@page "/"
 @inject GameService GameService
+@inject NavigationManager NavManager
 
 <PageTitle>Word-LP</PageTitle>
 
@@ -17,7 +18,7 @@
                         <span style="font-size: 1rem;">Play Again</span>
                     </button>
 
-                    <a class="view-history-button" href="history">
+                    <a class="view-history-button" @onclick="@(() => NavManager.NavigateTo("history"))">
                         View History
                     </a>
                 </div>
