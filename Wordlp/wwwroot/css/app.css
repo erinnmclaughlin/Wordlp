@@ -57,6 +57,7 @@ button {
 a {
     text-decoration: none;
     color: currentColor;
+    cursor: pointer;
 }
 
 /* Dark Mode */
