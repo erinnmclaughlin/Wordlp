@@ -36,7 +36,7 @@
     [Parameter] public string Guess { get; set; } = string.Empty;
 
     public void Dispose()
-    {        
+    {
         BrowserResizeService.OnResize -= ResetHeight;
         GC.SuppressFinalize(this);
     }
