@@ -1,9 +1,13 @@
 ﻿@inject PlayerHistoryService PlayerHistory
+@inject WordCollection WordCollection
 
 <div class="history">
     @foreach (var result in PreviousResults)
     {
         <div class="word known">
+            <div class="number">
+                #@(WordCollection.GetNumber(result.Word.Value).ToString("00"))
+            </div>
             <div class="letters">
                 @foreach (var letter in result.Word.Value)
                 {

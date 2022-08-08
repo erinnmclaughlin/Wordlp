@@ -18,10 +18,23 @@
         background-color: var(--slate-100);
         justify-content: center;
         gap: 12px;
+        position: relative;
     }
 
         .history .word:not(:last-child) {
             margin-bottom: 12px;
+        }
+
+        .history .word .number {
+            position: absolute;
+            top: 0;
+            right: 0;
+            font-size: 0.75rem;
+            font-weight: 200;
+            padding: 0.25rem 0.5rem;
+            cursor: default;
+            color: var(--slate-400);
+            letter-spacing: 0.025rem;
         }
 
         .history .word .letters {
@@ -66,5 +79,9 @@
     }
 
 .dark-mode .history .description {
+    color: var(--slate-350);
+}
+
+.dark-mode .history .word .number {
     color: var(--slate-400);
 }
