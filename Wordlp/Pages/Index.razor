@@ -5,46 +5,30 @@
 @inject NavigationManager NavigationManager
 @implements IDisposable
 
-<div id="wordlp" class="@(DarkMode.IsEnabled ? "dark-mode" : "")">
-    <header class="app-header">
-        <div class="header-start">
-            @if (GameMode != GamePages.Game)
-            {
-                <a class="icon-button" href="?">
-                    <i class="fa-solid fa-arrow-left fa-lg" />
-                </a>
-            }
-        </div>
-        <div class="app-title"><a href="?">@GetAppTitle()</a></div>
-        <div class="header-end">
-            <a class="icon-button" href="?page=history">
-                <i class="fa-solid fa-clock-rotate-left fa-lg" />
-            </a>
-            <button class="icon-button" @onclick="() => DarkMode.Toggle()">
-                <i class="@(DarkMode.IsEnabled ? "fa-solid" : "fa-regular") fa-moon fa-xl" />
-            </button>
-        </div>        
-    </header>
+<CascadingValue Value="CurrentPage">
+    <div id="wordlp" class="@(DarkMode.IsEnabled ? "dark-mode" : "")">
+    
+        <GameHeader />
 
-    <main style="height: @(Height)px; max-height: @(Height)px;">
-        <CascadingValue Value="GameMode">
-            @if (GameMode == GamePages.Game)
+        <main style="height: @(Height)px; max-height: @(Height)px;">
+            @if (CurrentPage == GamePages.Game)
             {
                 <Game />
             }
-            else if (GameMode == GamePages.History)
+            else if (CurrentPage == GamePages.History)
             {
                 <History />
             }
-        </CascadingValue>
-    </main>
+        </main>
 
-</div>
+    </div>
+</CascadingValue>
+
 
 @code {
 
     private int Height { get; set; }
-    private GamePages GameMode { get; set; } = GamePages.Game;
+    private GamePages CurrentPage { get; set; } = GamePages.Game;
 
     public void Dispose()
     {
@@ -64,17 +48,7 @@
 
     protected override void OnParametersSet()
     {
-        SetGameMode();
-    }
-    
-
-    private string GetAppTitle()
-    {
-        return GameMode switch
-        {
-            GamePages.History => "HISTORY",
-            _ => "WORDLP"
-        };
+        UpdatePage();
     }
 
     private async Task ResetHeight()
@@ -85,21 +59,21 @@
 
     private void HandleNavigation(object? o, LocationChangedEventArgs e)
     {
-        SetGameMode();
+        UpdatePage();
         StateHasChanged();
     }
 
-    private void SetGameMode()
+    private void UpdatePage()
     {
         var values = QueryHelpers.ParseNullableQuery(NavigationManager.ToAbsoluteUri(NavigationManager.Uri).Query);
 
         if (values?.TryGetValue("page", out var value) != true)
         {
-            GameMode = GamePages.Game;
+            CurrentPage = GamePages.Game;
             return;
         }
 
-        GameMode = value.ToString().ToLower().Trim() switch
+        CurrentPage = value.ToString().ToLower().Trim() switch
         {
             "history" => GamePages.History,
             _ => GamePages.Game
