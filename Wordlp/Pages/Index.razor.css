@@ -1,5 +1,57 @@
-﻿button.restart-game-button,
-a.view-history-button {
+﻿.app-header {
+    align-items: center;
+    border-bottom: 1px solid var(--slate-400);
+    display: flex;
+    height: var(--header-height);
+    min-height: 40px;
+    padding: 0rem 1.25rem;
+    justify-content: space-between;
+}
+
+    .app-header > .header-start,
+    .app-header > .header-end {
+        display: flex;
+        width: 120px;
+        gap: 8px;
+        height: 100%;
+    }
+
+    .app-header > .header-start {
+        justify-content: flex-start;
+    }
+
+    .app-header > .header-end {
+        justify-content: flex-end;
+    }
+
+    .app-header > .app-title {
+        cursor: default;
+        letter-spacing: 5px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .app-header .icon-button {
+        color: var(--slate-700);
+        background: transparent;
+    }
+
+    .app-header a.icon-button {
+        margin: auto 0;
+    }
+
+main {
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - var(--header-height));
+    margin: 0 auto;
+    width: 100%;
+    align-items: center;
+    overflow-y: auto;
+}
+
+.restart-game-button,
+.view-history-button {
     padding: 1rem 1.75rem;
     font-size: 1rem;
     font-weight: 500;
@@ -9,17 +61,25 @@ a.view-history-button {
     border-radius: 999px;
 }
 
-button.restart-game-button {
+.restart-game-button {
     background-color: var(--green);
     color: var(--slate-100);
 }
 
-a.view-history-button {
+.view-history-button {
     background-color: var(--slate-300);
     color: var(--slate-700);
 }
 
+/* Dark Mode */
+.dark-mode .app-header {
+    border-color: var(--slate-600);
+}
 
-.dark-mode button.restart-game-button {
+    .dark-mode .app-header .icon-button {
+        color: var(--slate-300);
+    }
+
+.dark-mode .restart-game-button {
     background-color: var(--dark-mode-green);
 }

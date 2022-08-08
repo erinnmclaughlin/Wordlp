@@ -1,6 +1,6 @@
 ﻿namespace Wordlp.Models;
 
-public enum GameMode
+public enum GamePages
 {
     Game,
     History
