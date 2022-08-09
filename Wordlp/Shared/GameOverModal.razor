@@ -1,19 +1,20 @@
-﻿<div class="modal-background" @onclick="OnClose"></div>
+﻿@inject GameService Game
+
+<div class="modal-background" @onclick="OnClose"></div>
 
 <div class="modal">
     <button class="close" type="button" @onclick="OnClose">
         <i class="fa-solid fa-close fa-xl" />
     </button>
 
-    <div class="solution">@GameService.Word.Value</div>
+    <div class="solution">@Game.Word.Value</div>
     <div class="modal-content">
-        <p>@GameService.Word.Description</p>
+        <p>@Game.Word.Description</p>
     </div>
 
     <GameOverButtons />
 </div>
 
 @code {
-    [CascadingParameter] private GameService GameService { get; set; } = null!;
     [Parameter] public EventCallback OnClose { get; set; }
 }
