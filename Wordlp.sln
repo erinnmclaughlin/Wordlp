@@ -5,6 +5,8 @@ VisualStudioVersion = 17.2.32602.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wordlp", "Wordlp\Wordlp.csproj", "{09305D9E-4B51-4B5A-831C-65BACD98E43F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wordlp.Tests", "tests\Wordlp.Tests\Wordlp.Tests.csproj", "{F588E478-C11C-4417-84E7-7941D143DE3C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{09305D9E-4B51-4B5A-831C-65BACD98E43F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09305D9E-4B51-4B5A-831C-65BACD98E43F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09305D9E-4B51-4B5A-831C-65BACD98E43F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F588E478-C11C-4417-84E7-7941D143DE3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F588E478-C11C-4417-84E7-7941D143DE3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F588E478-C11C-4417-84E7-7941D143DE3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F588E478-C11C-4417-84E7-7941D143DE3C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
