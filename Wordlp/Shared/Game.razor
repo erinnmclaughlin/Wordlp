@@ -16,30 +16,21 @@
         <Keyboard @bind-Guess="@Guess" />
     }
     
-    @if (ShowModal)
-    {
-        <GameOverModal Word="Word" OnClose="CloseModal" />
-    }    
+    <GameOverModal Word="Word" />
 </CascadingValue>
 
 @code {
 
     private List<Guess> Guesses { get; set; } = new();
     private string Guess { get; set; } = string.Empty;
-    private bool ShowModal { get; set; }
     private Word Word { get; set; } = null!;
 
     public bool IsGameOver { get; private set; }    
 
-    public void CloseModal()
-    {
-        ShowModal = false;
-        StateHasChanged();
-    }
-
     public async Task GameOver()
     {
         IsGameOver = true;
+        GameState.NotifyGameOver();
         await PlayerHistory.SaveAttempt(Word, Guesses.Count);
     }
 
@@ -124,19 +115,16 @@
             await GameOver();
 
         Guess = string.Empty;
-
-        if (IsGameOver)
-            ShowModal = true;
-
         StateHasChanged();
     }
 
     public async Task StartNewGame()
     {
-        CloseModal();
         Guesses = new();
         IsGameOver = false;
         await GetNewWord();
+
+        GameState.NotifyGameStart();
         StateHasChanged();
     }
 

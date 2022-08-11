@@ -5,7 +5,7 @@ VisualStudioVersion = 17.2.32602.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wordlp", "Wordlp\Wordlp.csproj", "{09305D9E-4B51-4B5A-831C-65BACD98E43F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wordlp.Tests", "tests\Wordlp.Tests\Wordlp.Tests.csproj", "{F588E478-C11C-4417-84E7-7941D143DE3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wordlp.Tests", "tests\Wordlp.Tests\Wordlp.Tests.csproj", "{F588E478-C11C-4417-84E7-7941D143DE3C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CC1B84D0-D17F-4FF8-B2E0-4C6A6DF4E43D}"
 	ProjectSection(SolutionItems) = preProject
