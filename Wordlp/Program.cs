@@ -30,7 +30,7 @@ await builder.Build().RunAsync();
 
 async Task<WordCollection> LoadWords()
 {
-    using var response = await http.GetAsync(Path.Combine("data", "words.json"));
+    using var response = await http.GetAsync(Path.Combine("data", "words_v2.json"));
     return await response.Content.ReadFromJsonAsync<WordCollection>(new JsonSerializerOptions
     {
         PropertyNameCaseInsensitive = true

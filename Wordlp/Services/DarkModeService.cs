@@ -4,7 +4,7 @@ namespace Wordlp.Services;
 
 public class DarkModeService
 {
-    private const string Key = "wordlp-DarkMode";
+    private const string Key = "darkMode";
 
     private ILocalStorageService LocalStorage { get; }
 
@@ -17,6 +17,8 @@ public class DarkModeService
 
     public async Task InitializeAsync()
     {
+        await LocalStorage.RemoveItemAsync("wordlp-DarkMode");
+
         if (!await LocalStorage.ContainKeyAsync(Key))
             await Enable();
         else

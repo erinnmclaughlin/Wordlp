@@ -5,7 +5,7 @@ namespace Wordlp.Services;
 
 public class PlayerHistoryService
 {
-    private const string Key = "wordlp-History";
+    private const string Key = "playerHistory";
     private ILocalStorageService LocalStorage { get; }
 
     public PlayerHistoryService(ILocalStorageService localStorage)
@@ -15,6 +15,8 @@ public class PlayerHistoryService
 
     public async Task<List<GameResult>> GetHistory()
     {
+        await LocalStorage.RemoveItemAsync("wordlp-History");
+
         return await LocalStorage.GetItemAsync<List<GameResult>>(Key) ?? new();
     }
 

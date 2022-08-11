@@ -23,7 +23,7 @@
     <Content Update="wwwroot\data\valid.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\data\words.json">
+    <Content Update="wwwroot\data\words_v2.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

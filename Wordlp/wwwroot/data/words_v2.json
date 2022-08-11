@@ -1,13 +1,12 @@
 {
-  "words": 
-  [
+  "words": [
     {
       "value": "ARTSY",
       "description": "Artsy indeed! Pouring passion and paint (not to mention sculptures and sketches) into Gallery 717, LP have embraced their love of all things artsy."
     },
     {
       "value": "BEERS",
-      "description": "Is it a passion for beers or just IPAs that Laurie and Paul share?"
+      "description": "Cheers for beers!"
     },
     {
       "value": "BOOZE",
@@ -15,7 +14,7 @@
     },
     {
       "value": "BREWS",
-      "description": ""
+      "description": "Laurie and Paul share a passion for good brews — chiefly IPAs from Toppling, of course."
     },
     {
       "value": "BRUSH",
@@ -31,23 +30,23 @@
     },
     {
       "value": "CLASS",
-      "description": "As an *award-winning* professor at the University of Missouri, catch Laurie inspiring teachers-to-be in her classes."
+      "description": "Laurie has class. As an *award-winning* professor at the University of Missouri, catch Laurie inspiring teachers-to-be in her classes."
     },
     {
       "value": "COLOR",
-      "description": ""
+      "description": "A colorful couple, with colorful craft supplies."
     },
     {
       "value": "COMFY",
-      "description": ""
+      "description": "From the welcoming hosts to the mid-century modern decor to the kan jam cabana, LP HQ is comfy comfy."
     },
     {
       "value": "COOKS",
-      "description": ""
+      "description": "Both Paul and Laurie are accomplished cooks in the kitchen — just add chorizo."
     },
     {
       "value": "CRAFT",
-      "description": ""
+      "description": "Wait, let me show you this new craft we can do! — Laurie"
     },
     {
       "value": "DRAFT",
@@ -55,11 +54,11 @@
     },
     {
       "value": "DRINK",
-      "description": ""
+      "description": "Do you want a drink? Can I grab you a Toppling? What about some water? LP is always making sure guests stay hydrated!"
     },
     {
       "value": "DRUMS",
-      "description": "While he's not practicing his own percussion, you'll find Paul rewatching videos of his beloved KC Chief drumline."
+      "description": "While he's not practicing his own percussion, you'll find Paul rewatching videos of his beloved KC Chiefs drumline."
     },
     {
       "value": "GAMES",
@@ -71,23 +70,23 @@
     },
     {
       "value": "HAPPY",
-      "description": "No trip to LP's place is without a little happy hour fun — crack open a Toppling IPA and sit back for laughs and stories."
-    },
-    {
-      "value": "HEART",
-      "description": ""
+      "description": "*So happy togetherrrrr* — Plus, no trip to LP's place is without a little happy hour fun — crack open a Toppling IPA and sit back for games and laughs."
     },
     {
       "value": "HOUSE",
-      "description": ""
+      "description": "Laurie's house (in which Paul also lives) is a wonderful, welcoming place that deserved a spot on Word-lp."
     },
     {
       "value": "KIDDO",
-      "description": ""
+      "description": "LP have five kiddo(es?) between the two of them."
     },
     {
       "value": "LOVEY",
-      "description": "LP can't go five minutes without their favorite term of endearment getting some airtime. When Laurie calls you \"lovey,\" you know you've made it in the world!"
+      "description": "LP can't go five minutes without their favorite term of endearment getting some airtime. When Laurie calls you \"lovey,\" you know you've made it!"
+    },
+    {
+      "value": "MATES",
+      "description": ""
     },
     {
       "value": "MUSIC",
@@ -100,6 +99,10 @@
     {
       "value": "PIZZA",
       "description": "If I had a nickel for every pizza night, whether hosted at 717 or out on the town at Shakespeare's or Pizza Tree, I'd be able to chip in on all those Airstream renovation costs. Did you know Laurie and Paul actually buy ingredients, like mouthwatering thick-sliced pepperoni, directly from Shakespeare's? Ask about it next time you're over."
+    },
+    {
+      "value": "PLATE",
+      "description": "License plates, that is. Paul and Laurie are license plate connoisseur, keeping track of every state plate they see on road trips."
     },
     {
       "value": "QUIPS",
@@ -115,7 +118,7 @@
     },
     {
       "value": "RINGS",
-      "description": ""
+      "description": "Cue \"here comes the bride!"
     },
     {
       "value": "ROYAL",
@@ -135,7 +138,7 @@
     },
     {
       "value": "SWEET",
-      "description": ""
+      "description": "They're so sweet together! Have you even seen them?"
     },
     {
       "value": "TASTY",
@@ -152,6 +155,10 @@
     {
       "value": "WATCH",
       "description": "Not like a timekeeping device, \"watch\" like binging shows. Ask them about the Canadian brothers on Alone, season four."
+    },
+    {
+      "value": "WAVES",
+      "description": "Any time we're leaving LP HQ, Laurie stands at the door or in the driveway and waves goodbye until she can't see us anymore!"
     },
     {
       "value": "WORDS",
