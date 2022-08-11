@@ -23,6 +23,7 @@ builder.Services.AddSingleton(_ => words);
 builder.Services.AddScoped<BrowserResizeService>();
 builder.Services.AddScoped<DarkModeService>();
 builder.Services.AddScoped<GameService>();
+builder.Services.AddScoped<GameState>();
 builder.Services.AddScoped<PlayerHistoryService>();
 builder.Services.AddBlazoredLocalStorage();
 

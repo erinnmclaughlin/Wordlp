@@ -1,4 +1,5 @@
-﻿@inject GameService GameService
+﻿@inject GameState GameState
+@inject GameService GameService
 @implements IDisposable
 
 <PageTitle>Word-LP</PageTitle>
@@ -71,12 +72,12 @@
 
     public void Dispose()
     {
-        GameService.OnGameStart -= HandleGameStart;
+        GameState.OnGameStart -= HandleGameStart;
     }
 
     protected override void OnInitialized()
     {
-        GameService.OnGameStart += HandleGameStart;
+        GameState.OnGameStart += HandleGameStart;
     }
 
     protected override async Task OnInitializedAsync()

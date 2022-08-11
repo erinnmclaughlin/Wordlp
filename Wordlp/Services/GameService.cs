@@ -6,9 +6,8 @@ public class GameService
 {
     public const int MaxGuesses = 6;
     public const int WordLength = 5;
-    
-    public event EventHandler? OnGameStart;
-
+   
+    private GameState GameState { get; }
     private PlayerHistoryService PlayerHistory { get; }
     private ValidWords ValidWords { get; }
     private WordCollection Words { get; }
@@ -20,8 +19,9 @@ public class GameService
     public bool IsGameOver { get; private set; }
     public int RemainingGuesses => MaxGuesses - CurrentGuess;
 
-    public GameService(PlayerHistoryService playerHistory, ValidWords validWords, WordCollection words)
+    public GameService(GameState gameState, PlayerHistoryService playerHistory, ValidWords validWords, WordCollection words)
     {
+        GameState = gameState;
         PlayerHistory = playerHistory;
         ValidWords = validWords;
         Words = words;
@@ -61,7 +61,7 @@ public class GameService
         IsGameOver = false;
 
         await GetNewWord();
-        OnGameStart?.Invoke(this, EventArgs.Empty);
+        GameState.NotifyGameStarted();
     }
 
     public async Task SubmitGuess(string guessedWord)
