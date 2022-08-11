@@ -2,7 +2,6 @@
 @inject PlayerHistoryService PlayerHistory
 @inject ValidWords ValidWords
 @inject WordCollection Words
-@implements IDisposable
 
 <PageTitle>Word-LP</PageTitle>
 
@@ -53,11 +52,6 @@
     {
         ShowModal = false;
         StateHasChanged();
-    }
-
-    public void Dispose()
-    {
-        GameState.OnGameStart -= HandleGameStart;
     }
 
     public async Task GameOver()
@@ -149,11 +143,11 @@
 
     public async Task StartNewGame()
     {
+        CloseModal();
         Guesses = new();
         IsGameOver = false;
-
         await GetNewWord();
-        GameState.NotifyGameStarted();
+        StateHasChanged();
     }
 
     public GuessResult VerifyLetterPosition(char letter, int index)
@@ -165,11 +159,6 @@
             return GuessResult.Contains;
 
         return GuessResult.None;
-    }
-
-    protected override void OnInitialized()
-    {
-        GameState.OnGameStart += HandleGameStart;
     }
 
     protected override async Task OnInitializedAsync()
@@ -192,11 +181,4 @@
 
         Word = word;
     }
-    private void HandleGameStart(object? obj, EventArgs e)
-    {
-        CloseModal();
-        StateHasChanged();
-    }
-
-
 }
