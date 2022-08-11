@@ -29,7 +29,6 @@
     private bool ShowModal { get; set; }
     private Word Word { get; set; } = null!;
 
-    public int CurrentGuess => Guesses.Count;
     public bool IsGameOver { get; private set; }
 
     public void AddLetter(char letter)
@@ -82,7 +81,12 @@
     {
         return Guesses.Any(g => g.Contains(letter));
     }
-    
+
+    public bool IsCurrentGuess(int guessNumber)
+    {
+        return Guesses.Count == guessNumber;
+    }
+
     public bool IsValidGuess(string word)
     {
         return word.Length == 5 && ValidWords.Contains(word, StringComparer.InvariantCultureIgnoreCase);

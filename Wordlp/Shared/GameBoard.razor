@@ -67,7 +67,7 @@
                 _ => string.Empty
             });
         }
-        else if (Game.CurrentGuess == rowIndex && letterIndex < Guess.Length)
+        else if (Game.IsCurrentGuess(rowIndex) && letterIndex < Guess.Length)
         {
             classes.Add("has-letter");
         }
@@ -79,7 +79,7 @@
     {
         List<string> classes = new() { "row" };
 
-        if (rowIndex == Game.CurrentGuess)
+        if (Game.IsCurrentGuess(rowIndex))
         {
             if (CurrentAnimation == Animations.Shake)
                 classes.Add("shake");
@@ -92,7 +92,7 @@
     {
         if (Game.GetGuessByIndex(rowIndex) is Guess previousGuess)
             return previousGuess.Letters[letterIndex].Value;
-        else if (Game.CurrentGuess == rowIndex && letterIndex < Guess.Length)
+        else if (Game.IsCurrentGuess(rowIndex) && letterIndex < Guess.Length)
             return Guess[letterIndex];
 
         return null;
