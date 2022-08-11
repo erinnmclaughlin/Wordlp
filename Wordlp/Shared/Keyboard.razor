@@ -14,7 +14,7 @@
         <div class="spacer"></div>
     </div>
     <div class="row">
-        <button type="button" style="flex: 1.5;" @onclick="Game.SubmitGuess">
+        <button type="button" style="flex: 1.5;" @onclick="GameContainer.SubmitGuess">
             ENTER
         </button>
         @foreach (var key in "ZXCVBNM")
@@ -34,7 +34,7 @@
     private const string Letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private ElementReference KeyboardReference { get; set; }
 
-    [CascadingParameter] private Game Game { get; set; } = null!;
+    [CascadingParameter] private GameContainer GameContainer { get; set; } = null!;
 
     [Parameter] public string Guess { get; set; } = null!;
     [Parameter] public EventCallback<string> GuessChanged { get; set; }
@@ -53,7 +53,7 @@
 
     private async Task AddLetter(char letter)
     {
-        if (Game.IsGameOver || Guess.Length >= GameSettings.WordLength)
+        if (GameContainer.IsGameOver || Guess.Length >= GameSettings.WordLength)
             return;
 
         await GuessChanged.InvokeAsync(Guess + letter);
@@ -61,7 +61,7 @@
 
     private async Task Backspace()
     {
-        if (Game.IsGameOver || Guess.Length == 0)
+        if (GameContainer.IsGameOver || Guess.Length == 0)
             return;
 
         await GuessChanged.InvokeAsync(Guess.Substring(0, Guess.Length - 1));
@@ -69,11 +69,11 @@
 
     private string GetKeyCss(char letter)
     {
-        if (!Game.HasBeenGuessed(letter)) return string.Empty;
+        if (!GameContainer.HasBeenGuessed(letter)) return string.Empty;
 
         List<string> classes = new() { "guessed" };
 
-        classes.Add(Game.GetLetterResult(letter) switch
+        classes.Add(GameContainer.GetLetterResult(letter) switch
         {
             GuessResult.Match => "match",
             GuessResult.Contains => "contains",
@@ -95,7 +95,7 @@
 
         if (key == "ENTER")
         {
-            await Game.SubmitGuess();
+            await GameContainer.SubmitGuess();
             return;
         }
 

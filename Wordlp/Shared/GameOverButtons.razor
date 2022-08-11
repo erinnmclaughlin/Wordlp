@@ -1,7 +1,7 @@
 ﻿<div style="display: flex; height: 200px">
     <div style="display: flex; margin: auto;">
         <div style="display: flex; gap: 0.5rem; flex-direction: column;">
-            <button class="restart-game-button" type="button" @onclick="Game.StartNewGame">
+            <button class="restart-game-button" type="button" @onclick="GameContainer.StartNewGame">
                 <span>
                     <i class="fa-solid fa-arrows-rotate" />
                 </span>
@@ -17,5 +17,5 @@
 </div>
 
 @code {
-    [CascadingParameter] private Game Game { get; set; } = null!;
+    [CascadingParameter] private GameContainer GameContainer { get; set; } = null!;
 }
