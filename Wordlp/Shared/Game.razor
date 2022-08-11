@@ -13,7 +13,7 @@
     }
     else
     {
-        <Keyboard OnKeyPress="AddLetter" OnBackspace="Backspace" OnSubmit="SubmitGuess" />
+        <Keyboard @bind-Guess="@Guess" OnSubmit="SubmitGuess" />
     }
     
     @if (ShowModal)
@@ -29,23 +29,7 @@
     private bool ShowModal { get; set; }
     private Word Word { get; set; } = null!;
 
-    public bool IsGameOver { get; private set; }
-
-    public void AddLetter(char letter)
-    {
-        if (IsGameOver || Guess.Length >= 5)
-            return;
-
-        Guess += letter;
-    }
-
-    public void Backspace()
-    {
-        if (IsGameOver || Guess.Length == 0)
-            return;
-
-        Guess = Guess.Remove(Guess.Length - 1);
-    }
+    public bool IsGameOver { get; private set; }    
 
     public void CloseModal()
     {

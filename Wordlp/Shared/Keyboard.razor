@@ -2,14 +2,14 @@
     <div class="row">
         @foreach (var key in "QWERTYUIOP")
         {
-            <button class="@GetKeyCss(key)" type="button" @onclick="() => OnKeyPress.InvokeAsync(key)">@key</button>
+            <button class="@GetKeyCss(key)" type="button" @onclick="() => AddLetter(key)">@key</button>
         }
     </div>
     <div class="row">
         <div class="spacer"></div>
         @foreach (var key in "ASDFGHJKL")
         {
-            <button class="@GetKeyCss(key)" type="button" @onclick="() => OnKeyPress.InvokeAsync(key)">@key</button>
+            <button class="@GetKeyCss(key)" type="button" @onclick="() => AddLetter(key)">@key</button>
         }
         <div class="spacer"></div>
     </div>
@@ -19,9 +19,9 @@
         </button>
         @foreach (var key in "ZXCVBNM")
         {
-            <button class="@GetKeyCss(key)" type="button" @onclick="() => OnKeyPress.InvokeAsync(key)">@key</button>
+            <button class="@GetKeyCss(key)" type="button" @onclick="() => AddLetter(key)">@key</button>
         }
-        <button type="button" style="flex: 1.5;" @onclick="OnBackspace">
+        <button type="button" style="flex: 1.5;" @onclick="Backspace">
             <span>
                 <i class="fa-solid fa-delete-left fa-xl" />
             </span>
@@ -35,8 +35,9 @@
     private ElementReference KeyboardReference { get; set; }
 
     [CascadingParameter] private Game Game { get; set; } = null!;
-    [Parameter] public EventCallback<char> OnKeyPress { get; set; }
-    [Parameter] public EventCallback OnBackspace { get; set; }
+
+    [Parameter] public string Guess { get; set; } = null!;
+    [Parameter] public EventCallback<string> GuessChanged { get; set; }
     [Parameter] public EventCallback OnSubmit { get; set; }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -49,6 +50,22 @@
     public async Task FocusKeyboard()
     {
         await KeyboardReference.FocusAsync();
+    }
+
+    private async Task AddLetter(char letter)
+    {
+        if (Game.IsGameOver || Guess.Length >= GameSettings.WordLength)
+            return;
+
+        await GuessChanged.InvokeAsync(Guess + letter);
+    }
+
+    private async Task Backspace()
+    {
+        if (Game.IsGameOver || Guess.Length == 0)
+            return;
+
+        await GuessChanged.InvokeAsync(Guess.Substring(0, Guess.Length - 1));
     }
 
     private string GetKeyCss(char letter)
@@ -73,7 +90,7 @@
 
         if (key == "BACKSPACE")
         {
-            await OnBackspace.InvokeAsync();
+            await Backspace();
             return;
         }
 
@@ -85,7 +102,7 @@
 
         if (Letters.Contains(key))
         {
-            await OnKeyPress.InvokeAsync(key[0]);
+            await AddLetter(key[0]);
             return;
         }
     }
