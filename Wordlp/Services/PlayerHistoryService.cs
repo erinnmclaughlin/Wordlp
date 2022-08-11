@@ -20,7 +20,7 @@ public class PlayerHistoryService
         return await LocalStorage.GetItemAsync<List<GameResult>>(Key) ?? new();
     }
 
-    public async Task SubmitAttempt(Word word, int attemptCount)
+    public async Task SaveAttempt(Word word, int attemptCount)
     {
         var history = await GetHistory();
         var lastResult = history.FirstOrDefault(h => h.Word.Value == word.Value);

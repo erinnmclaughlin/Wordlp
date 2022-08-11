@@ -40,7 +40,7 @@
     public async Task GameOver()
     {
         IsGameOver = true;
-        await PlayerHistory.SubmitAttempt(Word, Guesses.Count);
+        await PlayerHistory.SaveAttempt(Word, Guesses.Count);
     }
 
     public Guess? GetGuessByIndex(int index)
