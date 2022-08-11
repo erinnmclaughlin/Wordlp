@@ -5,7 +5,7 @@
 
 <div id="wordlp" class="@(DarkMode.IsEnabled ? "dark-mode" : "")">
     
-    <GameHeader IsDarkMode="DarkMode.IsEnabled" OnToggleDarkMode="() => DarkMode.Toggle()" />
+    <AppHeader IsDarkMode="DarkMode.IsEnabled" OnToggleDarkMode="() => DarkMode.Toggle()" />
 
     <main style="height: @(Height)px; max-height: @(Height)px;">
         @if (CurrentPage == GamePages.Game)
