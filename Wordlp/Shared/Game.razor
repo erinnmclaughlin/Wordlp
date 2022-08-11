@@ -13,7 +13,7 @@
     }
     else
     {
-        <Keyboard @bind-Guess="@Guess" OnSubmit="SubmitGuess" />
+        <Keyboard @bind-Guess="@Guess" />
     }
     
     @if (ShowModal)
@@ -127,6 +127,8 @@
 
         if (IsGameOver)
             ShowModal = true;
+
+        StateHasChanged();
     }
 
     public async Task StartNewGame()

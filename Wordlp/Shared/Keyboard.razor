@@ -14,7 +14,7 @@
         <div class="spacer"></div>
     </div>
     <div class="row">
-        <button type="button" style="flex: 1.5;" @onclick="OnSubmit">
+        <button type="button" style="flex: 1.5;" @onclick="Game.SubmitGuess">
             ENTER
         </button>
         @foreach (var key in "ZXCVBNM")
@@ -38,7 +38,6 @@
 
     [Parameter] public string Guess { get; set; } = null!;
     [Parameter] public EventCallback<string> GuessChanged { get; set; }
-    [Parameter] public EventCallback OnSubmit { get; set; }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -96,7 +95,7 @@
 
         if (key == "ENTER")
         {
-            await OnSubmit.InvokeAsync();
+            await Game.SubmitGuess();
             return;
         }
 
