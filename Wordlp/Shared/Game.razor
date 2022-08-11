@@ -5,7 +5,7 @@
 <PageTitle>Word-LP</PageTitle>
 
 <CascadingValue Value="GameService">
-    <GameBoard Guess="@Guess" PlayShakeAnimation="PlayShakeAnimation" />
+    <GameBoard Guess="@Guess" />
     @if (GameService.IsGameOver)
     {
         <GameOverButtons />
@@ -25,7 +25,6 @@
 
     private string Guess { get; set; } = string.Empty;
     private bool ShowModal { get; set; }
-    private bool PlayShakeAnimation { get; set; }
 
     public void AddLetter(char letter)
     {
@@ -56,10 +55,7 @@
 
         if (!GameService.IsValidGuess(Guess))
         {
-            PlayShakeAnimation = true;
-            StateHasChanged();
-            await Task.Delay(500);
-            PlayShakeAnimation = false;
+            GameState.NotifyInvalidSubmit();
             return;
         }
 

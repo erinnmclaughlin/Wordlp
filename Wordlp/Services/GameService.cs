@@ -3,10 +3,7 @@
 namespace Wordlp.Services;
 
 public class GameService
-{
-    public const int MaxGuesses = 6;
-    public const int WordLength = 5;
-   
+{   
     private GameState GameState { get; }
     private PlayerHistoryService PlayerHistory { get; }
     private ValidWords ValidWords { get; }
@@ -17,7 +14,7 @@ public class GameService
 
     public int CurrentGuess => Guesses.Count;
     public bool IsGameOver { get; private set; }
-    public int RemainingGuesses => MaxGuesses - CurrentGuess;
+    public int RemainingGuesses => GameSettings.MaxGuesses - CurrentGuess;
 
     public GameService(GameState gameState, PlayerHistoryService playerHistory, ValidWords validWords, WordCollection words)
     {
@@ -99,7 +96,7 @@ public class GameService
         var guess = new Guess(letters);
         Guesses.Add(guess);
 
-        if (Guesses.Count == MaxGuesses || guess.IsWin())
+        if (Guesses.Count == GameSettings.MaxGuesses || guess.IsWin())
             await GameOver();
     }
 
