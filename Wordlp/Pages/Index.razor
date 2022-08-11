@@ -1,54 +1,44 @@
 ﻿@page "/"
-@using Microsoft.AspNetCore.WebUtilities
 @inject BrowserResizeService Browser
 @inject DarkModeService DarkMode
-@inject NavigationManager NavigationManager
 @implements IDisposable
 
-<CascadingValue Value="CurrentPage">
-    <div id="wordlp" class="@(DarkMode.IsEnabled ? "dark-mode" : "")">
+<div id="wordlp" class="@(DarkMode.IsEnabled ? "dark-mode" : "")">
     
-        <GameHeader IsDarkMode="DarkMode.IsEnabled" OnToggleDarkMode="() => DarkMode.Toggle()" />
+    <GameHeader IsDarkMode="DarkMode.IsEnabled" OnToggleDarkMode="() => DarkMode.Toggle()" />
 
-        <main style="height: @(Height)px; max-height: @(Height)px;">
-            @if (CurrentPage == GamePages.Game)
-            {
-                <GameContainer />
-            }
-            else if (CurrentPage == GamePages.History)
-            {
-                <History />
-            }
-        </main>
+    <main style="height: @(Height)px; max-height: @(Height)px;">
+        @if (CurrentPage == GamePages.Game)
+        {
+            <GameContainer />
+        }
+        else if (CurrentPage == GamePages.History)
+        {
+            <History />
+        }
+    </main>
 
-    </div>
-</CascadingValue>
+</div>
 
 
 @code {
 
+    [CascadingParameter] private GamePages CurrentPage { get; set; }
+
     private int Height { get; set; }
-    private GamePages CurrentPage { get; set; } = GamePages.Game;
 
     public void Dispose()
     {
-        NavigationManager.LocationChanged -= HandleNavigation;
         BrowserResizeService.OnResize -= ResetHeight;
         GC.SuppressFinalize(this);
     }
 
     protected override async Task OnInitializedAsync()
     {
-        NavigationManager.LocationChanged += HandleNavigation;
         BrowserResizeService.OnResize += ResetHeight;
 
         await ResetHeight();
         await DarkMode.InitializeAsync();
-    }
-
-    protected override void OnParametersSet()
-    {
-        UpdatePage();
     }
 
     private async Task ResetHeight()
@@ -56,27 +46,5 @@
         Height = (await Browser.GetInnerHeight()) - 40;
         StateHasChanged();
     }
-
-    private void HandleNavigation(object? o, LocationChangedEventArgs e)
-    {
-        UpdatePage();
-        StateHasChanged();
-    }
-
-    private void UpdatePage()
-    {
-        var values = QueryHelpers.ParseNullableQuery(NavigationManager.ToAbsoluteUri(NavigationManager.Uri).Query);
-
-        if (values?.TryGetValue("page", out var value) != true)
-        {
-            CurrentPage = GamePages.Game;
-            return;
-        }
-
-        CurrentPage = value.ToString().ToLower().Trim() switch
-        {
-            "history" => GamePages.History,
-            _ => GamePages.Game
-        };
-    }
+    
 }
