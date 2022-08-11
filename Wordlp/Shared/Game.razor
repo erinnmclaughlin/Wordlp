@@ -62,17 +62,12 @@
         return Guesses.Count == guessNumber;
     }
 
-    public bool IsValidGuess(string word)
-    {
-        return word.Length == 5 && ValidWords.Contains(word, StringComparer.InvariantCultureIgnoreCase);
-    }
-
     public async Task SubmitGuess()
     {
         if (IsGameOver) 
             return;
 
-        if (!IsValidGuess(Guess))
+        if (!ValidWords.IsValid(Guess))
         {
             GameState.NotifyInvalidSubmit();
             return;
