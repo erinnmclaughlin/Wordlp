@@ -34,7 +34,7 @@
     private int Width { get; set; }
 
 
-    [CascadingParameter] private GameService Game { get; set; } = null!;
+    [CascadingParameter] private Game Game { get; set; } = null!;
     [Parameter] public string Guess { get; set; } = string.Empty;
 
     private Animations CurrentAnimation { get; set; } = Animations.None;
@@ -90,7 +90,7 @@
 
     private char? GetCellValue(int rowIndex, int letterIndex)
     {
-        if (Game.Guesses.ElementAtOrDefault(rowIndex) is Guess previousGuess)
+        if (Game.GetGuessByIndex(rowIndex) is Guess previousGuess)
             return previousGuess.Letters[letterIndex].Value;
         else if (Game.CurrentGuess == rowIndex && letterIndex < Guess.Length)
             return Guess[letterIndex];

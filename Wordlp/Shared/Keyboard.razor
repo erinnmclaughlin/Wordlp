@@ -1,6 +1,4 @@
-﻿@inject GameService GameService
-
-<div @ref="KeyboardReference" tabindex="0" class="keyboard" @onkeydown="HandleKeyPress" @onblur="FocusKeyboard">
+﻿<div @ref="KeyboardReference" tabindex="0" class="keyboard" @onkeydown="HandleKeyPress" @onblur="FocusKeyboard">
     <div class="row">
         @foreach (var key in "QWERTYUIOP")
         {
@@ -36,6 +34,7 @@
     private const string Letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private ElementReference KeyboardReference { get; set; }
 
+    [CascadingParameter] private Game Game { get; set; } = null!;
     [Parameter] public EventCallback<char> OnKeyPress { get; set; }
     [Parameter] public EventCallback OnBackspace { get; set; }
     [Parameter] public EventCallback OnSubmit { get; set; }
@@ -49,17 +48,16 @@
 
     public async Task FocusKeyboard()
     {
-        if (!GameService.IsGameOver)
-            await KeyboardReference.FocusAsync();
+        await KeyboardReference.FocusAsync();
     }
 
     private string GetKeyCss(char letter)
     {
-        if (!GameService.HasBeenGuessed(letter)) return string.Empty;
+        if (!Game.HasBeenGuessed(letter)) return string.Empty;
 
         List<string> classes = new() { "guessed" };
 
-        classes.Add(GameService.GetLetterResult(letter) switch
+        classes.Add(Game.GetLetterResult(letter) switch
         {
             GuessResult.Match => "match",
             GuessResult.Contains => "contains",
