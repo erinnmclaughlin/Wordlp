@@ -1,15 +1,27 @@
-﻿@inherits LayoutComponentBase
+﻿@page "/"
 
 <div id="wordlp" class="@(DarkMode.IsEnabled ? "dark-mode" : "")">
 
     <AppHeader />
         
     <main style="height: @(AppDimensions.Height)px; max-height: @(AppDimensions.Height)px;">
-        @Body
+        @if (CurrentPage == GamePages.Game)
+        {
+            <GameContainer />
+        }
+        else if (CurrentPage == GamePages.History)
+        {
+            <History />
+        }
+        else
+        {
+            <RedirectTo Uri="?" />
+        }
     </main>
 </div>
 
 @code {
     [CascadingParameter] private AppDimensions AppDimensions { get; set; } = null!;
+    [CascadingParameter] private GamePages CurrentPage { get; set; }
     [CascadingParameter] private DarkModeService DarkMode { get; set; } = null!;
 }

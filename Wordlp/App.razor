@@ -3,7 +3,7 @@
         <Router AppAssembly="@typeof(App).Assembly">
             <Found Context="routeData">
                 <FocusOnNavigate RouteData="@routeData" Selector="keyboard" />
-                <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+                <WordlpApp />
             </Found>
             <NotFound>
                 <PageTitle>Not found</PageTitle>
