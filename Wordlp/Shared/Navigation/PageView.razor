@@ -1,0 +1,16 @@
+﻿@if (CurrentPage == GamePages.Game)
+{
+    <GameContainer />
+}
+else if (CurrentPage == GamePages.History)
+{
+    <History />
+}
+else
+{
+    <RedirectTo Uri="?" />
+}
+
+@code {
+    [CascadingParameter] private GamePages CurrentPage { get; set; }
+}
