@@ -6,7 +6,7 @@
 
 <CascadingValue Value="this">
     <GameBoard Guess="@Guess" />
-    @if (IsGameOver)
+    @if (Game.IsGameOver)
     {
         <GameOverButtons />
     }
@@ -24,12 +24,9 @@
     private string Guess { get; set; } = string.Empty;
     private Word Word { get; set; } = null!;
 
-    public bool IsGameOver { get; private set; }    
-
     public async Task GameOver()
     {
-        IsGameOver = true;
-        Game.NotifyGameOver();
+        Game.GameOver();
         await PlayerHistory.SaveAttempt(Word, Guesses.Count);
     }
 
@@ -63,7 +60,7 @@
 
     public async Task SubmitGuess()
     {
-        if (IsGameOver) 
+        if (Game.IsGameOver) 
             return;
 
         if (!Words.IsValid(Guess))
@@ -115,10 +112,9 @@
     public async Task StartNewGame()
     {
         Guesses = new();
-        IsGameOver = false;
         await GetNewWord();
 
-        Game.NotifyGameStart();
+        Game.NewGame();
         StateHasChanged();
     }
 

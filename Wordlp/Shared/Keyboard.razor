@@ -1,4 +1,6 @@
-﻿<div @ref="KeyboardReference" tabindex="0" class="keyboard" @onkeydown="HandleKeyPress" @onblur="FocusKeyboard">
+﻿@inject Game Game
+
+<div @ref="KeyboardReference" tabindex="0" class="keyboard" @onkeydown="HandleKeyPress" @onblur="FocusKeyboard">
     <div class="row">
         @foreach (var key in "QWERTYUIOP")
         {
@@ -53,7 +55,7 @@
 
     private async Task AddLetter(char letter)
     {
-        if (GameContainer.IsGameOver || Guess.Length >= GameSettings.WordLength)
+        if (Game.IsGameOver || Guess.Length >= GameSettings.WordLength)
             return;
 
         await GuessChanged.InvokeAsync(Guess + letter);
@@ -61,7 +63,7 @@
 
     private async Task Backspace()
     {
-        if (GameContainer.IsGameOver || Guess.Length == 0)
+        if (Game.IsGameOver || Guess.Length == 0)
             return;
 
         await GuessChanged.InvokeAsync(Guess.Substring(0, Guess.Length - 1));

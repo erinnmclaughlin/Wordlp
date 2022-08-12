@@ -6,13 +6,17 @@ public class Game
     public event EventHandler? OnGameStart;
     public event EventHandler? OnInvalidSubmit;
 
-    public void NotifyGameOver()
+    public bool IsGameOver { get; private set; }
+
+    public void GameOver()
     {
+        IsGameOver = true;
         OnGameOver?.Invoke(this, EventArgs.Empty);
     }
 
-    public void NotifyGameStart()
+    public void NewGame()
     {
+        IsGameOver = false;
         OnGameStart?.Invoke(this, EventArgs.Empty);
     }
 
