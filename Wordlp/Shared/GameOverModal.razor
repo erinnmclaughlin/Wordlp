@@ -11,9 +11,9 @@
             <i class="fa-solid fa-close fa-xl" />
         </button>
 
-        <div class="solution">@Word.Value</div>
+        <div class="solution">@Game.Solution.Value</div>
         <div class="modal-content">
-            <p>@Word.Description</p>
+            <p>@Game.Solution.Description</p>
         </div>
 
         <GameOverButtons />
@@ -21,8 +21,6 @@
 }
 
 @code {
-
-    [Parameter, EditorRequired] public Word Word { get; set; } = null!;
 
     private bool IsActive { get; set; }
 
@@ -40,8 +38,17 @@
         NavigationManager.LocationChanged += OnLocationChanged;
     }
 
-    private void Close() => IsActive = false;
-    private void Show() => IsActive = true;
+    public void Close()
+    {
+        IsActive = false;
+        StateHasChanged();
+    }
+
+    private void Show()
+    {
+        IsActive = true;
+        StateHasChanged();
+    }
 
     private void OnGameOver(object? o, EventArgs e) => Show();
     private void OnGameStart(object? o, EventArgs e) => Close();

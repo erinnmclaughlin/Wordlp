@@ -1,43 +1,40 @@
 ﻿@inject Game Game
 @inject PlayerHistoryService PlayerHistory
 @inject WordCollection Words
+@implements IDisposable
 
 <PageTitle>Word-LP</PageTitle>
 
 <CascadingValue Value="this">
-    <GameBoard Guess="@Guess" />
+    <GameBoard Guess="@Game.Guess" />
     @if (Game.IsGameOver)
     {
         <GameOverButtons />
     }
     else
     {
-        <Keyboard @bind-Guess="@Guess" />
+        <Keyboard @bind-Guess="@Game.Guess" />
     }
     
-    <GameOverModal Word="Word" />
+    <GameOverModal />
 </CascadingValue>
 
 @code {
 
-    private List<Guess> Guesses { get; set; } = new();
-    private string Guess { get; set; } = string.Empty;
-    private Word Word { get; set; } = null!;
-
-    public async Task GameOver()
+    public void Dispose()
     {
-        Game.GameOver();
-        await PlayerHistory.SaveAttempt(Word, Guesses.Count);
+        Game.OnGameOver -= OnGameOver;
+        Game.OnGameStart -= OnGameStart;
     }
 
     public Guess? GetGuessByIndex(int index)
     {
-        return Guesses.ElementAtOrDefault(index);
+        return Game.Guesses.ElementAtOrDefault(index);
     }
 
     public GuessResult GetLetterResult(char letter)
     {
-        var letters = Guesses.SelectMany(g => g.Letters.Where(l => l.Value == letter));
+        var letters = Game.Guesses.SelectMany(g => g.Letters.Where(l => l.Value == letter));
 
         if (letters.Any(l => l.Result == GuessResult.Match))
             return GuessResult.Match;
@@ -50,20 +47,20 @@
 
     public bool HasBeenGuessed(char letter)
     {
-        return Guesses.Any(g => g.Contains(letter));
+        return Game.Guesses.Any(g => g.Contains(letter));
     }
 
     public bool IsCurrentGuess(int guessNumber)
     {
-        return Guesses.Count == guessNumber;
+        return Game.Guesses.Count == guessNumber;
     }
 
-    public async Task SubmitGuess()
+    public void SubmitGuess()
     {
         if (Game.IsGameOver) 
             return;
 
-        if (!Words.IsValid(Guess))
+        if (!Words.IsValid(Game.Guess))
         {
             Game.NotifyInvalidSubmit();
             return;
@@ -71,26 +68,26 @@
 
         List<GuessedLetter> letters = new();
 
-        for (int i = 0; i < Guess.Length; i++)
+        for (int i = 0; i < Game.Guess.Length; i++)
         {
-            var letter = Guess[i];
+            var letter = Game.Guess[i];
 
             /* No match */
-            if (!Word.Value.Contains(letter))
+            if (!Game.Solution.Value.Contains(letter))
             {
                 letters.Add(new GuessedLetter(letter, GuessResult.None));
                 continue;
             }
 
             /* Exact match */
-            if (Word.Value[i] == letter)
+            if (Game.Solution.Value[i] == letter)
             {
                 letters.Add(new GuessedLetter(letter, GuessResult.Match));
                 continue;
             }
 
             /* Partial match */
-            if (Word.GetLetters().Any(l => l.Value == letter && Guess[l.Index] != l.Value))
+            if (Game.Solution.GetLetters().Any(l => l.Value == letter && Game.Guess[l.Index] != l.Value))
             {
                 letters.Add(new GuessedLetter(letter, GuessResult.Contains));
                 continue;
@@ -100,53 +97,44 @@
         }
 
         var guess = new Guess(letters);
-        Guesses.Add(guess);
+        Game.Guesses.Add(guess);
 
-        if (Guesses.Count == GameSettings.MaxGuesses || guess.IsWin())
-            await GameOver();
+        if (Game.Guesses.Count == GameSettings.MaxGuesses || guess.IsWin())
+            Game.GameOver();
 
-        Guess = string.Empty;
-        StateHasChanged();
-    }
-
-    public async Task StartNewGame()
-    {
-        Guesses = new();
-        await GetNewWord();
-
-        Game.NewGame();
+        Game.Guess = string.Empty;
         StateHasChanged();
     }
 
     public GuessResult VerifyLetterPosition(char letter, int index)
     {
-        if (Word.Value[index] == letter)
+        if (Game.Solution.Value[index] == letter)
             return GuessResult.Match;
 
-        if (Word.Value.Contains(letter))
+        if (Game.Solution.Value.Contains(letter))
             return GuessResult.Contains;
 
         return GuessResult.None;
     }
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-        await StartNewGame();
+        Game.OnGameOver += OnGameOver;
+        Game.OnGameStart += OnGameStart;
     }
 
-    private async Task GetNewWord()
+    protected override async Task OnInitializedAsync()
     {
-        var guessedWords = await PlayerHistory.GetHistory();
-        var unguessedWords = Words.Answers.Where(w => !guessedWords.Any(g => g.Word.Value == w.Value));
+        await Game.NewGame();
+    }
 
-        if (unguessedWords.Any() == false)
-            unguessedWords = Words.Answers;
+    private async void OnGameOver(object? o, EventArgs e)
+    {
+        await PlayerHistory.SaveAttempt(Game.Solution, Game.Guesses.Count);
+    }
 
-        var randomIndex = new Random().Next(0, unguessedWords.Count() - 1);
-        var word = unguessedWords.ElementAt(randomIndex);
-
-        Console.WriteLine(word.Value);
-
-        Word = word;
+    private void OnGameStart(object? o, EventArgs e)
+    {
+        StateHasChanged();
     }
 }
