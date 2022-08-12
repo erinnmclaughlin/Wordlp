@@ -1,6 +1,6 @@
 ﻿<header class="app-header">
     <div class="header-start">
-        @if (CurrentPage != GamePages.Game)
+        @if (CurrentPage != AppPages.Game)
         {
             <a class="icon-button" href="?">
                 <i class="fa-solid fa-arrow-left fa-lg" />
@@ -9,7 +9,7 @@
     </div>
     <div class="app-title"><a href="?">@GetAppTitle()</a></div>
     <div class="header-end">
-        @if (CurrentPage != GamePages.History)
+        @if (CurrentPage != AppPages.History)
         {
             <a class="icon-button" href="?page=history">
                 <i class="fa-solid fa-clock-rotate-left fa-lg" />
@@ -23,14 +23,14 @@
 
 @code {
 
-    [CascadingParameter] private GamePages CurrentPage { get; set; }
+    [CascadingParameter] private AppPages CurrentPage { get; set; }
     [CascadingParameter] public DarkModeService DarkMode { get; set; } = null!;
 
     private string GetAppTitle()
     {
         return CurrentPage switch
         {
-            GamePages.History => "HISTORY",
+            AppPages.History => "HISTORY",
             _ => "WORDLP"
         };
     }

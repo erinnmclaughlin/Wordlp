@@ -10,7 +10,7 @@
 
     [Parameter] public RenderFragment? ChildContent { get; set; }
 
-    private GamePages CurrentPage { get; set; }
+    private AppPages CurrentPage { get; set; }
 
     public void Dispose()
     {
@@ -35,14 +35,14 @@
 
         if (values?.TryGetValue("page", out var value) != true)
         {
-            CurrentPage = GamePages.Game;
+            CurrentPage = AppPages.Game;
             return;
         }
 
         CurrentPage = value.ToString().ToLower().Trim() switch
         {
-            "history" => GamePages.History,
-            _ => GamePages.Game
+            "history" => AppPages.History,
+            _ => AppPages.Game
         };
     }
 }

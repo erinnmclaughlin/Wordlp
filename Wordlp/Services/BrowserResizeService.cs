@@ -2,7 +2,7 @@
 
 namespace Wordlp.Services;
 
-// https://github.com/chrissainty/BlazorBrowserResize/blob/master/BrowserResize/BrowserResize/BrowserResizeService.cs
+/* https://github.com/chrissainty/BlazorBrowserResize/blob/master/BrowserResize/BrowserResize/BrowserResizeService.cs */
 public class BrowserResizeService
 {
     private IJSRuntime Js { get; }

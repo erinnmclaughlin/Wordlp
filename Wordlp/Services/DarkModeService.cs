@@ -1,10 +1,11 @@
 ﻿using Blazored.LocalStorage;
+using Wordlp.Shared.Settings;
 
 namespace Wordlp.Services;
 
 public class DarkModeService
 {
-    private const string Key = "darkMode";
+    private const string Key = LocalStorageSettings.Keys.DarkMode;
 
     private ILocalStorageService LocalStorage { get; }
 
@@ -30,8 +31,6 @@ public class DarkModeService
 
     public async Task InitializeAsync()
     {
-        await LocalStorage.RemoveItemAsync("wordlp-DarkMode");
-
         if (!await LocalStorage.ContainKeyAsync(Key))
             await Enable();
         else

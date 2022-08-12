@@ -1,11 +1,13 @@
 ﻿using Blazored.LocalStorage;
 using Wordlp.Models;
+using Wordlp.Shared.Settings;
 
 namespace Wordlp.Services;
 
 public class PlayerHistoryService
 {
-    private const string Key = "playerHistory";
+    private const string Key = LocalStorageSettings.Keys.PlayerHistory;
+
     private ILocalStorageService LocalStorage { get; }
 
     public PlayerHistoryService(ILocalStorageService localStorage)
@@ -15,8 +17,6 @@ public class PlayerHistoryService
 
     public async Task<List<GameResult>> GetHistory()
     {
-        await LocalStorage.RemoveItemAsync("wordlp-History");
-
         return await LocalStorage.GetItemAsync<List<GameResult>>(Key) ?? new();
     }
 

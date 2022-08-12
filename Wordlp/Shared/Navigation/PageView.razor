@@ -1,8 +1,8 @@
-﻿@if (CurrentPage == GamePages.Game)
+﻿@if (CurrentPage == AppPages.Game)
 {
     <GameContainer />
 }
-else if (CurrentPage == GamePages.History)
+else if (CurrentPage == AppPages.History)
 {
     <History />
 }
@@ -12,5 +12,5 @@ else
 }
 
 @code {
-    [CascadingParameter] private GamePages CurrentPage { get; set; }
+    [CascadingParameter] private AppPages CurrentPage { get; set; }
 }
