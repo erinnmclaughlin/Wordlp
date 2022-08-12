@@ -1,6 +1,5 @@
 ﻿@inject GameState GameState
 @inject PlayerHistoryService PlayerHistory
-@inject ValidWords ValidWords
 @inject WordCollection Words
 
 <PageTitle>Word-LP</PageTitle>
@@ -67,7 +66,7 @@
         if (IsGameOver) 
             return;
 
-        if (!ValidWords.IsValid(Guess))
+        if (!Words.IsValid(Guess))
         {
             GameState.NotifyInvalidSubmit();
             return;
@@ -142,10 +141,10 @@
     private async Task GetNewWord()
     {
         var guessedWords = await PlayerHistory.GetHistory();
-        var unguessedWords = Words.Words.Where(w => !guessedWords.Any(g => g.Word.Value == w.Value));
+        var unguessedWords = Words.Answers.Where(w => !guessedWords.Any(g => g.Word.Value == w.Value));
 
         if (unguessedWords.Any() == false)
-            unguessedWords = Words.Words;
+            unguessedWords = Words.Answers;
 
         var randomIndex = new Random().Next(0, unguessedWords.Count() - 1);
         var word = unguessedWords.ElementAt(randomIndex);

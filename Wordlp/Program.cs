@@ -14,11 +14,9 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 var http = new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) };
 
 // register services
-var validGuesses = await LoadValidGuesses();
 var words = await LoadWords();
 
 builder.Services.AddScoped(_ => http);
-builder.Services.AddSingleton(_ => validGuesses);
 builder.Services.AddSingleton(_ => words);
 builder.Services.AddScoped<BrowserResizeService>();
 builder.Services.AddScoped<DarkModeService>();
@@ -30,15 +28,17 @@ await builder.Build().RunAsync();
 
 async Task<WordCollection> LoadWords()
 {
-    using var response = await http.GetAsync(Path.Combine("data", "words_v2.json"));
-    return await response.Content.ReadFromJsonAsync<WordCollection>(new JsonSerializerOptions
+    var jsonOptions = new JsonSerializerOptions
     {
         PropertyNameCaseInsensitive = true
-    }) ?? new();
-}
+    };
 
-async Task<ValidWords> LoadValidGuesses()
-{
-    using var response = await http.GetAsync(Path.Combine("data", "valid.json"));
-    return await response.Content.ReadFromJsonAsync<ValidWords>() ?? new();
+    var answers = await http.GetAsync(Path.Combine("data", "words_v2.json"));
+    var validWords = await http.GetAsync(Path.Combine("data", "valid.json"));
+
+    return new WordCollection
+    {
+        Answers = await answers.Content.ReadFromJsonAsync<List<Word>>(jsonOptions) ?? new(),
+        ValidWords = await validWords.Content.ReadFromJsonAsync<List<string>>(jsonOptions) ?? new()
+    };
 }
