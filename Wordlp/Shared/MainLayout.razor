@@ -1,2 +1,15 @@
 ﻿@inherits LayoutComponentBase
-@Body
+
+<div id="wordlp" class="@(DarkMode.IsEnabled ? "dark-mode" : "")">
+
+    <AppHeader />
+        
+    <main style="height: @(AppDimensions.Height)px; max-height: @(AppDimensions.Height)px;">
+        @Body
+    </main>
+</div>
+
+@code {
+    [CascadingParameter] private AppDimensions AppDimensions { get; set; } = null!;
+    [CascadingParameter] private DarkModeService DarkMode { get; set; } = null!;
+}

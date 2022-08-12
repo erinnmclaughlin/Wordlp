@@ -38,15 +38,10 @@
     font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
-html, body, #app, #wordlp {
+html, body, #app {
     height: min(100%, 100vh);
     height: -webkit-fill-available;
     overflow: hidden;
-}
-
-#wordlp {
-    background-color: var(--slate-200);
-    color: var(--slate-700);
 }
 
 button {
@@ -63,11 +58,6 @@ a {
 }
 
 /* Dark Mode */
-#wordlp.dark-mode {
-    background-color: var(--slate-900);
-    color: var(--slate-300);
-}
-
 .dark-mode button {
     color: var(--slate-300);
 }

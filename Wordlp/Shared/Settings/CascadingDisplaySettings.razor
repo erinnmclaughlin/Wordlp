@@ -16,24 +16,36 @@
 
     protected override void OnInitialized()
     {
-        BrowserResizeService.OnResize += ResetHeight;
+        BrowserResizeService.OnResize += OnResize;
+        DarkMode.OnToggle += OnToggleDarkMode;
     }
 
     protected override async Task OnInitializedAsync()
     {
         await DarkMode.InitializeAsync();
-        await ResetHeight();
+        await UpdateAppDimensions();
     }
 
     public void Dispose()
     {
-        BrowserResizeService.OnResize -= ResetHeight;
+        BrowserResizeService.OnResize -= OnResize;
+        DarkMode.OnToggle -= OnToggleDarkMode;
     }
 
-    private async Task ResetHeight()
+    private void OnToggleDarkMode(object? o, bool value)
+    {
+        StateHasChanged();
+    }
+
+    private async Task OnResize()
+    {
+        await UpdateAppDimensions();
+        StateHasChanged();
+    }
+
+    private async Task UpdateAppDimensions()
     {
         var height = (await Browser.GetInnerHeight()) - 40;
         AppDimensions = new() { Height = height };
-        StateHasChanged();
     }
 }

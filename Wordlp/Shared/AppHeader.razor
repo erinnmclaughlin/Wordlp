@@ -15,8 +15,8 @@
                 <i class="fa-solid fa-clock-rotate-left fa-lg" />
             </a>
         }       
-        <button class="icon-button" @onclick="OnToggleDarkMode">
-            <i class="@(IsDarkMode ? "fa-solid" : "fa-regular") fa-moon fa-xl" />
+        <button class="icon-button" @onclick="() => DarkMode.Toggle()">
+            <i class="@(DarkMode.IsEnabled ? "fa-solid" : "fa-regular") fa-moon fa-xl" />
         </button>
     </div>        
 </header>
@@ -24,8 +24,7 @@
 @code {
 
     [CascadingParameter] private GamePages CurrentPage { get; set; }
-    [Parameter] public EventCallback OnToggleDarkMode { get; set; }
-    [Parameter] public bool IsDarkMode { get; set; }
+    [CascadingParameter] public DarkModeService DarkMode { get; set; } = null!;
 
     private string GetAppTitle()
     {

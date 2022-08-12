@@ -8,7 +8,20 @@ public class DarkModeService
 
     private ILocalStorageService LocalStorage { get; }
 
-    public bool IsEnabled { get; private set; }
+    private bool _isEnabled;
+    public bool IsEnabled
+    {
+        get => _isEnabled;
+        set
+        {
+            if (_isEnabled == value) return;
+
+            _isEnabled = value;
+            OnToggle?.Invoke(this, value);
+        }
+    }
+
+    public event EventHandler<bool>? OnToggle;
 
     public DarkModeService(ILocalStorageService localStorage)
     {

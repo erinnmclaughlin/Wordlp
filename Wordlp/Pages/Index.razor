@@ -1,29 +1,18 @@
 ﻿@page "/"
 
-<div id="wordlp" class="@(DarkMode.IsEnabled ? "dark-mode" : "")">
-    
-    <AppHeader IsDarkMode="DarkMode.IsEnabled" OnToggleDarkMode="() => DarkMode.Toggle()" />
-
-    <main style="height: @(AppDimensions.Height)px; max-height: @(AppDimensions.Height)px;">
-        @if (CurrentPage == GamePages.Game)
-        {
-            <GameContainer />
-        }
-        else if (CurrentPage == GamePages.History)
-        {
-            <History />
-        }
-        else
-        {
-            <RedirectTo Uri="?" />
-        }
-    </main>
-
-</div>
-
+@if (CurrentPage == GamePages.Game)
+{
+    <GameContainer />
+}
+else if (CurrentPage == GamePages.History)
+{
+    <History />
+}
+else
+{
+    <RedirectTo Uri="?" />
+}
 
 @code {
-    [CascadingParameter] private AppDimensions AppDimensions { get; set; } = null!;
     [CascadingParameter] private GamePages CurrentPage { get; set; }
-    [CascadingParameter] private DarkModeService DarkMode { get; set; } = null!;
 }
