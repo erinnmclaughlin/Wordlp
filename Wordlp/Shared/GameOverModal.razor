@@ -1,4 +1,4 @@
-﻿@inject GameState GameState
+﻿@inject Game Game
 @inject NavigationManager NavigationManager
 @implements IDisposable
 
@@ -28,15 +28,15 @@
 
     public void Dispose()
     {
-        GameState.OnGameOver -= OnGameOver;
-        GameState.OnGameStart -= OnGameStart;
+        Game.OnGameOver -= OnGameOver;
+        Game.OnGameStart -= OnGameStart;
         NavigationManager.LocationChanged -= OnLocationChanged;
     }
 
     protected override void OnInitialized()
     {
-        GameState.OnGameOver += OnGameOver;
-        GameState.OnGameStart += OnGameStart;
+        Game.OnGameOver += OnGameOver;
+        Game.OnGameStart += OnGameStart;
         NavigationManager.LocationChanged += OnLocationChanged;
     }
 

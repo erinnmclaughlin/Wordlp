@@ -1,6 +1,6 @@
 ﻿namespace Wordlp.Services;
 
-public class GameState
+public class Game
 {
     public event EventHandler? OnGameOver;
     public event EventHandler? OnGameStart;

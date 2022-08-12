@@ -1,4 +1,4 @@
-﻿@inject GameState GameState
+﻿@inject Game Game
 @inject PlayerHistoryService PlayerHistory
 @inject WordCollection Words
 
@@ -29,7 +29,7 @@
     public async Task GameOver()
     {
         IsGameOver = true;
-        GameState.NotifyGameOver();
+        Game.NotifyGameOver();
         await PlayerHistory.SaveAttempt(Word, Guesses.Count);
     }
 
@@ -68,7 +68,7 @@
 
         if (!Words.IsValid(Guess))
         {
-            GameState.NotifyInvalidSubmit();
+            Game.NotifyInvalidSubmit();
             return;
         }
 
@@ -118,7 +118,7 @@
         IsGameOver = false;
         await GetNewWord();
 
-        GameState.NotifyGameStart();
+        Game.NotifyGameStart();
         StateHasChanged();
     }
 

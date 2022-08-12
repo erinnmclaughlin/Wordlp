@@ -1,5 +1,5 @@
 ﻿@inject BrowserResizeService Browser
-@inject GameState GameState
+@inject Game Game
 @implements IDisposable
 
 <div class="board-container">
@@ -42,14 +42,14 @@
     public void Dispose()
     {
         BrowserResizeService.OnResize -= ResetHeight;
-        GameState.OnInvalidSubmit -= async (o, e) => await PlayShakeAnimation();
+        Game.OnInvalidSubmit -= async (o, e) => await PlayShakeAnimation();
         GC.SuppressFinalize(this);
     }
 
     protected override async Task OnInitializedAsync()
     {
         BrowserResizeService.OnResize += ResetHeight;
-        GameState.OnInvalidSubmit += async (o,e) => await PlayShakeAnimation();
+        Game.OnInvalidSubmit += async (o, e) => await PlayShakeAnimation();
         await ResetHeight();
     }
 
