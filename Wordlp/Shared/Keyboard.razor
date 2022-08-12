@@ -16,7 +16,7 @@
         <div class="spacer"></div>
     </div>
     <div class="row">
-        <button type="button" style="flex: 1.5;" @onclick="GameContainer.SubmitGuess">
+        <button type="button" style="flex: 1.5;" @onclick="() => Game.Submit(Guess)">
             ENTER
         </button>
         @foreach (var key in "ZXCVBNM")
@@ -45,7 +45,6 @@
     {
         if (firstRender)
             await FocusKeyboard();
-
     }
 
     public async Task FocusKeyboard()
@@ -97,7 +96,7 @@
 
         if (key == "ENTER")
         {
-            GameContainer.SubmitGuess();
+            Game.Submit(Guess);
             return;
         }
 

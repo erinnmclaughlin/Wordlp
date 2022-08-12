@@ -24,4 +24,9 @@ public class WordService
         var randomIndex = new Random().Next(0, words.Count() - 1);
         return words.ElementAt(randomIndex);
     }
+
+    public bool IsValid(string word)
+    {
+        return WordCollection.ValidWords.Contains(word, StringComparer.InvariantCultureIgnoreCase);
+    }
 }

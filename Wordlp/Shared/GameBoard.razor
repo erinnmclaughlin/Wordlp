@@ -27,29 +27,31 @@
     </div>
 </div>
 
-
 @code {
 
     private int Height { get; set; }
     private int Width { get; set; }
 
+    [Parameter] public string Guess { get; set; } = string.Empty;
+    [Parameter] public EventCallback<string> GuessChanged { get; set; }
 
     [CascadingParameter] private GameContainer GameContainer { get; set; } = null!;
-    [Parameter] public string Guess { get; set; } = string.Empty;
 
     private Animations CurrentAnimation { get; set; } = Animations.None;
 
     public void Dispose()
     {
         BrowserResizeService.OnResize -= ResetHeight;
-        Game.OnInvalidSubmit -= async (o, e) => await PlayShakeAnimation();
+        Game.OnInvalidSubmit -= OnInvalidSubmit;
+        Game.OnValidSubmit -= OnValidSubmit;
         GC.SuppressFinalize(this);
     }
 
     protected override async Task OnInitializedAsync()
     {
         BrowserResizeService.OnResize += ResetHeight;
-        Game.OnInvalidSubmit += async (o, e) => await PlayShakeAnimation();
+        Game.OnInvalidSubmit += OnInvalidSubmit;
+        Game.OnValidSubmit += OnValidSubmit;
         await ResetHeight();
     }
 
@@ -104,6 +106,9 @@
         Width = Height / 6 * 5;
         StateHasChanged();
     }
+
+    private async void OnInvalidSubmit(object? o, EventArgs e) => await PlayShakeAnimation();
+    private void OnValidSubmit(object? o, EventArgs e) => StateHasChanged();
 
     private async Task PlayShakeAnimation()
     {

@@ -6,14 +6,14 @@
 <PageTitle>Word-LP</PageTitle>
 
 <CascadingValue Value="this">
-    <GameBoard Guess="@Game.Guess" />
+    <GameBoard @bind-Guess="@Guess" />
     @if (Game.IsGameOver)
     {
         <GameOverButtons />
     }
     else
     {
-        <Keyboard @bind-Guess="@Game.Guess" />
+        <Keyboard @bind-Guess="@Guess" />
     }
     
     <GameOverModal />
@@ -21,10 +21,13 @@
 
 @code {
 
+    private string Guess { get; set; } = string.Empty;
+
     public void Dispose()
     {
         Game.OnGameOver -= OnGameOver;
         Game.OnGameStart -= OnGameStart;
+        Game.OnValidSubmit -= OnValidSubmit;
     }
 
     public Guess? GetGuessByIndex(int index)
@@ -55,57 +58,6 @@
         return Game.Guesses.Count == guessNumber;
     }
 
-    public void SubmitGuess()
-    {
-        if (Game.IsGameOver) 
-            return;
-
-        if (!Words.IsValid(Game.Guess))
-        {
-            Game.NotifyInvalidSubmit();
-            return;
-        }
-
-        List<GuessedLetter> letters = new();
-
-        for (int i = 0; i < Game.Guess.Length; i++)
-        {
-            var letter = Game.Guess[i];
-
-            /* No match */
-            if (!Game.Solution.Value.Contains(letter))
-            {
-                letters.Add(new GuessedLetter(letter, GuessResult.None));
-                continue;
-            }
-
-            /* Exact match */
-            if (Game.Solution.Value[i] == letter)
-            {
-                letters.Add(new GuessedLetter(letter, GuessResult.Match));
-                continue;
-            }
-
-            /* Partial match */
-            if (Game.Solution.GetLetters().Any(l => l.Value == letter && Game.Guess[l.Index] != l.Value))
-            {
-                letters.Add(new GuessedLetter(letter, GuessResult.Contains));
-                continue;
-            }
-
-            letters.Add(new GuessedLetter(letter, GuessResult.None));
-        }
-
-        var guess = new Guess(letters);
-        Game.Guesses.Add(guess);
-
-        if (Game.Guesses.Count == GameSettings.MaxGuesses || guess.IsWin())
-            Game.GameOver();
-
-        Game.Guess = string.Empty;
-        StateHasChanged();
-    }
-
     public GuessResult VerifyLetterPosition(char letter, int index)
     {
         if (Game.Solution.Value[index] == letter)
@@ -121,6 +73,7 @@
     {
         Game.OnGameOver += OnGameOver;
         Game.OnGameStart += OnGameStart;
+        Game.OnValidSubmit += OnValidSubmit;
     }
 
     protected override async Task OnInitializedAsync()
@@ -135,6 +88,13 @@
 
     private void OnGameStart(object? o, EventArgs e)
     {
+        Guess = string.Empty;
+        StateHasChanged();
+    }
+
+    private void OnValidSubmit(object? o, EventArgs e)
+    {
+        Guess = string.Empty;
         StateHasChanged();
     }
 }
