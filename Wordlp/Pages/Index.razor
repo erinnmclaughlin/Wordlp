@@ -1,13 +1,10 @@
 ﻿@page "/"
-@inject BrowserResizeService Browser
-@inject DarkModeService DarkMode
-@implements IDisposable
 
 <div id="wordlp" class="@(DarkMode.IsEnabled ? "dark-mode" : "")">
     
     <AppHeader IsDarkMode="DarkMode.IsEnabled" OnToggleDarkMode="() => DarkMode.Toggle()" />
 
-    <main style="height: @(Height)px; max-height: @(Height)px;">
+    <main style="height: @(AppDimensions.Height)px; max-height: @(AppDimensions.Height)px;">
         @if (CurrentPage == GamePages.Game)
         {
             <GameContainer />
@@ -26,29 +23,7 @@
 
 
 @code {
-
+    [CascadingParameter] private AppDimensions AppDimensions { get; set; } = null!;
     [CascadingParameter] private GamePages CurrentPage { get; set; }
-
-    private int Height { get; set; }
-
-    public void Dispose()
-    {
-        BrowserResizeService.OnResize -= ResetHeight;
-        GC.SuppressFinalize(this);
-    }
-
-    protected override async Task OnInitializedAsync()
-    {
-        BrowserResizeService.OnResize += ResetHeight;
-
-        await ResetHeight();
-        await DarkMode.InitializeAsync();
-    }
-
-    private async Task ResetHeight()
-    {
-        Height = (await Browser.GetInnerHeight()) - 40;
-        StateHasChanged();
-    }
-    
+    [CascadingParameter] private DarkModeService DarkMode { get; set; } = null!;
 }

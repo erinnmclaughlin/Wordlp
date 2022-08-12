@@ -1,0 +1,39 @@
+﻿@inject BrowserResizeService Browser
+@inject DarkModeService DarkMode
+@implements IDisposable
+
+<CascadingValue Value="AppDimensions">
+    <CascadingValue Value="DarkMode">
+        @ChildContent
+    </CascadingValue>
+</CascadingValue>
+
+@code {
+
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    private AppDimensions AppDimensions { get; set; } = new();
+
+    protected override void OnInitialized()
+    {
+        BrowserResizeService.OnResize += ResetHeight;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await DarkMode.InitializeAsync();
+        await ResetHeight();
+    }
+
+    public void Dispose()
+    {
+        BrowserResizeService.OnResize -= ResetHeight;
+    }
+
+    private async Task ResetHeight()
+    {
+        var height = (await Browser.GetInnerHeight()) - 40;
+        AppDimensions = new() { Height = height };
+        StateHasChanged();
+    }
+}

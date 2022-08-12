@@ -1,12 +1,14 @@
 ﻿<CascadingNavigationState>
-    <Router AppAssembly="@typeof(App).Assembly">
-        <Found Context="routeData">
-            <FocusOnNavigate RouteData="@routeData" Selector="keyboard" />
-            <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
-        </Found>
-        <NotFound>
-            <PageTitle>Not found</PageTitle>
-            <RedirectTo Uri="?" />
-        </NotFound>
-    </Router>
+    <CascadingDisplaySettings>
+        <Router AppAssembly="@typeof(App).Assembly">
+            <Found Context="routeData">
+                <FocusOnNavigate RouteData="@routeData" Selector="keyboard" />
+                <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+            </Found>
+            <NotFound>
+                <PageTitle>Not found</PageTitle>
+                <RedirectTo Uri="?" />
+            </NotFound>
+        </Router>
+    </CascadingDisplaySettings>
 </CascadingNavigationState>
