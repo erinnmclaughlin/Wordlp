@@ -35,8 +35,6 @@
     [Parameter] public string Guess { get; set; } = string.Empty;
     [Parameter] public EventCallback<string> GuessChanged { get; set; }
 
-    [CascadingParameter] private GameContainer GameContainer { get; set; } = null!;
-
     private Animations CurrentAnimation { get; set; } = Animations.None;
 
     public void Dispose()
@@ -59,7 +57,7 @@
     {
         List<string> classes = new() { "cell" };
 
-        if (GameContainer.GetGuessByIndex(rowIndex) is Guess previousGuess)
+        if (Game.GetGuessByIndex(rowIndex) is Guess previousGuess)
         {
             classes.Add("guessed");
             classes.Add(previousGuess.GetResultAt(letterIndex) switch
@@ -69,7 +67,7 @@
                 _ => string.Empty
             });
         }
-        else if (GameContainer.IsCurrentGuess(rowIndex) && letterIndex < Guess.Length)
+        else if (Game.IsCurrentGuess(rowIndex) && letterIndex < Guess.Length)
         {
             classes.Add("has-letter");
         }
@@ -81,7 +79,7 @@
     {
         List<string> classes = new() { "row" };
 
-        if (GameContainer.IsCurrentGuess(rowIndex))
+        if (Game.IsCurrentGuess(rowIndex))
         {
             if (CurrentAnimation == Animations.Shake)
                 classes.Add("shake");
@@ -92,9 +90,9 @@
 
     private char? GetCellValue(int rowIndex, int letterIndex)
     {
-        if (GameContainer.GetGuessByIndex(rowIndex) is Guess previousGuess)
+        if (Game.GetGuessByIndex(rowIndex) is Guess previousGuess)
             return previousGuess.Letters[letterIndex].Value;
-        else if (GameContainer.IsCurrentGuess(rowIndex) && letterIndex < Guess.Length)
+        else if (Game.IsCurrentGuess(rowIndex) && letterIndex < Guess.Length)
             return Guess[letterIndex];
 
         return null;

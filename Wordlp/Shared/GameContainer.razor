@@ -3,20 +3,18 @@
 @inject WordCollection Words
 @implements IDisposable
 
-<PageTitle>Word-LP</PageTitle>
+<GameBoard @bind-Guess="@Game.CurrentGuess" />
 
-<CascadingValue Value="this">
-    <GameBoard @bind-Guess="@Game.CurrentGuess" />
-    @if (Game.IsGameOver)
-    {
-        <GameOverButtons />
-    }
-    else
-    {
-        <Keyboard @bind-Guess="@Game.CurrentGuess" />
-    }    
-    <GameOverModal />
-</CascadingValue>
+@if (Game.IsGameOver)
+{
+    <GameOverButtons />
+}
+else
+{
+    <Keyboard @bind-Guess="@Game.CurrentGuess" />
+}
+
+<GameOverModal />
 
 @code {
 
@@ -25,45 +23,6 @@
         Game.OnGameOver -= OnGameOver;
         Game.OnGameStart -= OnGameStart;
         Game.OnValidSubmit -= OnValidSubmit;
-    }
-
-    public Guess? GetGuessByIndex(int index)
-    {
-        return Game.Guesses.ElementAtOrDefault(index);
-    }
-
-    public GuessResult GetLetterResult(char letter)
-    {
-        var letters = Game.Guesses.SelectMany(g => g.Letters.Where(l => l.Value == letter));
-
-        if (letters.Any(l => l.Result == GuessResult.Match))
-            return GuessResult.Match;
-
-        if (letters.Any(l => l.Result == GuessResult.Contains))
-            return GuessResult.Contains;
-
-        return GuessResult.None;
-    }
-
-    public bool HasBeenGuessed(char letter)
-    {
-        return Game.Guesses.Any(g => g.Contains(letter));
-    }
-
-    public bool IsCurrentGuess(int guessNumber)
-    {
-        return Game.Guesses.Count == guessNumber;
-    }
-
-    public GuessResult VerifyLetterPosition(char letter, int index)
-    {
-        if (Game.Solution.Value[index] == letter)
-            return GuessResult.Match;
-
-        if (Game.Solution.Value.Contains(letter))
-            return GuessResult.Contains;
-
-        return GuessResult.None;
     }
 
     protected override void OnInitialized()

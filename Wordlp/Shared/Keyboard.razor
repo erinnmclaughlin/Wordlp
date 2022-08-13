@@ -36,8 +36,6 @@
     private const string Letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private ElementReference KeyboardReference { get; set; }
 
-    [CascadingParameter] private GameContainer GameContainer { get; set; } = null!;
-
     [Parameter] public string Guess { get; set; } = null!;
     [Parameter] public EventCallback<string> GuessChanged { get; set; }
 
@@ -64,11 +62,11 @@
 
     private string GetKeyCss(char letter)
     {
-        if (!GameContainer.HasBeenGuessed(letter)) return string.Empty;
+        if (!Game.HasBeenGuessed(letter)) return string.Empty;
 
         List<string> classes = new() { "guessed" };
 
-        classes.Add(GameContainer.GetLetterResult(letter) switch
+        classes.Add(Game.GetLetterResult(letter) switch
         {
             GuessResult.Match => "match",
             GuessResult.Contains => "contains",

@@ -46,6 +46,34 @@ public class Game
         OnGameOver?.Invoke(this, EventArgs.Empty);
     }
 
+    public Guess? GetGuessByIndex(int index)
+    {
+        return Guesses.ElementAtOrDefault(index);
+    }
+
+    public GuessResult GetLetterResult(char letter)
+    {
+        var letters = Guesses.SelectMany(g => g.Letters.Where(l => l.Value == letter));
+
+        if (letters.Any(l => l.Result == GuessResult.Match))
+            return GuessResult.Match;
+
+        if (letters.Any(l => l.Result == GuessResult.Contains))
+            return GuessResult.Contains;
+
+        return GuessResult.None;
+    }
+
+    public bool HasBeenGuessed(char letter)
+    {
+        return Guesses.Any(g => g.Contains(letter));
+    }
+
+    public bool IsCurrentGuess(int guessNumber)
+    {
+        return Guesses.Count == guessNumber;
+    }
+
     public async Task Load()
     {
         var savedGame = await LocalStorage.GetItemAsync<SavedGame>(LocalStorageSettings.Keys.SavedGame);
@@ -88,6 +116,17 @@ public class Game
         }
 
         SubmitValidGuess();
+    }
+
+    public GuessResult VerifyLetterPosition(char letter, int index)
+    {
+        if (Solution.Value[index] == letter)
+            return GuessResult.Match;
+
+        if (Solution.Value.Contains(letter))
+            return GuessResult.Contains;
+
+        return GuessResult.None;
     }
 
     private async void SubmitValidGuess()
