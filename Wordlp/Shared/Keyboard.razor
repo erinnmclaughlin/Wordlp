@@ -1,29 +1,29 @@
-﻿@inject GameService GameService
+﻿@inject Game Game
 
 <div @ref="KeyboardReference" tabindex="0" class="keyboard" @onkeydown="HandleKeyPress" @onblur="FocusKeyboard">
     <div class="row">
         @foreach (var key in "QWERTYUIOP")
         {
-            <button class="@GetKeyCss(key)" type="button" @onclick="() => OnKeyPress.InvokeAsync(key)">@key</button>
+            <button class="@GetKeyCss(key)" type="button" @onclick="() => AddLetter(key)">@key</button>
         }
     </div>
     <div class="row">
         <div class="spacer"></div>
         @foreach (var key in "ASDFGHJKL")
         {
-            <button class="@GetKeyCss(key)" type="button" @onclick="() => OnKeyPress.InvokeAsync(key)">@key</button>
+            <button class="@GetKeyCss(key)" type="button" @onclick="() => AddLetter(key)">@key</button>
         }
         <div class="spacer"></div>
     </div>
     <div class="row">
-        <button type="button" style="flex: 1.5;" @onclick="OnSubmit">
+        <button type="button" style="flex: 1.5;" @onclick="Game.Submit">
             ENTER
         </button>
         @foreach (var key in "ZXCVBNM")
         {
-            <button class="@GetKeyCss(key)" type="button" @onclick="() => OnKeyPress.InvokeAsync(key)">@key</button>
+            <button class="@GetKeyCss(key)" type="button" @onclick="() => AddLetter(key)">@key</button>
         }
-        <button type="button" style="flex: 1.5;" @onclick="OnBackspace">
+        <button type="button" style="flex: 1.5;" @onclick="Backspace">
             <span>
                 <i class="fa-solid fa-delete-left fa-xl" />
             </span>
@@ -36,30 +36,45 @@
     private const string Letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private ElementReference KeyboardReference { get; set; }
 
-    [Parameter] public EventCallback<char> OnKeyPress { get; set; }
-    [Parameter] public EventCallback OnBackspace { get; set; }
-    [Parameter] public EventCallback OnSubmit { get; set; }
+    [CascadingParameter] private GameContainer GameContainer { get; set; } = null!;
+
+    [Parameter] public string Guess { get; set; } = null!;
+    [Parameter] public EventCallback<string> GuessChanged { get; set; }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
             await FocusKeyboard();
-
     }
 
     public async Task FocusKeyboard()
     {
-        if (!GameService.IsGameOver)
-            await KeyboardReference.FocusAsync();
+        await KeyboardReference.FocusAsync();
+    }
+
+    private async Task AddLetter(char letter)
+    {
+        if (Game.IsGameOver || Guess.Length >= GameSettings.WordLength)
+            return;
+
+        await GuessChanged.InvokeAsync(Guess + letter);
+    }
+
+    private async Task Backspace()
+    {
+        if (Game.IsGameOver || Guess.Length == 0)
+            return;
+
+        await GuessChanged.InvokeAsync(Guess.Substring(0, Guess.Length - 1));
     }
 
     private string GetKeyCss(char letter)
     {
-        if (!GameService.HasBeenGuessed(letter)) return string.Empty;
+        if (!GameContainer.HasBeenGuessed(letter)) return string.Empty;
 
         List<string> classes = new() { "guessed" };
 
-        classes.Add(GameService.GetLetterResult(letter) switch
+        classes.Add(GameContainer.GetLetterResult(letter) switch
         {
             GuessResult.Match => "match",
             GuessResult.Contains => "contains",
@@ -75,19 +90,19 @@
 
         if (key == "BACKSPACE")
         {
-            await OnBackspace.InvokeAsync();
+            await Backspace();
             return;
         }
 
         if (key == "ENTER")
         {
-            await OnSubmit.InvokeAsync();
+            Game.Submit();
             return;
         }
 
         if (Letters.Contains(key))
         {
-            await OnKeyPress.InvokeAsync(key[0]);
+            await AddLetter(key[0]);
             return;
         }
     }

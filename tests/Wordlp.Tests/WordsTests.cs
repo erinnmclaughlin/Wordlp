@@ -9,17 +9,17 @@ public class WordsTests
     public void ValidWordListContainsAllWords()
     {
         var words = File.ReadAllText("../../../../../Wordlp/wwwroot/data/words_v2.json");
-        var wordCollection = JsonSerializer.Deserialize<WordCollection>(words, new JsonSerializerOptions
+        var wordCollection = JsonSerializer.Deserialize<List<Word>>(words, new JsonSerializerOptions
         {
             PropertyNameCaseInsensitive = true
         })!;
-        Assert.NotEmpty(wordCollection.Words);
+        Assert.NotEmpty(wordCollection);
 
         var valid = File.ReadAllText("../../../../../Wordlp/wwwroot/data/valid.json");
         var validWords = JsonSerializer.Deserialize<List<string>>(valid)!;
         Assert.NotEmpty(validWords);
 
-        foreach (var word in wordCollection.Words)
+        foreach (var word in wordCollection)
             Assert.True(validWords.Contains(word.Value, StringComparer.InvariantCultureIgnoreCase));
     }
 }

@@ -1,0 +1,17 @@
+﻿@page "/"
+
+<div id="wordlp" class="@DarkModeClass">
+    <AppHeader />        
+    <main style="@Height @MaxHeight">
+        <PageView />
+    </main>
+</div>
+
+@code {
+    [CascadingParameter] private AppDimensions AppDimensions { get; set; } = null!;
+    [CascadingParameter] private DarkModeService DarkMode { get; set; } = null!;
+
+    private string DarkModeClass => DarkMode.IsEnabled ? "dark-mode" : "";
+    private string Height => $"height: {AppDimensions.Height}px;";
+    private string MaxHeight => $"max-height: {AppDimensions.Height}px;";
+}

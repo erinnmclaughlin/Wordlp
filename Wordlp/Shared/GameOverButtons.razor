@@ -1,7 +1,9 @@
-﻿<div style="display: flex; height: 200px">
+﻿@inject Game Game
+
+<div style="display: flex; height: 200px">
     <div style="display: flex; margin: auto;">
         <div style="display: flex; gap: 0.5rem; flex-direction: column;">
-            <button class="restart-game-button" type="button" @onclick="GameService.StartNewGame">
+            <button class="restart-game-button" type="button" @onclick="Game.NewGame">
                 <span>
                     <i class="fa-solid fa-arrows-rotate" />
                 </span>
@@ -15,7 +17,3 @@
                 
     </div>
 </div>
-
-@code {
-    [CascadingParameter] private GameService GameService { get; set; } = null!;
-}

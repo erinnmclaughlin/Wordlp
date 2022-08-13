@@ -1,0 +1,21 @@
+﻿main {
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - var(--header-height));
+    margin: 0 auto;
+    width: 100%;
+    align-items: center;
+    overflow-y: auto;
+}
+
+#wordlp {
+    background-color: var(--slate-200);
+    color: var(--slate-700);
+    height: 100%;
+    overflow: hidden;
+}
+
+    #wordlp.dark-mode {
+        background-color: var(--slate-900);
+        color: var(--slate-300);
+    }

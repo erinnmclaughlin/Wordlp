@@ -1,14 +1,15 @@
 ﻿@inject BrowserResizeService Browser
+@inject Game Game
 @implements IDisposable
 
 <div class="board-container">
     <div class="board" style="height: @(Height)px; width: @(Width)px;">
-        @for (int i = 0; i < GameService.MaxGuesses; i++)
+        @for (int i = 0; i < GameSettings.MaxGuesses; i++)
         {
             var rowIndex = i;
 
-            <div class="row @(rowIndex == Game.CurrentGuess && PlayShakeAnimation ? "shake" : "")">
-                @for (int j = 0; j < GameService.WordLength; j++)
+            <div class="@GetRowCss(rowIndex)">
+                @for (int j = 0; j < GameSettings.WordLength; j++)
                 {
                     var letterIndex = j;
 
@@ -26,26 +27,31 @@
     </div>
 </div>
 
-
 @code {
 
     private int Height { get; set; }
     private int Width { get; set; }
 
-
-    [CascadingParameter] private GameService Game { get; set; } = null!;
     [Parameter] public string Guess { get; set; } = string.Empty;
-    [Parameter] public bool PlayShakeAnimation { get; set; }
+    [Parameter] public EventCallback<string> GuessChanged { get; set; }
+
+    [CascadingParameter] private GameContainer GameContainer { get; set; } = null!;
+
+    private Animations CurrentAnimation { get; set; } = Animations.None;
 
     public void Dispose()
     {
         BrowserResizeService.OnResize -= ResetHeight;
+        Game.OnInvalidSubmit -= OnInvalidSubmit;
+        Game.OnValidSubmit -= OnValidSubmit;
         GC.SuppressFinalize(this);
     }
 
     protected override async Task OnInitializedAsync()
     {
         BrowserResizeService.OnResize += ResetHeight;
+        Game.OnInvalidSubmit += OnInvalidSubmit;
+        Game.OnValidSubmit += OnValidSubmit;
         await ResetHeight();
     }
 
@@ -53,7 +59,7 @@
     {
         List<string> classes = new() { "cell" };
 
-        if (Game.GetGuessByIndex(rowIndex) is Guess previousGuess)
+        if (GameContainer.GetGuessByIndex(rowIndex) is Guess previousGuess)
         {
             classes.Add("guessed");
             classes.Add(previousGuess.GetResultAt(letterIndex) switch
@@ -63,7 +69,7 @@
                 _ => string.Empty
             });
         }
-        else if (Game.CurrentGuess == rowIndex && letterIndex < Guess.Length)
+        else if (GameContainer.IsCurrentGuess(rowIndex) && letterIndex < Guess.Length)
         {
             classes.Add("has-letter");
         }
@@ -71,11 +77,24 @@
         return string.Join(" ", classes.Where(c => !string.IsNullOrWhiteSpace(c)));
     }
 
+    private string GetRowCss(int rowIndex)
+    {
+        List<string> classes = new() { "row" };
+
+        if (GameContainer.IsCurrentGuess(rowIndex))
+        {
+            if (CurrentAnimation == Animations.Shake)
+                classes.Add("shake");
+        }
+
+        return string.Join(' ', classes);
+    }
+
     private char? GetCellValue(int rowIndex, int letterIndex)
     {
-        if (Game.Guesses.ElementAtOrDefault(rowIndex) is Guess previousGuess)
+        if (GameContainer.GetGuessByIndex(rowIndex) is Guess previousGuess)
             return previousGuess.Letters[letterIndex].Value;
-        else if (Game.CurrentGuess == rowIndex && letterIndex < Guess.Length)
+        else if (GameContainer.IsCurrentGuess(rowIndex) && letterIndex < Guess.Length)
             return Guess[letterIndex];
 
         return null;
@@ -86,5 +105,16 @@
         Height = (await Browser.GetInnerHeight()) - 200 - 41;
         Width = Height / 6 * 5;
         StateHasChanged();
+    }
+
+    private async void OnInvalidSubmit(object? o, EventArgs e) => await PlayShakeAnimation();
+    private void OnValidSubmit(object? o, EventArgs e) => StateHasChanged();
+
+    private async Task PlayShakeAnimation()
+    {
+        CurrentAnimation = Animations.Shake;
+        StateHasChanged();
+        await Task.Delay(500);
+        CurrentAnimation = Animations.None;
     }
 }

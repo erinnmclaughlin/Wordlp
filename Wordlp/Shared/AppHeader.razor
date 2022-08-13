@@ -1,6 +1,6 @@
 ﻿<header class="app-header">
     <div class="header-start">
-        @if (CurrentPage != GamePages.Game)
+        @if (CurrentPage != AppPages.Game)
         {
             <a class="icon-button" href="?">
                 <i class="fa-solid fa-arrow-left fa-lg" />
@@ -9,29 +9,28 @@
     </div>
     <div class="app-title"><a href="?">@GetAppTitle()</a></div>
     <div class="header-end">
-        @if (CurrentPage != GamePages.History)
+        @if (CurrentPage != AppPages.History)
         {
             <a class="icon-button" href="?page=history">
                 <i class="fa-solid fa-clock-rotate-left fa-lg" />
             </a>
         }       
-        <button class="icon-button" @onclick="OnToggleDarkMode">
-            <i class="@(IsDarkMode ? "fa-solid" : "fa-regular") fa-moon fa-xl" />
+        <button class="icon-button" @onclick="() => DarkMode.Toggle()">
+            <i class="@(DarkMode.IsEnabled ? "fa-solid" : "fa-regular") fa-moon fa-xl" />
         </button>
     </div>        
 </header>
 
 @code {
 
-    [CascadingParameter] private GamePages CurrentPage { get; set; }
-    [Parameter] public EventCallback OnToggleDarkMode { get; set; }
-    [Parameter] public bool IsDarkMode { get; set; }
+    [CascadingParameter] private AppPages CurrentPage { get; set; }
+    [CascadingParameter] public DarkModeService DarkMode { get; set; } = null!;
 
     private string GetAppTitle()
     {
         return CurrentPage switch
         {
-            GamePages.History => "HISTORY",
+            AppPages.History => "HISTORY",
             _ => "WORDLP"
         };
     }

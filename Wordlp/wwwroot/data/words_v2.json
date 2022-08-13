@@ -1,176 +1,174 @@
-{
-  "words": [
-    {
-      "value": "ARTSY",
-      "description": "Artsy indeed! Pouring passion and paint (not to mention sculptures and sketches) into Gallery 717, LP have embraced their love of all things artsy."
-    },
-    {
-      "value": "BEERS",
-      "description": "Cheers for beers!"
-    },
-    {
-      "value": "BOOZE",
-      "description": "What has five letters and is another way of saying \"beer?"
-    },
-    {
-      "value": "BREWS",
-      "description": "Laurie and Paul share a passion for good brews — chiefly IPAs from Toppling, of course."
-    },
-    {
-      "value": "BRUSH",
-      "description": "Have you seen Laurie's impressive collection of paint brushes? Stop by LP HQ for a tiny art painting night. No reservation required."
-    },
-    {
-      "value": "CAMPY",
-      "description": "Besides the campy sense of dad humor that you'll never find Paul without, LP love taking their renovated camper out for trips and weekend getaways."
-    },
-    {
-      "value": "CHIEF",
-      "description": "What custom LP word game would be complete without the KC Chiefs represented? Catch Paul decked out head to toe in Chiefs gear just about any day of the week."
-    },
-    {
-      "value": "CLASS",
-      "description": "Laurie has class. As an *award-winning* professor at the University of Missouri, catch Laurie inspiring teachers-to-be in her classes."
-    },
-    {
-      "value": "COLOR",
-      "description": "A colorful couple, with colorful craft supplies."
-    },
-    {
-      "value": "COMFY",
-      "description": "From the welcoming hosts to the mid-century modern decor to the kan jam cabana, LP HQ is comfy comfy."
-    },
-    {
-      "value": "COOKS",
-      "description": "Both Paul and Laurie are accomplished cooks in the kitchen — just add chorizo."
-    },
-    {
-      "value": "CRAFT",
-      "description": "Wait, let me show you this new craft we can do! — Laurie"
-    },
-    {
-      "value": "DRAFT",
-      "description": "How many words can we dig up to represent LP's love of beer? Stay tuned."
-    },
-    {
-      "value": "DRINK",
-      "description": "Do you want a drink? Can I grab you a Toppling? What about some water? LP is always making sure guests stay hydrated!"
-    },
-    {
-      "value": "DRUMS",
-      "description": "While he's not practicing his own percussion, you'll find Paul rewatching videos of his beloved KC Chiefs drumline."
-    },
-    {
-      "value": "GAMES",
-      "description": "In addition to Wordle, the NTY Spelling Bee, and crossword puzzles, Laurie and Paul love a good round of Yahtzee and other LP happy hour favorites."
-    },
-    {
-      "value": "GLUED",
-      "description": "While they're not necessarily glued at the hip, you will find hot glue, super glue, glue sticks, elmer's glue, wood glue, and more in the impressive LP craft supply bin."
-    },
-    {
-      "value": "HAPPY",
-      "description": "*So happy togetherrrrr* — Plus, no trip to LP's place is without a little happy hour fun — crack open a Toppling IPA and sit back for games and laughs."
-    },
-    {
-      "value": "HOUSE",
-      "description": "Laurie's house (in which Paul also lives) is a wonderful, welcoming place that deserved a spot on Word-lp."
-    },
-    {
-      "value": "KIDDO",
-      "description": "LP have five kiddo(es?) between the two of them."
-    },
-    {
-      "value": "LOVEY",
-      "description": "LP can't go five minutes without their favorite term of endearment getting some airtime. When Laurie calls you \"lovey,\" you know you've made it!"
-    },
-    {
-      "value": "MATES",
-      "description": ""
-    },
-    {
-      "value": "MUSIC",
-      "description": "Music is a shared passion of Laurie's and Paul's — have you seen their ubiquitous bluetooth speakers?"
-    },
-    {
-      "value": "PAINT",
-      "description": "Roll up your sleeves and bust out Laurie's extensive paint collection for a night of tiny art with LP!"
-    },
-    {
-      "value": "PIZZA",
-      "description": "If I had a nickel for every pizza night, whether hosted at 717 or out on the town at Shakespeare's or Pizza Tree, I'd be able to chip in on all those Airstream renovation costs. Did you know Laurie and Paul actually buy ingredients, like mouthwatering thick-sliced pepperoni, directly from Shakespeare's? Ask about it next time you're over."
-    },
-    {
-      "value": "PLATE",
-      "description": "License plates, that is. Paul and Laurie are license plate connoisseur, keeping track of every state plate they see on road trips."
-    },
-    {
-      "value": "QUIPS",
-      "description": "Both Paul and Laurie have a way with words, but Laurie is the quip queen with her sharp wit."
-    },
-    {
-      "value": "RANCH",
-      "description": "Paul's favorite condiment. Just kidding! LP HQ is a gorgeous ranch-style MCM masterpiece."
-    },
-    {
-      "value": "RETRO",
-      "description": "You'll find a love of all things retro, especially mid-century modern, at 717."
-    },
-    {
-      "value": "RINGS",
-      "description": "Cue \"here comes the bride!"
-    },
-    {
-      "value": "ROYAL",
-      "description": "While they're not the biggeset baseball fans, Paul's love of KC sports makes \"royal\" requisite in this game."
-    },
-    {
-      "value": "SALES",
-      "description": "When they're not admiring the already impressive collection of mid-century modern furniture that dominates LP HQ, you can often catch Laurie and Paul rummaging through estate sales or online marketplaces for deals."
-    },
-    {
-      "value": "STYLE",
-      "description": "While we should just skip over Paul's sweatpants and Chiefs beanies, Laurie's style is undeniable in its simplicity, understatement, and overall excellence. Have you seen her black sleeveless turtleneck? Classic."
-    },
-    {
-      "value": "SWEDE",
-      "description": "Var så god, friends!"
-    },
-    {
-      "value": "SWEET",
-      "description": "They're so sweet together! Have you even seen them?"
-    },
-    {
-      "value": "TASTY",
-      "description": "Tasty food, tasty beer. Tasty."
-    },
-    {
-      "value": "TRIPS",
-      "description": "Jetsetting or hitting the highway, Laurie and Paul love taking trips to visit friends across the country and explore new places."
-    },
-    {
-      "value": "TRUCK",
-      "description": "Who would ever have thought that Paul would own a huge white truck? And more importantly, who could ever have predicted it would be completely decked out in Chiefs regalia but not the \"I heart my granddog\" magnet Paul conveniently \"lost?"
-    },
-    {
-      "value": "WATCH",
-      "description": "Not like a timekeeping device, \"watch\" like binging shows. Ask them about the Canadian brothers on Alone, season four."
-    },
-    {
-      "value": "WAVES",
-      "description": "Any time we're leaving LP HQ, Laurie stands at the door or in the driveway and waves goodbye until she can't see us anymore!"
-    },
-    {
-      "value": "WORDS",
-      "description": "Word games all day every day for LP!"
-    },
-    {
-      "value": "YUMMY",
-      "description": "Have you tasted Laurie's Swedish pancakes? One word: yummy."
-    },
-    {
-      "value": "ZOINK",
-      "description": "Congratulations if you got this little-known Paulie Paul expression from my childhood!"
-    }
-  ]
-}
+[
+  {
+    "value": "ARTSY",
+    "description": "Artsy indeed! Pouring passion and paint (not to mention sculptures and sketches) into Gallery 717, LP have embraced their love of all things artsy."
+  },
+  {
+    "value": "BEERS",
+    "description": "Cheers for beers!"
+  },
+  {
+    "value": "BOOZE",
+    "description": "What has five letters and is another way of saying \"beer?"
+  },
+  {
+    "value": "BREWS",
+    "description": "Laurie and Paul share a passion for good brews — chiefly IPAs from Toppling, of course."
+  },
+  {
+    "value": "BRUSH",
+    "description": "Have you seen Laurie's impressive collection of paint brushes? Stop by LP HQ for a tiny art painting night. No reservation required."
+  },
+  {
+    "value": "CAMPY",
+    "description": "Besides the campy sense of dad humor that you'll never find Paul without, LP love taking their renovated camper out for trips and weekend getaways."
+  },
+  {
+    "value": "CHIEF",
+    "description": "What custom LP word game would be complete without the KC Chiefs represented? Catch Paul decked out head to toe in Chiefs gear just about any day of the week."
+  },
+  {
+    "value": "CLASS",
+    "description": "Laurie has class. As an *award-winning* professor at the University of Missouri, catch Laurie inspiring teachers-to-be in her classes."
+  },
+  {
+    "value": "COLOR",
+    "description": "A colorful couple, with colorful craft supplies."
+  },
+  {
+    "value": "COMFY",
+    "description": "From the welcoming hosts to the mid-century modern decor to the kan jam cabana, LP HQ is comfy comfy."
+  },
+  {
+    "value": "COOKS",
+    "description": "Both Paul and Laurie are accomplished cooks in the kitchen — just add chorizo."
+  },
+  {
+    "value": "CRAFT",
+    "description": "Wait, let me show you this new craft we can do! — Laurie"
+  },
+  {
+    "value": "DRAFT",
+    "description": "How many words can we dig up to represent LP's love of beer? Stay tuned."
+  },
+  {
+    "value": "DRINK",
+    "description": "Do you want a drink? Can I grab you a Toppling? What about some water? LP is always making sure guests stay hydrated!"
+  },
+  {
+    "value": "DRUMS",
+    "description": "While he's not practicing his own percussion, you'll find Paul rewatching videos of his beloved KC Chiefs drumline."
+  },
+  {
+    "value": "GAMES",
+    "description": "In addition to Wordle, the NTY Spelling Bee, and crossword puzzles, Laurie and Paul love a good round of Yahtzee and other LP happy hour favorites."
+  },
+  {
+    "value": "GLUED",
+    "description": "While they're not necessarily glued at the hip, you will find hot glue, super glue, glue sticks, elmer's glue, wood glue, and more in the impressive LP craft supply bin."
+  },
+  {
+    "value": "HAPPY",
+    "description": "*So happy togetherrrrr* — Plus, no trip to LP's place is without a little happy hour fun — crack open a Toppling IPA and sit back for games and laughs."
+  },
+  {
+    "value": "HOUSE",
+    "description": "Laurie's house (in which Paul also lives) is a wonderful, welcoming place that deserved a spot on Word-lp."
+  },
+  {
+    "value": "KIDDO",
+    "description": "LP have five kiddo(es?) between the two of them."
+  },
+  {
+    "value": "LOVEY",
+    "description": "LP can't go five minutes without their favorite term of endearment getting some airtime. When Laurie calls you \"lovey,\" you know you've made it!"
+  },
+  {
+    "value": "MATES",
+    "description": ""
+  },
+  {
+    "value": "MUSIC",
+    "description": "Music is a shared passion of Laurie's and Paul's — have you seen their ubiquitous bluetooth speakers?"
+  },
+  {
+    "value": "PAINT",
+    "description": "Roll up your sleeves and bust out Laurie's extensive paint collection for a night of tiny art with LP!"
+  },
+  {
+    "value": "PIZZA",
+    "description": "If I had a nickel for every pizza night, whether hosted at 717 or out on the town at Shakespeare's or Pizza Tree, I'd be able to chip in on all those Airstream renovation costs. Did you know Laurie and Paul actually buy ingredients, like mouthwatering thick-sliced pepperoni, directly from Shakespeare's? Ask about it next time you're over."
+  },
+  {
+    "value": "PLATE",
+    "description": "License plates, that is. Paul and Laurie are license plate connoisseur, keeping track of every state plate they see on road trips."
+  },
+  {
+    "value": "QUIPS",
+    "description": "Both Paul and Laurie have a way with words, but Laurie is the quip queen with her sharp wit."
+  },
+  {
+    "value": "RANCH",
+    "description": "Paul's favorite condiment. Just kidding! LP HQ is a gorgeous ranch-style MCM masterpiece."
+  },
+  {
+    "value": "RETRO",
+    "description": "You'll find a love of all things retro, especially mid-century modern, at 717."
+  },
+  {
+    "value": "RINGS",
+    "description": "Cue \"here comes the bride!"
+  },
+  {
+    "value": "ROYAL",
+    "description": "While they're not the biggeset baseball fans, Paul's love of KC sports makes \"royal\" requisite in this game."
+  },
+  {
+    "value": "SALES",
+    "description": "When they're not admiring the already impressive collection of mid-century modern furniture that dominates LP HQ, you can often catch Laurie and Paul rummaging through estate sales or online marketplaces for deals."
+  },
+  {
+    "value": "STYLE",
+    "description": "While we should just skip over Paul's sweatpants and Chiefs beanies, Laurie's style is undeniable in its simplicity, understatement, and overall excellence. Have you seen her black sleeveless turtleneck? Classic."
+  },
+  {
+    "value": "SWEDE",
+    "description": "Var så god, friends!"
+  },
+  {
+    "value": "SWEET",
+    "description": "They're so sweet together! Have you even seen them?"
+  },
+  {
+    "value": "TASTY",
+    "description": "Tasty food, tasty beer. Tasty."
+  },
+  {
+    "value": "TRIPS",
+    "description": "Jetsetting or hitting the highway, Laurie and Paul love taking trips to visit friends across the country and explore new places."
+  },
+  {
+    "value": "TRUCK",
+    "description": "Who would ever have thought that Paul would own a huge white truck? And more importantly, who could ever have predicted it would be completely decked out in Chiefs regalia but not the \"I heart my granddog\" magnet Paul conveniently \"lost?"
+  },
+  {
+    "value": "WATCH",
+    "description": "Not like a timekeeping device, \"watch\" like binging shows. Ask them about the Canadian brothers on Alone, season four."
+  },
+  {
+    "value": "WAVES",
+    "description": "Any time we're leaving LP HQ, Laurie stands at the door or in the driveway and waves goodbye until she can't see us anymore!"
+  },
+  {
+    "value": "WORDS",
+    "description": "Word games all day every day for LP!"
+  },
+  {
+    "value": "YUMMY",
+    "description": "Have you tasted Laurie's Swedish pancakes? One word: yummy."
+  },
+  {
+    "value": "ZOINK",
+    "description": "Congratulations if you got this little-known Paulie Paul expression from my childhood!"
+  }
+]

@@ -1,20 +1,56 @@
-﻿@inject GameService Game
+﻿@inject Game Game
+@inject NavigationManager NavigationManager
+@implements IDisposable
 
-<div class="modal-background" @onclick="OnClose"></div>
+@if (IsActive)
+{
+    <div class="modal-background" @onclick="Close"></div>
 
-<div class="modal">
-    <button class="close" type="button" @onclick="OnClose">
-        <i class="fa-solid fa-close fa-xl" />
-    </button>
+    <div class="modal">
+        <button class="close" type="button" @onclick="Close">
+            <i class="fa-solid fa-close fa-xl" />
+        </button>
 
-    <div class="solution">@Game.Word.Value</div>
-    <div class="modal-content">
-        <p>@Game.Word.Description</p>
+        <div class="solution">@Game.Solution.Value</div>
+        <div class="modal-content">
+            <p>@Game.Solution.Description</p>
+        </div>
+
+        <GameOverButtons />
     </div>
-
-    <GameOverButtons />
-</div>
+}
 
 @code {
-    [Parameter] public EventCallback OnClose { get; set; }
+
+    private bool IsActive { get; set; }
+
+    public void Dispose()
+    {
+        Game.OnGameOver -= OnGameOver;
+        Game.OnGameStart -= OnGameStart;
+        NavigationManager.LocationChanged -= OnLocationChanged;
+    }
+
+    protected override void OnInitialized()
+    {
+        Game.OnGameOver += OnGameOver;
+        Game.OnGameStart += OnGameStart;
+        NavigationManager.LocationChanged += OnLocationChanged;
+    }
+
+    public void Close()
+    {
+        IsActive = false;
+        StateHasChanged();
+    }
+
+    private void Show()
+    {
+        IsActive = true;
+        StateHasChanged();
+    }
+
+    private void OnGameOver(object? o, EventArgs e) => Show();
+    private void OnGameStart(object? o, EventArgs e) => Close();
+    private void OnLocationChanged(object? o, LocationChangedEventArgs e) => Close();
 }
