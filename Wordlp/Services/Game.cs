@@ -1,5 +1,4 @@
-﻿using Blazored.LocalStorage;
-using Wordlp.Models;
+﻿using Wordlp.Models;
 using Wordlp.Shared.Settings;
 
 namespace Wordlp.Services;
@@ -11,7 +10,9 @@ public class Game
     public event EventHandler? OnInvalidSubmit;
     public event EventHandler? OnValidSubmit;
 
-    public bool IsGameOver => Guesses.Count == GameSettings.MaxGuesses || Guesses.Any(guess => guess.IsWin());
+    public bool IsGameOver => Guesses.Count == GameSettings.MaxGuesses || IsWin;
+    public bool IsWin => Guesses.Any(guess => guess.IsWin());
+
     public List<Guess> Guesses { get; private set; } = new();
     public Word Solution { get; private set; } = null!;
 
@@ -32,12 +33,10 @@ public class Game
         }
     }
 
-    private ILocalStorageService LocalStorage { get; }
     private WordService WordService { get; }
 
-    public Game(ILocalStorageService localStorage, WordService wordService)
+    public Game(WordService wordService)
     {
-        LocalStorage = localStorage;
         WordService = wordService;
     }
 
@@ -73,20 +72,11 @@ public class Game
     {
         return Guesses.Count == guessNumber;
     }
-
-    public async Task Load()
+    
+    public void LoadGame(SavedGame savedGame)
     {
-        var savedGame = await LocalStorage.GetItemAsync<SavedGame>(LocalStorageSettings.Keys.SavedGame);
-
-        if (savedGame != null)
-        {
-            CurrentGuess = savedGame.CurrentGuess;
-            Guesses = savedGame.Guesses;
-            Solution = savedGame.Solution;
-            return;
-        }
-
-        await NewGame();
+        Guesses = savedGame.Guesses;
+        Solution = savedGame.Solution;
     }
 
     public async Task NewGame()
@@ -95,14 +85,6 @@ public class Game
         Guesses = new();
         Solution = await WordService.GetRandomWord();
         OnGameStart?.Invoke(this, EventArgs.Empty);
-
-        await SaveGame();
-    }
-
-    public async Task SaveGame()
-    {
-        var savedGame = new SavedGame(CurrentGuess, Guesses, Solution);
-        await LocalStorage.SetItemAsync(LocalStorageSettings.Keys.SavedGame, savedGame);
     }
 
     public void Submit()
@@ -129,7 +111,7 @@ public class Game
         return GuessResult.None;
     }
 
-    private async void SubmitValidGuess()
+    private void SubmitValidGuess()
     {
         List<GuessedLetter> letters = new();
 
@@ -167,7 +149,5 @@ public class Game
 
         if (IsGameOver)
             GameOver();
-
-        await SaveGame();
     }
 }

@@ -6,6 +6,7 @@ using System.Text.Json;
 using Wordlp;
 using Wordlp.Models;
 using Wordlp.Services;
+using Wordlp.Services.Persistence;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -21,7 +22,7 @@ builder.Services.AddSingleton(_ => words);
 builder.Services.AddScoped<BrowserResizeService>();
 builder.Services.AddScoped<DarkModeService>();
 builder.Services.AddScoped<Game>();
-builder.Services.AddScoped<PlayerHistoryService>();
+builder.Services.AddScoped<IGamePersistence, LocalStoragePersistence>();
 builder.Services.AddScoped<WordService>();
 builder.Services.AddBlazoredLocalStorage();
 

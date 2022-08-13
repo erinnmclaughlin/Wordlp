@@ -1,4 +1,4 @@
-﻿@inject PlayerHistoryService PlayerHistory
+﻿@inject IGamePersistence GamePersistence
 @inject WordCollection WordCollection
 
 <div class="history">
@@ -33,6 +33,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-        PreviousResults = await PlayerHistory.GetHistory();
+        PreviousResults = await GamePersistence.LoadHistory();
     }
 }

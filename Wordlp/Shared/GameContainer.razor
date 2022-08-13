@@ -1,6 +1,5 @@
 ﻿@inject Game Game
-@inject PlayerHistoryService PlayerHistory
-@inject WordCollection Words
+@inject IGamePersistence GamePersistence
 @implements IDisposable
 
 <GameBoard @bind-Guess="@Game.CurrentGuess" />
@@ -20,35 +19,32 @@ else
 
     public void Dispose()
     {
-        Game.OnGameOver -= OnGameOver;
-        Game.OnGameStart -= OnGameStart;
-        Game.OnValidSubmit -= OnValidSubmit;
+        Game.OnGameStart -= TriggerSaveGame;
+        Game.OnValidSubmit -= TriggerSaveGame;
+    }
+
+    public async Task SaveGame()
+    {
+        await GamePersistence.SaveGame(Game);
+        StateHasChanged();
     }
 
     protected override void OnInitialized()
     {
-        Game.OnGameOver += OnGameOver;
-        Game.OnGameStart += OnGameStart;
-        Game.OnValidSubmit += OnValidSubmit;
+        Game.OnGameStart += TriggerSaveGame;
+        Game.OnValidSubmit += TriggerSaveGame;
     }
 
     protected override async Task OnInitializedAsync()
     {
-        await Game.Load();
+        if (await GamePersistence.LoadGame() is SavedGame savedGame)
+            Game.LoadGame(savedGame);
+        else
+            await Game.NewGame();
     }
 
-    private async void OnGameOver(object? o, EventArgs e)
+    private async void TriggerSaveGame(object? o, EventArgs e)
     {
-        await PlayerHistory.SaveAttempt(Game.Solution, Game.Guesses.Count);
-    }
-
-    private void OnGameStart(object? o, EventArgs e)
-    {
-        StateHasChanged();
-    }
-
-    private void OnValidSubmit(object? o, EventArgs e)
-    {
-        StateHasChanged();
+        await SaveGame();
     }
 }

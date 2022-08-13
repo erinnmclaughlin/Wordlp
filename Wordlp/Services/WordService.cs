@@ -1,21 +1,22 @@
 ﻿using Wordlp.Models;
+using Wordlp.Services.Persistence;
 
 namespace Wordlp.Services;
 
 public class WordService
 {
-    private PlayerHistoryService PlayerHistory { get; }
+    private IGamePersistence GamePersistence { get; }
     private WordCollection WordCollection { get; }
 
-    public WordService(PlayerHistoryService playerHistory, WordCollection wordCollection)
+    public WordService(IGamePersistence gamePersistence, WordCollection wordCollection)
     {
-        PlayerHistory = playerHistory;
+        GamePersistence = gamePersistence;
         WordCollection = wordCollection;
     }
 
     public async Task<Word> GetRandomWord()
     {
-        var guessedWords = await PlayerHistory.GetHistory();
+        var guessedWords = await GamePersistence.LoadHistory();
         var words = WordCollection.Answers.Where(w => !guessedWords.Any(g => g.Word.Value == w.Value));
 
         if (words.Any() == false)
