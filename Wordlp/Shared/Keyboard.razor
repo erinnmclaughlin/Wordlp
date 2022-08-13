@@ -54,18 +54,12 @@
 
     private async Task AddLetter(char letter)
     {
-        if (Game.IsGameOver || Guess.Length >= GameSettings.WordLength)
-            return;
-
         await GuessChanged.InvokeAsync(Guess + letter);
     }
 
     private async Task Backspace()
     {
-        if (Game.IsGameOver || Guess.Length == 0)
-            return;
-
-        await GuessChanged.InvokeAsync(Guess.Substring(0, Guess.Length - 1));
+        await GuessChanged.InvokeAsync(Guess.Substring(0, Math.Max(0, Guess.Length - 1)));
     }
 
     private string GetKeyCss(char letter)

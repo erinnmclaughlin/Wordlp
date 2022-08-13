@@ -21,8 +21,14 @@ public class Game
         get => _currentGuess;
         set
         {
-            if (value.Length > GameSettings.WordLength) return;
-            _currentGuess = value;
+            if (IsGameOver)
+            {
+                _currentGuess = string.Empty;
+                return;
+            }
+
+            if (value.Length <= GameSettings.WordLength)
+                _currentGuess = value;
         }
     }
 
@@ -116,8 +122,8 @@ public class Game
             letters.Add(new GuessedLetter(letter, GuessResult.None));
         }
 
-        Guesses.Add(new Guess(letters));
         CurrentGuess = string.Empty;
+        Guesses.Add(new Guess(letters));
         OnValidSubmit?.Invoke(this, EventArgs.Empty);
 
         if (IsGameOver)
