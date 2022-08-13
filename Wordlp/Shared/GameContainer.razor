@@ -6,22 +6,19 @@
 <PageTitle>Word-LP</PageTitle>
 
 <CascadingValue Value="this">
-    <GameBoard @bind-Guess="@Guess" />
+    <GameBoard @bind-Guess="@Game.CurrentGuess" />
     @if (Game.IsGameOver)
     {
         <GameOverButtons />
     }
     else
     {
-        <Keyboard @bind-Guess="@Guess" />
-    }
-    
+        <Keyboard @bind-Guess="@Game.CurrentGuess" />
+    }    
     <GameOverModal />
 </CascadingValue>
 
 @code {
-
-    private string Guess { get; set; } = string.Empty;
 
     public void Dispose()
     {
@@ -88,13 +85,11 @@
 
     private void OnGameStart(object? o, EventArgs e)
     {
-        Guess = string.Empty;
         StateHasChanged();
     }
 
     private void OnValidSubmit(object? o, EventArgs e)
     {
-        Guess = string.Empty;
         StateHasChanged();
     }
 }

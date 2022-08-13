@@ -14,6 +14,17 @@ public class Game
     public List<Guess> Guesses { get; private set; } = new();
     public Word Solution { get; private set; } = null!;
 
+    private string _currentGuess = string.Empty;
+    public string CurrentGuess
+    {
+        get => _currentGuess;
+        set
+        {
+            if (value.Length > GameSettings.WordLength) return;
+            _currentGuess = value;
+        }
+    }
+
     private WordService WordService { get; }
 
     public Game(WordService wordService)
@@ -28,31 +39,32 @@ public class Game
 
     public async Task NewGame()
     {
+        CurrentGuess = string.Empty;
         Guesses = new();
         Solution = await WordService.GetRandomWord();
         OnGameStart?.Invoke(this, EventArgs.Empty);
     }
 
-    public void Submit(string guess)
+    public void Submit()
     {
         if (IsGameOver) return;
 
-        if (!WordService.IsValid(guess))
+        if (!WordService.IsValid(CurrentGuess))
         {
             OnInvalidSubmit?.Invoke(this, EventArgs.Empty);
             return;
         }
 
-        SubmitValidGuess(guess);
+        SubmitValidGuess();
     }
 
-    private void SubmitValidGuess(string guess)
+    private void SubmitValidGuess()
     {
         List<GuessedLetter> letters = new();
 
-        for (int i = 0; i < guess.Length; i++)
+        for (int i = 0; i < CurrentGuess.Length; i++)
         {
-            var letter = guess[i];
+            var letter = CurrentGuess[i];
 
             /* No match */
             if (!Solution.Value.Contains(letter))
@@ -69,7 +81,7 @@ public class Game
             }
 
             /* Partial match */
-            if (Solution.GetLetters().Any(l => l.Value == letter && guess[l.Index] != l.Value))
+            if (Solution.GetLetters().Any(l => l.Value == letter && CurrentGuess[l.Index] != l.Value))
             {
                 letters.Add(new GuessedLetter(letter, GuessResult.Contains));
                 continue;
@@ -79,6 +91,7 @@ public class Game
         }
 
         Guesses.Add(new Guess(letters));
+        CurrentGuess = string.Empty;
         OnValidSubmit?.Invoke(this, EventArgs.Empty);
 
         if (IsGameOver)
