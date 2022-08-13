@@ -119,28 +119,22 @@ public class Game
         {
             var letter = CurrentGuess[i];
 
-            /* No match */
-            if (!Solution.Value.Contains(letter))
-            {
-                letters.Add(new GuessedLetter(letter, GuessResult.None));
-                continue;
-            }
-
             /* Exact match */
-            if (Solution.Value[i] == letter)
+            if (Solution.ContainsAtIndex(letter, i))
             {
                 letters.Add(new GuessedLetter(letter, GuessResult.Match));
                 continue;
             }
 
-            /* Partial match */
-            if (Solution.GetLetters().Any(l => l.Value == letter && CurrentGuess[l.Index] != l.Value))
+            /* No match */
+            if (!Solution.Contains(letter))
             {
-                letters.Add(new GuessedLetter(letter, GuessResult.Contains));
+                letters.Add(new GuessedLetter(letter, GuessResult.None));
                 continue;
             }
 
-            letters.Add(new GuessedLetter(letter, GuessResult.None));
+            /* Partial match */
+            letters.Add(new GuessedLetter(letter, GuessResult.Contains));
         }
 
         CurrentGuess = string.Empty;

@@ -2,16 +2,7 @@
 
 public record Word(string Value, string Description)
 {
-    public List<Letter> GetLetters()
-    {
-        var letters = new List<Letter>();
-        for (int i = 0; i < Value.Length; i++)
-        {
-            letters.Add(new Letter(Value[i], i));
-        }
+    public bool Contains(char letter) => Value.Contains(letter);
+    public bool ContainsAtIndex(char letter, int index) => Value.ElementAtOrDefault(index) == letter;
 
-        return letters;
-    }
 }
-
-public record Letter(char Value, int Index);
