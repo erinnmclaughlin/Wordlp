@@ -75,7 +75,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        await Game.NewGame();
+        await Game.Load();
     }
 
     private async void OnGameOver(object? o, EventArgs e)

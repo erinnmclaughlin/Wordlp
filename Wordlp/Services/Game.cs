@@ -1,4 +1,5 @@
-﻿using Wordlp.Models;
+﻿using Blazored.LocalStorage;
+using Wordlp.Models;
 using Wordlp.Shared.Settings;
 
 namespace Wordlp.Services;
@@ -25,10 +26,12 @@ public class Game
         }
     }
 
+    private ILocalStorageService LocalStorage { get; }
     private WordService WordService { get; }
 
-    public Game(WordService wordService)
+    public Game(ILocalStorageService localStorage, WordService wordService)
     {
+        LocalStorage = localStorage;
         WordService = wordService;
     }
 
@@ -37,12 +40,35 @@ public class Game
         OnGameOver?.Invoke(this, EventArgs.Empty);
     }
 
+    public async Task Load()
+    {
+        var savedGame = await LocalStorage.GetItemAsync<SavedGame>(LocalStorageSettings.Keys.SavedGame);
+
+        if (savedGame != null)
+        {
+            CurrentGuess = savedGame.CurrentGuess;
+            Guesses = savedGame.Guesses;
+            Solution = savedGame.Solution;
+            return;
+        }
+
+        await NewGame();
+    }
+
     public async Task NewGame()
     {
         CurrentGuess = string.Empty;
         Guesses = new();
         Solution = await WordService.GetRandomWord();
         OnGameStart?.Invoke(this, EventArgs.Empty);
+
+        await SaveGame();
+    }
+
+    public async Task SaveGame()
+    {
+        var savedGame = new SavedGame(CurrentGuess, Guesses, Solution);
+        await LocalStorage.SetItemAsync(LocalStorageSettings.Keys.SavedGame, savedGame);
     }
 
     public void Submit()
@@ -58,7 +84,7 @@ public class Game
         SubmitValidGuess();
     }
 
-    private void SubmitValidGuess()
+    private async void SubmitValidGuess()
     {
         List<GuessedLetter> letters = new();
 
@@ -96,5 +122,7 @@ public class Game
 
         if (IsGameOver)
             GameOver();
+
+        await SaveGame();
     }
 }
