@@ -42,17 +42,17 @@ public class Game
         return Guesses.ElementAtOrDefault(index);
     }
 
-    public Models.LetterMatchType GetLetterResult(char letter)
+    public LetterMatchType GetLetterResult(char letter)
     {
         var letters = Guesses.SelectMany(g => g.Letters.Where(l => l.Letter.Value == letter));
 
-        if (letters.Any(l => l.Result == Models.LetterMatchType.Exact))
-            return Models.LetterMatchType.Exact;
+        if (letters.Any(l => l.Result == LetterMatchType.Exact))
+            return LetterMatchType.Exact;
 
-        if (letters.Any(l => l.Result == Models.LetterMatchType.Partial))
-            return Models.LetterMatchType.Partial;
+        if (letters.Any(l => l.Result == LetterMatchType.Partial))
+            return LetterMatchType.Partial;
 
-        return Models.LetterMatchType.None;
+        return LetterMatchType.None;
     }
 
     public bool HasBeenGuessed(char letter)
@@ -128,7 +128,7 @@ public class Game
         }
 
         CurrentGuess = string.Empty;
-        Guesses.Add(new Guess(results));
+        Guesses.Add(new Guess(results.OrderBy(r => r.Letter.Index).ToList()));
         OnValidSubmit?.Invoke(this, EventArgs.Empty);
 
         if (IsGameOver())
