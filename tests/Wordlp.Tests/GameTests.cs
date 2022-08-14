@@ -26,6 +26,27 @@ public class GameTests
         Assert.Equal(LetterMatchType.None, lastGuess.Letters.First(l => l.Letter.Index == 4).Result);
     }
 
+    [Fact]
+    public void SubmitStoresCorrectResult2()
+    {
+        var solution = new Word("YUMMY", "");
+        var savedGame = new SavedGame(new(), solution);
+
+        var game = new Game(new MockWordService());
+        game.LoadGame(savedGame);
+
+        game.CurrentGuess = "MUMMY";
+        game.Submit();
+
+        var lastGuess = game.Guesses.Last();
+
+        Assert.Equal(LetterMatchType.None, lastGuess.Letters.First(l => l.Letter.Index == 0).Result);
+        Assert.Equal(LetterMatchType.Exact, lastGuess.Letters.First(l => l.Letter.Index == 1).Result);
+        Assert.Equal(LetterMatchType.Exact, lastGuess.Letters.First(l => l.Letter.Index == 2).Result);
+        Assert.Equal(LetterMatchType.Exact, lastGuess.Letters.First(l => l.Letter.Index == 3).Result);
+        Assert.Equal(LetterMatchType.Exact, lastGuess.Letters.First(l => l.Letter.Index == 4).Result);
+    }
+
     public class MockWordService : IWordService
     {
         public Task<Word> GetRandomWord()

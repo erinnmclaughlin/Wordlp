@@ -107,24 +107,26 @@ public class Game
         var letters = CurrentGuess.GetLetters();
         var results = new List<GuessedLetter>();
 
-        foreach (var letterGroup in letters.GroupBy(l => l.Value))
+        foreach (var guessGroup in letters.GroupBy(l => l.Value))
         {
-            var matchingLetters = Solution.Letters.Where(l => l.Value == letterGroup.Key);
+            var guessedLetter = guessGroup.Key;
+            var guessedLetters = guessGroup.ToList();
 
+            var matchingLetters = Solution.Letters.Where(l => l.Value == guessedLetter).ToList();
             if (!matchingLetters.Any())
             {
-                results.AddRange(letterGroup.Select(letter => new GuessedLetter(letter, LetterMatchType.None)));
+                results.AddRange(guessedLetters.Select(l => new GuessedLetter(l, LetterMatchType.None)));
                 continue;
             }
 
-            var exactMatches = letterGroup.Where(letter => matchingLetters.Any(match => match.Index == letter.Index));
+            var exactMatches = guessedLetters.Where(letter => matchingLetters.Any(match => match.Index == letter.Index)).ToList();
             results.AddRange(exactMatches.Select(letter => new GuessedLetter(letter, LetterMatchType.Exact)));
+            guessedLetters.RemoveAll(letter => matchingLetters.Any(match => match.Index == letter.Index));
 
-            var remainingLetterCount = matchingLetters.Count() - exactMatches.Count();
-            var partialMatches = letterGroup.Where(letter => !matchingLetters.Any(match => match.Index == letter.Index));
+            var remainingMatchCount = matchingLetters.Count - exactMatches.Count;
 
-            results.AddRange(partialMatches.Take(remainingLetterCount).Select(letter => new GuessedLetter(letter, LetterMatchType.Partial)));
-            results.AddRange(partialMatches.Skip(remainingLetterCount).Select(letter => new GuessedLetter(letter, LetterMatchType.None)));
+            results.AddRange(guessedLetters.Take(remainingMatchCount).Select(l => new GuessedLetter(l, LetterMatchType.Partial)));
+            results.AddRange(guessedLetters.Skip(remainingMatchCount).Select(l => new GuessedLetter(l, LetterMatchType.None)));
         }
 
         CurrentGuess = string.Empty;
