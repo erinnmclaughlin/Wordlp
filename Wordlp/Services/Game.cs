@@ -1,5 +1,6 @@
-﻿using Wordlp.Models;
-using Wordlp.Shared.Settings;
+﻿using System.Diagnostics.Metrics;
+using Wordlp.Models;
+using Wordlp.Models.Settings;
 
 namespace Wordlp.Services;
 
@@ -10,9 +11,6 @@ public class Game
     public event EventHandler? OnInvalidSubmit;
     public event EventHandler? OnValidSubmit;
 
-    public bool IsGameOver => Guesses.Count == GameSettings.MaxGuesses || IsWin;
-    public bool IsWin => Guesses.Any(guess => guess.IsWin());
-
     public List<Guess> Guesses { get; private set; } = new();
     public Word Solution { get; private set; } = null!;
 
@@ -22,7 +20,7 @@ public class Game
         get => _currentGuess;
         set
         {
-            if (IsGameOver)
+            if (IsGameOver())
             {
                 _currentGuess = string.Empty;
                 return;
@@ -40,27 +38,22 @@ public class Game
         WordService = wordService;
     }
 
-    public void GameOver()
-    {
-        OnGameOver?.Invoke(this, EventArgs.Empty);
-    }
-
     public Guess? GetGuessByIndex(int index)
     {
         return Guesses.ElementAtOrDefault(index);
     }
 
-    public GuessResult GetLetterResult(char letter)
+    public Models.LetterMatchType GetLetterResult(char letter)
     {
-        var letters = Guesses.SelectMany(g => g.Letters.Where(l => l.Value == letter));
+        var letters = Guesses.SelectMany(g => g.Letters.Where(l => l.Letter.Value == letter));
 
-        if (letters.Any(l => l.Result == GuessResult.Match))
-            return GuessResult.Match;
+        if (letters.Any(l => l.Result == Models.LetterMatchType.Exact))
+            return Models.LetterMatchType.Exact;
 
-        if (letters.Any(l => l.Result == GuessResult.Contains))
-            return GuessResult.Contains;
+        if (letters.Any(l => l.Result == Models.LetterMatchType.Partial))
+            return Models.LetterMatchType.Partial;
 
-        return GuessResult.None;
+        return Models.LetterMatchType.None;
     }
 
     public bool HasBeenGuessed(char letter)
@@ -71,6 +64,16 @@ public class Game
     public bool IsCurrentGuess(int guessNumber)
     {
         return Guesses.Count == guessNumber;
+    }
+
+    public bool IsGameOver()
+    {
+        return Guesses.Count == GameSettings.MaxGuesses || IsWin();
+    }
+
+    public bool IsWin()
+    {
+        return Guesses.Any(guess => guess.IsWin());
     }
     
     public void LoadGame(SavedGame savedGame)
@@ -89,7 +92,7 @@ public class Game
 
     public void Submit()
     {
-        if (IsGameOver) return;
+        if (IsGameOver()) return;
 
         if (!WordService.IsValid(CurrentGuess))
         {
@@ -100,48 +103,36 @@ public class Game
         SubmitValidGuess();
     }
 
-    public GuessResult VerifyLetterPosition(char letter, int index)
-    {
-        if (Solution.Value[index] == letter)
-            return GuessResult.Match;
-
-        if (Solution.Value.Contains(letter))
-            return GuessResult.Contains;
-
-        return GuessResult.None;
-    }
-
     private void SubmitValidGuess()
     {
-        List<GuessedLetter> letters = new();
+        var letters = CurrentGuess.GetLetters();
+        var results = new List<GuessedLetter>();
 
-        for (int i = 0; i < CurrentGuess.Length; i++)
+        foreach (var letterGroup in letters.GroupBy(l => l.Value))
         {
-            var letter = CurrentGuess[i];
+            var matchingLetters = Solution.Letters.Where(l => l.Value == letterGroup.Key);
 
-            /* Exact match */
-            if (Solution.ContainsAtIndex(letter, i))
+            if (!matchingLetters.Any())
             {
-                letters.Add(new GuessedLetter(letter, GuessResult.Match));
+                results.AddRange(letterGroup.Select(letter => new GuessedLetter(letter, LetterMatchType.None)));
                 continue;
             }
 
-            /* No match */
-            if (!Solution.Contains(letter))
-            {
-                letters.Add(new GuessedLetter(letter, GuessResult.None));
-                continue;
-            }
+            var exactMatches = letterGroup.Where(letter => matchingLetters.Any(match => match.Index == letter.Index));
+            results.AddRange(exactMatches.Select(letter => new GuessedLetter(letter, LetterMatchType.Exact)));
 
-            /* Partial match */
-            letters.Add(new GuessedLetter(letter, GuessResult.Contains));
+            var remainingLetterCount = matchingLetters.Count() - exactMatches.Count();
+            var partialMatches = letterGroup.Where(letter => !exactMatches.Contains(letter));
+
+            results.AddRange(partialMatches.Take(remainingLetterCount).Select(letter => new GuessedLetter(letter, LetterMatchType.Partial)));
+            results.AddRange(partialMatches.Skip(remainingLetterCount).Select(letter => new GuessedLetter(letter, LetterMatchType.None)));
         }
 
         CurrentGuess = string.Empty;
-        Guesses.Add(new Guess(letters));
+        Guesses.Add(new Guess(results));
         OnValidSubmit?.Invoke(this, EventArgs.Empty);
 
-        if (IsGameOver)
-            GameOver();
+        if (IsGameOver())
+            OnGameOver?.Invoke(this, EventArgs.Empty);
     }
 }

@@ -7,4 +7,5 @@ public interface IGamePersistence
     Task<SavedGame?> LoadGame();
     Task<List<GameResult>> LoadHistory();
     Task SaveGame(Game game);
+    Task Validate();
 }

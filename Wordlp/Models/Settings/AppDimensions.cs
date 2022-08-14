@@ -1,4 +1,4 @@
-﻿namespace Wordlp.Shared.Settings;
+﻿namespace Wordlp.Models.Settings;
 
 public class AppDimensions
 {

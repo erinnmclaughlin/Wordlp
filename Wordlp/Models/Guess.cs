@@ -6,18 +6,18 @@ public record Guess(List<GuessedLetter> Letters)
 
     public bool Contains(char letter)
     {
-        return Letters.Any(l => l.Value == letter);
+        return Letters.Any(l => l.Letter.Value == letter);
     }
 
-    public GuessResult GetResultAt(int index)
+    public LetterMatchType GetResultAt(int index)
     {
         return Letters.ElementAt(index).Result;
     }
 
     public bool IsWin()
     {
-        return Letters.All(l => l.Result == GuessResult.Match);
+        return Letters.All(l => l.Result == LetterMatchType.Exact);
     }
 }
 
-public record GuessedLetter(char Value, GuessResult Result);
+public record GuessedLetter(Letter Letter, LetterMatchType Result);

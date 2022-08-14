@@ -1,8 +1,15 @@
 ﻿namespace Wordlp.Models;
 
-public record Word(string Value, string Description)
+public record Word
 {
-    public bool Contains(char letter) => Value.Contains(letter);
-    public bool ContainsAtIndex(char letter, int index) => Value.ElementAtOrDefault(index) == letter;
+    public string Value { get; }
+    public string Description { get; }
+    public IEnumerable<Letter> Letters { get; }
 
+    public Word(string value, string description)
+    {
+        Value = value;
+        Description = description;
+        Letters = value.GetLetters();
+    }
 }

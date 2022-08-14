@@ -1,7 +1,7 @@
 ﻿using Blazored.LocalStorage;
 using Wordlp.Models;
-
-using static Wordlp.Shared.Settings.LocalStorageSettings;
+using Wordlp.Models.Settings;
+using static Wordlp.Models.Settings.LocalStorageSettings;
 
 namespace Wordlp.Services.Persistence;
 
@@ -12,6 +12,17 @@ public class LocalStoragePersistence : IGamePersistence
 	public LocalStoragePersistence(ILocalStorageService localStorage)
 	{
 		LocalStorage = localStorage;
+	}
+
+	public async Task Validate()
+	{
+		var version = await LocalStorage.GetItemAsync<string>(Keys.Version);
+
+		if (version != GameSettings.Version)
+        {
+            await LocalStorage.ClearAsync();
+			await LocalStorage.SetItemAsync(Keys.Version, GameSettings.Version);
+		}
 	}
 
 	public async Task<SavedGame?> LoadGame()
@@ -29,7 +40,7 @@ public class LocalStoragePersistence : IGamePersistence
 		var savedGame = new SavedGame(game.Guesses, game.Solution);
         await LocalStorage.SetItemAsync(Keys.SavedGame, savedGame);
 
-		if (game.IsGameOver)
+		if (game.IsGameOver())
 			await AddToHistory(game);
     }
 
@@ -39,7 +50,7 @@ public class LocalStoragePersistence : IGamePersistence
         var lastResult = history.FirstOrDefault(h => h.Word.Value == game.Solution.Value);
 
         if (lastResult == null)
-			history.Add(new GameResult(game.Solution, game.Guesses.Count, game.IsWin));
+			history.Add(new GameResult(game.Solution, game.Guesses.Count, game.IsWin()));
 
         await LocalStorage.SetItemAsync(Keys.PlayerHistory, history);
     }

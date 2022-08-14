@@ -62,8 +62,8 @@
             classes.Add("guessed");
             classes.Add(previousGuess.GetResultAt(letterIndex) switch
             {
-                GuessResult.Match => "match",
-                GuessResult.Contains => "contains",
+                LetterMatchType.Exact => "match",
+                LetterMatchType.Partial => "contains",
                 _ => string.Empty
             });
         }
@@ -91,7 +91,7 @@
     private char? GetCellValue(int rowIndex, int letterIndex)
     {
         if (Game.GetGuessByIndex(rowIndex) is Guess previousGuess)
-            return previousGuess.Letters[letterIndex].Value;
+            return previousGuess.Letters[letterIndex].Letter.Value;
         else if (Game.IsCurrentGuess(rowIndex) && letterIndex < Guess.Length)
             return Guess[letterIndex];
 

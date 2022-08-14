@@ -68,8 +68,8 @@
 
         classes.Add(Game.GetLetterResult(letter) switch
         {
-            GuessResult.Match => "match",
-            GuessResult.Contains => "contains",
+            LetterMatchType.Exact => "match",
+            LetterMatchType.Partial => "contains",
             _ => string.Empty
         });
 

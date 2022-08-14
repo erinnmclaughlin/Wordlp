@@ -1,5 +1,5 @@
 ﻿using Blazored.LocalStorage;
-using Wordlp.Shared.Settings;
+using Wordlp.Models.Settings;
 
 namespace Wordlp.Services;
 
