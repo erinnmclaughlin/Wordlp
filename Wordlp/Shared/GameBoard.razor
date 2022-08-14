@@ -91,7 +91,7 @@
     private char? GetCellValue(int rowIndex, int letterIndex)
     {
         if (Game.GetGuessByIndex(rowIndex) is Guess previousGuess)
-            return previousGuess.Letters[letterIndex].Letter.Value;
+            return previousGuess.Letters.First(l => l.Letter.Index == letterIndex).Letter.Value;
         else if (Game.IsCurrentGuess(rowIndex) && letterIndex < Guess.Length)
             return Guess[letterIndex];
 

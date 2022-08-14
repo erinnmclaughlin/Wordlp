@@ -23,7 +23,7 @@ builder.Services.AddScoped<BrowserResizeService>();
 builder.Services.AddScoped<DarkModeService>();
 builder.Services.AddScoped<Game>();
 builder.Services.AddScoped<IGamePersistence, LocalStoragePersistence>();
-builder.Services.AddScoped<WordService>();
+builder.Services.AddScoped<IWordService, WordService>();
 builder.Services.AddBlazoredLocalStorage();
 
 await builder.Build().RunAsync();

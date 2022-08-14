@@ -3,7 +3,7 @@ using Wordlp.Services.Persistence;
 
 namespace Wordlp.Services;
 
-public class WordService
+public class WordService : IWordService
 {
     private IGamePersistence GamePersistence { get; }
     private WordCollection WordCollection { get; }

@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.Metrics;
-using Wordlp.Models;
+﻿using Wordlp.Models;
 using Wordlp.Models.Settings;
 
 namespace Wordlp.Services;
@@ -31,9 +30,9 @@ public class Game
         }
     }
 
-    private WordService WordService { get; }
+    private IWordService WordService { get; }
 
-    public Game(WordService wordService)
+    public Game(IWordService wordService)
     {
         WordService = wordService;
     }
@@ -122,7 +121,7 @@ public class Game
             results.AddRange(exactMatches.Select(letter => new GuessedLetter(letter, LetterMatchType.Exact)));
 
             var remainingLetterCount = matchingLetters.Count() - exactMatches.Count();
-            var partialMatches = letterGroup.Where(letter => !exactMatches.Contains(letter));
+            var partialMatches = letterGroup.Where(letter => !matchingLetters.Any(match => match.Index == letter.Index));
 
             results.AddRange(partialMatches.Take(remainingLetterCount).Select(letter => new GuessedLetter(letter, LetterMatchType.Partial)));
             results.AddRange(partialMatches.Skip(remainingLetterCount).Select(letter => new GuessedLetter(letter, LetterMatchType.None)));
