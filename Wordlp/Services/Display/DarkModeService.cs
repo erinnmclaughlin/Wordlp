@@ -1,14 +1,12 @@
 ﻿using Blazored.LocalStorage;
 using Wordlp.Models.Settings;
 
-namespace Wordlp.Services;
+namespace Wordlp.Services.Display;
+
+using static LocalStorageSettings;
 
 public class DarkModeService
 {
-    private const string Key = LocalStorageSettings.Keys.DarkMode;
-
-    private ILocalStorageService LocalStorage { get; }
-
     private bool _isEnabled;
     public bool IsEnabled
     {
@@ -24,6 +22,8 @@ public class DarkModeService
 
     public event EventHandler<bool>? OnToggle;
 
+    private ILocalStorageService LocalStorage { get; }
+
     public DarkModeService(ILocalStorageService localStorage)
     {
         LocalStorage = localStorage;
@@ -31,10 +31,10 @@ public class DarkModeService
 
     public async Task InitializeAsync()
     {
-        if (!await LocalStorage.ContainKeyAsync(Key))
+        if (!await LocalStorage.ContainKeyAsync(Keys.DarkMode))
             await Enable();
         else
-            IsEnabled = await LocalStorage.GetItemAsync<bool>(Key);
+            IsEnabled = await LocalStorage.GetItemAsync<bool>(Keys.DarkMode);
     }
 
     public ValueTask Enable()
@@ -46,7 +46,7 @@ public class DarkModeService
     public ValueTask Disable()
     {
         IsEnabled = false;
-        return UpdateLocalStorage();        
+        return UpdateLocalStorage();
     }
 
     public ValueTask Toggle()
@@ -56,6 +56,6 @@ public class DarkModeService
 
     private ValueTask UpdateLocalStorage()
     {
-        return LocalStorage.SetItemAsync(Key, IsEnabled);
+        return LocalStorage.SetItemAsync(Keys.DarkMode, IsEnabled);
     }
 }

@@ -6,6 +6,7 @@ using System.Text.Json;
 using Wordlp;
 using Wordlp.Models;
 using Wordlp.Services;
+using Wordlp.Services.Display;
 using Wordlp.Services.Persistence;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);

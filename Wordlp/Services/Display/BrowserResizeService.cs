@@ -1,13 +1,13 @@
 ﻿using Microsoft.JSInterop;
 
-namespace Wordlp.Services;
+namespace Wordlp.Services.Display;
 
 /* https://github.com/chrissainty/BlazorBrowserResize/blob/master/BrowserResize/BrowserResize/BrowserResizeService.cs */
 public class BrowserResizeService
 {
-    private IJSRuntime Js { get; }
-
     public static event Func<Task>? OnResize;
+
+    private IJSRuntime Js { get; }
 
     public BrowserResizeService(IJSRuntime js)
     {
