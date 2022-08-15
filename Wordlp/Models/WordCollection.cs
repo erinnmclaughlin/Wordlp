@@ -10,6 +10,7 @@ public class WordCollection
         var word = Answers.First(w => w.Value == value);
         return Answers.IndexOf(word) + 1;
     }
+    
     public bool IsValid(string word)
     {
         return ValidWords.Contains(word, StringComparer.InvariantCultureIgnoreCase);

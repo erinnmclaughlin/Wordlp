@@ -2,7 +2,7 @@
 @inject IGamePersistence GamePersistence
 @implements IDisposable
 
-<GameBoard @bind-Guess="@Game.CurrentGuess.Value" />
+<GameBoard @bind-Guess="@Game.CurrentGuess" />
 
 @if (Game.IsGameOver())
 {
@@ -10,7 +10,7 @@
 }
 else
 {
-    <Keyboard @bind-Guess="@Game.CurrentGuess.Value" />
+    <Keyboard @bind-Guess="@Game.CurrentGuess" />
 }
 
 <GameOverModal />

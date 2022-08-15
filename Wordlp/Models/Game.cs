@@ -11,7 +11,22 @@ public class Game
     public event EventHandler? OnInvalidSubmit;
     public event EventHandler? OnValidSubmit;
 
-    public Guess CurrentGuess { get; set; } = new();
+    private string _currentGuess = string.Empty;
+    public string CurrentGuess
+    {
+        get => _currentGuess;
+        set
+        {
+            if (IsGameOver())
+            {
+                _currentGuess = string.Empty;
+                return;
+            }
+
+            if (value.Length <= GameSettings.WordLength)
+                _currentGuess = value;
+        }
+    }
     public List<GuessedWord> Guesses { get; private set; } = new();
     public Word Solution { get; private set; } = null!;
 
@@ -34,14 +49,14 @@ public class Game
 
     public void LoadGame(SavedGame savedGame)
     {
-        CurrentGuess = new();
+        CurrentGuess = string.Empty;
         Guesses = savedGame.Guesses;
         Solution = savedGame.Solution;
     }
 
     public async Task NewGame()
     {
-        CurrentGuess = new();
+        CurrentGuess = string.Empty;
         Guesses = new();
         Solution = await WordService.GetRandomWord();
         OnGameStart?.Invoke(this, EventArgs.Empty);
@@ -51,7 +66,7 @@ public class Game
     {
         if (IsGameOver()) return;
 
-        if (!WordService.IsValid(CurrentGuess.Value))
+        if (!WordService.IsValid(CurrentGuess))
         {
             OnInvalidSubmit?.Invoke(this, EventArgs.Empty);
             return;
@@ -64,7 +79,7 @@ public class Game
     {
         var results = new List<GuessedLetter>();
 
-        foreach (var guessGroup in CurrentGuess.Letters.GroupBy(l => l.Value))
+        foreach (var guessGroup in CurrentGuess.GetLetters().GroupBy(l => l.Value))
         {
             var guessedLetter = guessGroup.Key;
             var guessedLetters = guessGroup.ToList();
@@ -86,7 +101,7 @@ public class Game
             results.AddRange(guessedLetters.Skip(remainingMatchCount).Select(l => new GuessedLetter(l, MatchTypes.None)));
         }
 
-        CurrentGuess = new();
+        CurrentGuess = string.Empty;
         Guesses.Add(new GuessedWord(results.OrderBy(r => r.Letter.Index).ToList()));
         OnValidSubmit?.Invoke(this, EventArgs.Empty);
 
