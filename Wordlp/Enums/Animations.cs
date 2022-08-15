@@ -1,4 +1,4 @@
-﻿namespace Wordlp.Models;
+﻿namespace Wordlp.Enums;
 
 public enum Animations
 {

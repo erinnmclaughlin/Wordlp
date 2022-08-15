@@ -16,7 +16,7 @@
         <div class="spacer"></div>
     </div>
     <div class="row">
-        <button type="button" style="flex: 1.5;" @onclick="Game.Submit">
+        <button type="button" style="flex: 1.5;" @onclick="Game.SubmitGuess">
             ENTER
         </button>
         @foreach (var key in "ZXCVBNM")
@@ -62,11 +62,11 @@
 
     private string GetKeyCss(char letter)
     {
-        if (!Game.HasBeenGuessed(letter)) return string.Empty;
+        if (!Game.Guesses.Any(g => g.Contains(letter))) return string.Empty;
 
         List<string> classes = new() { "guessed" };
 
-        classes.Add(Game.GetLetterResult(letter) switch
+        classes.Add(GetLetterResult(letter) switch
         {
             MatchTypes.Exact => "match",
             MatchTypes.Partial => "contains",
@@ -75,6 +75,20 @@
 
         return string.Join(" ", classes.Where(c => !string.IsNullOrWhiteSpace(c)));
     }
+    
+    private MatchTypes GetLetterResult(char letter)
+    {
+        var letters = Game.Guesses.SelectMany(g => g.Letters.Where(l => l.Letter.Value == letter));
+
+        if (letters.Any(l => l.MatchType == MatchTypes.Exact))
+            return MatchTypes.Exact;
+
+        if (letters.Any(l => l.MatchType == MatchTypes.Partial))
+            return MatchTypes.Partial;
+
+        return MatchTypes.None;
+    }
+
 
     private async Task HandleKeyPress(KeyboardEventArgs e)
     {
@@ -88,7 +102,7 @@
 
         if (key == "ENTER")
         {
-            Game.Submit();
+            Game.SubmitGuess();
             return;
         }
 

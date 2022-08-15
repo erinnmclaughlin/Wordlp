@@ -1,8 +1,8 @@
 ﻿using Wordlp.Enums;
-using Wordlp.Models;
 using Wordlp.Models.Settings;
+using Wordlp.Services;
 
-namespace Wordlp.Services;
+namespace Wordlp.Models;
 
 public class Game
 {
@@ -11,7 +11,7 @@ public class Game
     public event EventHandler? OnInvalidSubmit;
     public event EventHandler? OnValidSubmit;
 
-    public List<Guess> Guesses { get; private set; } = new();
+    public List<GuessedWord> Guesses { get; private set; } = new();
     public Word Solution { get; private set; } = null!;
 
     private string _currentGuess = string.Empty;
@@ -38,29 +38,6 @@ public class Game
         WordService = wordService;
     }
 
-    public Guess? GetGuessByIndex(int index)
-    {
-        return Guesses.ElementAtOrDefault(index);
-    }
-
-    public MatchTypes GetLetterResult(char letter)
-    {
-        var letters = Guesses.SelectMany(g => g.Letters.Where(l => l.Letter.Value == letter));
-
-        if (letters.Any(l => l.Result == MatchTypes.Exact))
-            return MatchTypes.Exact;
-
-        if (letters.Any(l => l.Result == MatchTypes.Partial))
-            return MatchTypes.Partial;
-
-        return MatchTypes.None;
-    }
-
-    public bool HasBeenGuessed(char letter)
-    {
-        return Guesses.Any(g => g.Contains(letter));
-    }
-
     public bool IsCurrentGuess(int guessNumber)
     {
         return Guesses.Count == guessNumber;
@@ -75,7 +52,7 @@ public class Game
     {
         return Guesses.Any(guess => guess.IsWin());
     }
-    
+
     public void LoadGame(SavedGame savedGame)
     {
         Guesses = savedGame.Guesses;
@@ -90,7 +67,7 @@ public class Game
         OnGameStart?.Invoke(this, EventArgs.Empty);
     }
 
-    public void Submit()
+    public void SubmitGuess()
     {
         if (IsGameOver()) return;
 
@@ -131,7 +108,7 @@ public class Game
         }
 
         CurrentGuess = string.Empty;
-        Guesses.Add(new Guess(results.OrderBy(r => r.Letter.Index).ToList()));
+        Guesses.Add(new GuessedWord(results.OrderBy(r => r.Letter.Index).ToList()));
         OnValidSubmit?.Invoke(this, EventArgs.Empty);
 
         if (IsGameOver())

@@ -2,6 +2,6 @@
 
 public record SavedGame
 (
-    List<Guess> Guesses,
+    List<GuessedWord> Guesses,
     Word Solution // TODO: Encrypt or somethin
 );

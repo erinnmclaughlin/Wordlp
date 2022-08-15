@@ -2,7 +2,7 @@
 
 namespace Wordlp.Models;
 
-public record Guess(List<GuessedLetter> Letters)
+public record GuessedWord(List<GuessedLetter> Letters)
 {
     public int Length => Letters.Count;
 
@@ -13,13 +13,11 @@ public record Guess(List<GuessedLetter> Letters)
 
     public MatchTypes GetResultAt(int index)
     {
-        return Letters.ElementAt(index).Result;
+        return Letters.ElementAt(index).MatchType;
     }
 
     public bool IsWin()
     {
-        return Letters.All(l => l.Result == MatchTypes.Exact);
+        return Letters.All(l => l.MatchType == MatchTypes.Exact);
     }
 }
-
-public record GuessedLetter(Letter Letter, MatchTypes Result);

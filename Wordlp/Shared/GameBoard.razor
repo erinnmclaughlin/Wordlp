@@ -57,7 +57,7 @@
     {
         List<string> classes = new() { "cell" };
 
-        if (Game.GetGuessByIndex(rowIndex) is Guess previousGuess)
+        if (Game.Guesses.ElementAtOrDefault(rowIndex) is GuessedWord previousGuess)
         {
             classes.Add("guessed");
             classes.Add(previousGuess.GetResultAt(letterIndex) switch
@@ -90,7 +90,7 @@
 
     private char? GetCellValue(int rowIndex, int letterIndex)
     {
-        if (Game.GetGuessByIndex(rowIndex) is Guess previousGuess)
+        if (Game.Guesses.ElementAtOrDefault(rowIndex) is GuessedWord previousGuess)
             return previousGuess.Letters.First(l => l.Letter.Index == letterIndex).Letter.Value;
         else if (Game.IsCurrentGuess(rowIndex) && letterIndex < Guess.Length)
             return Guess[letterIndex];
