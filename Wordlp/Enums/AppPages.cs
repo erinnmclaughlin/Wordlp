@@ -1,4 +1,4 @@
-﻿namespace Wordlp.Shared.Navigation;
+﻿namespace Wordlp.Enums;
 
 public enum AppPages
 {

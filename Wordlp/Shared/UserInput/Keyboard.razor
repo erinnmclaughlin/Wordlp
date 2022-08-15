@@ -68,8 +68,8 @@
 
         classes.Add(Game.GetLetterResult(letter) switch
         {
-            LetterMatchType.Exact => "match",
-            LetterMatchType.Partial => "contains",
+            MatchTypes.Exact => "match",
+            MatchTypes.Partial => "contains",
             _ => string.Empty
         });
 

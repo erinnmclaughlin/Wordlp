@@ -62,8 +62,8 @@
             classes.Add("guessed");
             classes.Add(previousGuess.GetResultAt(letterIndex) switch
             {
-                LetterMatchType.Exact => "match",
-                LetterMatchType.Partial => "contains",
+                MatchTypes.Exact => "match",
+                MatchTypes.Partial => "contains",
                 _ => string.Empty
             });
         }

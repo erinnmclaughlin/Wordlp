@@ -1,4 +1,5 @@
-﻿using Wordlp.Models;
+﻿using Wordlp.Enums;
+using Wordlp.Models;
 using Wordlp.Models.Settings;
 
 namespace Wordlp.Services;
@@ -42,17 +43,17 @@ public class Game
         return Guesses.ElementAtOrDefault(index);
     }
 
-    public LetterMatchType GetLetterResult(char letter)
+    public MatchTypes GetLetterResult(char letter)
     {
         var letters = Guesses.SelectMany(g => g.Letters.Where(l => l.Letter.Value == letter));
 
-        if (letters.Any(l => l.Result == LetterMatchType.Exact))
-            return LetterMatchType.Exact;
+        if (letters.Any(l => l.Result == MatchTypes.Exact))
+            return MatchTypes.Exact;
 
-        if (letters.Any(l => l.Result == LetterMatchType.Partial))
-            return LetterMatchType.Partial;
+        if (letters.Any(l => l.Result == MatchTypes.Partial))
+            return MatchTypes.Partial;
 
-        return LetterMatchType.None;
+        return MatchTypes.None;
     }
 
     public bool HasBeenGuessed(char letter)
@@ -115,18 +116,18 @@ public class Game
             var matchingLetters = Solution.Letters.Where(l => l.Value == guessedLetter).ToList();
             if (!matchingLetters.Any())
             {
-                results.AddRange(guessedLetters.Select(l => new GuessedLetter(l, LetterMatchType.None)));
+                results.AddRange(guessedLetters.Select(l => new GuessedLetter(l, MatchTypes.None)));
                 continue;
             }
 
             var exactMatches = guessedLetters.Where(letter => matchingLetters.Any(match => match.Index == letter.Index)).ToList();
-            results.AddRange(exactMatches.Select(letter => new GuessedLetter(letter, LetterMatchType.Exact)));
+            results.AddRange(exactMatches.Select(letter => new GuessedLetter(letter, MatchTypes.Exact)));
             guessedLetters.RemoveAll(letter => matchingLetters.Any(match => match.Index == letter.Index));
 
             var remainingMatchCount = matchingLetters.Count - exactMatches.Count;
 
-            results.AddRange(guessedLetters.Take(remainingMatchCount).Select(l => new GuessedLetter(l, LetterMatchType.Partial)));
-            results.AddRange(guessedLetters.Skip(remainingMatchCount).Select(l => new GuessedLetter(l, LetterMatchType.None)));
+            results.AddRange(guessedLetters.Take(remainingMatchCount).Select(l => new GuessedLetter(l, MatchTypes.Partial)));
+            results.AddRange(guessedLetters.Skip(remainingMatchCount).Select(l => new GuessedLetter(l, MatchTypes.None)));
         }
 
         CurrentGuess = string.Empty;

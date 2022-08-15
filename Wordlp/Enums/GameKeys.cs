@@ -1,15 +1,15 @@
-﻿namespace Wordlp.Models;
+﻿namespace Wordlp.Enums;
 
 public enum GameKey
 {
-    A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,
+    A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z,
     Backspace,
     Enter
 }
 
 public static class GameKeys
 {
-    public static readonly List<GameKey> Letters = new() 
+    public static readonly List<GameKey> Letters = new()
     {
         GameKey.A,
         GameKey.B,

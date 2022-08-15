@@ -1,4 +1,6 @@
-﻿namespace Wordlp.Models;
+﻿using Wordlp.Enums;
+
+namespace Wordlp.Models;
 
 public record Guess(List<GuessedLetter> Letters)
 {
@@ -9,15 +11,15 @@ public record Guess(List<GuessedLetter> Letters)
         return Letters.Any(l => l.Letter.Value == letter);
     }
 
-    public LetterMatchType GetResultAt(int index)
+    public MatchTypes GetResultAt(int index)
     {
         return Letters.ElementAt(index).Result;
     }
 
     public bool IsWin()
     {
-        return Letters.All(l => l.Result == LetterMatchType.Exact);
+        return Letters.All(l => l.Result == MatchTypes.Exact);
     }
 }
 
-public record GuessedLetter(Letter Letter, LetterMatchType Result);
+public record GuessedLetter(Letter Letter, MatchTypes Result);

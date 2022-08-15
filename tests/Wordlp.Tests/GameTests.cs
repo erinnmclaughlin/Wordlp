@@ -1,4 +1,5 @@
-﻿using Wordlp.Models;
+﻿using Wordlp.Enums;
+using Wordlp.Models;
 using Wordlp.Services;
 
 namespace Wordlp.Tests;
@@ -19,11 +20,11 @@ public class GameTests
 
         var lastGuess = game.Guesses.Last();
 
-        Assert.Equal(LetterMatchType.Exact, lastGuess.Letters.First(l => l.Letter.Index == 0).Result);
-        Assert.Equal(LetterMatchType.None, lastGuess.Letters.First(l => l.Letter.Index == 1).Result);
-        Assert.Equal(LetterMatchType.None, lastGuess.Letters.First(l => l.Letter.Index == 2).Result);
-        Assert.Equal(LetterMatchType.Exact, lastGuess.Letters.First(l => l.Letter.Index == 3).Result);
-        Assert.Equal(LetterMatchType.None, lastGuess.Letters.First(l => l.Letter.Index == 4).Result);
+        Assert.Equal(MatchTypes.Exact, lastGuess.Letters.First(l => l.Letter.Index == 0).Result);
+        Assert.Equal(MatchTypes.None, lastGuess.Letters.First(l => l.Letter.Index == 1).Result);
+        Assert.Equal(MatchTypes.None, lastGuess.Letters.First(l => l.Letter.Index == 2).Result);
+        Assert.Equal(MatchTypes.Exact, lastGuess.Letters.First(l => l.Letter.Index == 3).Result);
+        Assert.Equal(MatchTypes.None, lastGuess.Letters.First(l => l.Letter.Index == 4).Result);
     }
 
     [Fact]
@@ -40,11 +41,11 @@ public class GameTests
 
         var lastGuess = game.Guesses.Last();
 
-        Assert.Equal(LetterMatchType.None, lastGuess.Letters.First(l => l.Letter.Index == 0).Result);
-        Assert.Equal(LetterMatchType.Exact, lastGuess.Letters.First(l => l.Letter.Index == 1).Result);
-        Assert.Equal(LetterMatchType.Exact, lastGuess.Letters.First(l => l.Letter.Index == 2).Result);
-        Assert.Equal(LetterMatchType.Exact, lastGuess.Letters.First(l => l.Letter.Index == 3).Result);
-        Assert.Equal(LetterMatchType.Exact, lastGuess.Letters.First(l => l.Letter.Index == 4).Result);
+        Assert.Equal(MatchTypes.None, lastGuess.Letters.First(l => l.Letter.Index == 0).Result);
+        Assert.Equal(MatchTypes.Exact, lastGuess.Letters.First(l => l.Letter.Index == 1).Result);
+        Assert.Equal(MatchTypes.Exact, lastGuess.Letters.First(l => l.Letter.Index == 2).Result);
+        Assert.Equal(MatchTypes.Exact, lastGuess.Letters.First(l => l.Letter.Index == 3).Result);
+        Assert.Equal(MatchTypes.Exact, lastGuess.Letters.First(l => l.Letter.Index == 4).Result);
     }
 
     public class MockWordService : IWordService
