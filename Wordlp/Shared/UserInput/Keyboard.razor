@@ -47,7 +47,11 @@
 
     public async Task FocusKeyboard()
     {
-        await KeyboardReference.FocusAsync();
+        try
+        {
+            await KeyboardReference.FocusAsync();
+        }
+        catch { }
     }
 
     private async Task AddLetter(char letter)
