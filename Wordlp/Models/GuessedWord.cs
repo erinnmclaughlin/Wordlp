@@ -4,16 +4,11 @@ namespace Wordlp.Models;
 
 public record GuessedWord(List<GuessedLetter> Letters)
 {
-    public int Length => Letters.Count;
+    public GuessedLetter this[int index] => Letters.First(l => l.Letter.Index == index);
 
     public bool Contains(char letter)
     {
         return Letters.Any(l => l.Letter.Value == letter);
-    }
-
-    public MatchTypes GetResultAt(int index)
-    {
-        return Letters.ElementAt(index).MatchType;
     }
 
     public bool IsWin()

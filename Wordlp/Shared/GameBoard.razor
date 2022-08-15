@@ -41,15 +41,16 @@
     {
         BrowserResizeService.OnResize -= ResetHeight;
         Game.OnInvalidSubmit -= OnInvalidSubmit;
-        Game.OnValidSubmit -= OnValidSubmit;
-        GC.SuppressFinalize(this);
+    }
+
+    protected override void OnInitialized()
+    {
+        BrowserResizeService.OnResize += ResetHeight;
+        Game.OnInvalidSubmit += OnInvalidSubmit;
     }
 
     protected override async Task OnInitializedAsync()
     {
-        BrowserResizeService.OnResize += ResetHeight;
-        Game.OnInvalidSubmit += OnInvalidSubmit;
-        Game.OnValidSubmit += OnValidSubmit;
         await ResetHeight();
     }
 
@@ -60,16 +61,13 @@
         if (Game.Guesses.ElementAtOrDefault(rowIndex) is GuessedWord previousGuess)
         {
             classes.Add("guessed");
-            classes.Add(previousGuess.GetResultAt(letterIndex) switch
+
+            classes.Add(previousGuess[letterIndex].MatchType switch
             {
                 MatchTypes.Exact => "match",
                 MatchTypes.Partial => "contains",
                 _ => string.Empty
             });
-        }
-        else if (Game.IsCurrentGuess(rowIndex) && letterIndex < Guess.Length)
-        {
-            classes.Add("has-letter");
         }
 
         return string.Join(" ", classes.Where(c => !string.IsNullOrWhiteSpace(c)));
@@ -79,24 +77,27 @@
     {
         List<string> classes = new() { "row" };
 
-        if (Game.IsCurrentGuess(rowIndex))
-        {
-            if (CurrentAnimation == Animations.Shake)
-                classes.Add("shake");
-        }
+        if (CurrentAnimation == Animations.Shake && IsCurrentRow(rowIndex))
+            classes.Add("shake");
 
         return string.Join(' ', classes);
     }
 
     private char? GetCellValue(int rowIndex, int letterIndex)
     {
+        /* Previous guesses */
         if (Game.Guesses.ElementAtOrDefault(rowIndex) is GuessedWord previousGuess)
-            return previousGuess.Letters.First(l => l.Letter.Index == letterIndex).Letter.Value;
-        else if (Game.IsCurrentGuess(rowIndex) && letterIndex < Guess.Length)
+            return previousGuess[letterIndex].Letter.Value;
+        
+        /* Current guess */
+        if (IsCurrentRow(rowIndex) && letterIndex < Guess.Length)
             return Guess[letterIndex];
 
+        /* Future guesses */
         return null;
     }
+
+    private bool IsCurrentRow(int rowIndex) => Game.Guesses.Count == rowIndex;
 
     private async Task ResetHeight()
     {
@@ -106,7 +107,6 @@
     }
 
     private async void OnInvalidSubmit(object? o, EventArgs e) => await PlayShakeAnimation();
-    private void OnValidSubmit(object? o, EventArgs e) => StateHasChanged();
 
     private async Task PlayShakeAnimation()
     {

@@ -11,36 +11,15 @@ public class Game
     public event EventHandler? OnInvalidSubmit;
     public event EventHandler? OnValidSubmit;
 
+    public Guess CurrentGuess { get; set; } = new();
     public List<GuessedWord> Guesses { get; private set; } = new();
     public Word Solution { get; private set; } = null!;
-
-    private string _currentGuess = string.Empty;
-    public string CurrentGuess
-    {
-        get => _currentGuess;
-        set
-        {
-            if (IsGameOver())
-            {
-                _currentGuess = string.Empty;
-                return;
-            }
-
-            if (value.Length <= GameSettings.WordLength)
-                _currentGuess = value;
-        }
-    }
 
     private IWordService WordService { get; }
 
     public Game(IWordService wordService)
     {
         WordService = wordService;
-    }
-
-    public bool IsCurrentGuess(int guessNumber)
-    {
-        return Guesses.Count == guessNumber;
     }
 
     public bool IsGameOver()
@@ -55,13 +34,14 @@ public class Game
 
     public void LoadGame(SavedGame savedGame)
     {
+        CurrentGuess = new();
         Guesses = savedGame.Guesses;
         Solution = savedGame.Solution;
     }
 
     public async Task NewGame()
     {
-        CurrentGuess = string.Empty;
+        CurrentGuess = new();
         Guesses = new();
         Solution = await WordService.GetRandomWord();
         OnGameStart?.Invoke(this, EventArgs.Empty);
@@ -71,7 +51,7 @@ public class Game
     {
         if (IsGameOver()) return;
 
-        if (!WordService.IsValid(CurrentGuess))
+        if (!WordService.IsValid(CurrentGuess.Value))
         {
             OnInvalidSubmit?.Invoke(this, EventArgs.Empty);
             return;
@@ -82,10 +62,9 @@ public class Game
 
     private void SubmitValidGuess()
     {
-        var letters = CurrentGuess.GetLetters();
         var results = new List<GuessedLetter>();
 
-        foreach (var guessGroup in letters.GroupBy(l => l.Value))
+        foreach (var guessGroup in CurrentGuess.Letters.GroupBy(l => l.Value))
         {
             var guessedLetter = guessGroup.Key;
             var guessedLetters = guessGroup.ToList();
@@ -107,7 +86,7 @@ public class Game
             results.AddRange(guessedLetters.Skip(remainingMatchCount).Select(l => new GuessedLetter(l, MatchTypes.None)));
         }
 
-        CurrentGuess = string.Empty;
+        CurrentGuess = new();
         Guesses.Add(new GuessedWord(results.OrderBy(r => r.Letter.Index).ToList()));
         OnValidSubmit?.Invoke(this, EventArgs.Empty);
 
