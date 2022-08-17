@@ -1,5 +1,4 @@
-﻿using Wordlp.Enums;
-using Wordlp.Models.Settings;
+﻿using Wordlp.Models.Settings;
 using Wordlp.Services;
 
 namespace Wordlp.Models;
@@ -77,32 +76,11 @@ public class Game
 
     private void SubmitValidGuess()
     {
-        var results = new List<GuessedLetter>();
-
-        foreach (var guessGroup in CurrentGuess.GetLetters().GroupBy(l => l.Value))
-        {
-            var guessedLetter = guessGroup.Key;
-            var guessedLetters = guessGroup.ToList();
-
-            var matchingLetters = Solution.Letters.Where(l => l.Value == guessedLetter).ToList();
-            if (!matchingLetters.Any())
-            {
-                results.AddRange(guessedLetters.Select(l => new GuessedLetter(l, MatchTypes.None)));
-                continue;
-            }
-
-            var exactMatches = guessedLetters.Where(letter => matchingLetters.Any(match => match.Index == letter.Index)).ToList();
-            results.AddRange(exactMatches.Select(letter => new GuessedLetter(letter, MatchTypes.Exact)));
-            guessedLetters.RemoveAll(letter => matchingLetters.Any(match => match.Index == letter.Index));
-
-            var remainingMatchCount = matchingLetters.Count - exactMatches.Count;
-
-            results.AddRange(guessedLetters.Take(remainingMatchCount).Select(l => new GuessedLetter(l, MatchTypes.Partial)));
-            results.AddRange(guessedLetters.Skip(remainingMatchCount).Select(l => new GuessedLetter(l, MatchTypes.None)));
-        }
-
+        var analyzedGuess = GuessAnalyzer.Analyze(CurrentGuess, Solution.Value);
+       
         CurrentGuess = string.Empty;
-        Guesses.Add(new GuessedWord(results.OrderBy(r => r.Letter.Index).ToList()));
+        Guesses.Add(analyzedGuess);
+
         OnValidSubmit?.Invoke(this, EventArgs.Empty);
 
         if (IsGameOver())
