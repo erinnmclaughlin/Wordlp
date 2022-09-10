@@ -101,8 +101,11 @@
 
     <script>
 
+        var preloader = document.getElementById('preloader');
+        preloader.style.height = getInnerHeight() + 'px';
+
         if (localStorage.getItem('darkMode') == 'true') {
-            document.getElementById('preloader').classList.add('dark-mode');
+            preloader.classList.add('dark-mode');
         }
 
         window.addEventListener('resize', resized);
