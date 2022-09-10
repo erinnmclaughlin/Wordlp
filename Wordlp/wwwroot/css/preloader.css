@@ -1,4 +1,97 @@
-﻿#preloader div {
-    width: 32px;
-    height: 32px;
+﻿#preloader {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
+}
+
+.preloader-container {
+    display: grid;
+    grid-template-columns: repeat(7, 48px);
+    gap: 8px;
+    margin: auto;
+}
+
+.flip-card {
+    background-color: transparent;
+    width: 48px;
+    height: 48px;
+    font-size: 32px;
+    font-weight: bold;
+    perspective: 1000px;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transform-style: preserve-3d;
+    animation: flippyDoodle 7s infinite linear;
+}
+
+    .flip-card-inner[data-letter='L'] {
+        animation-delay: 0s;
+    }
+
+    .flip-card-inner[data-letter='O'] {
+        animation-delay: 0.33s;
+    }
+
+    .flip-card-inner[data-letter='A'] {
+        animation-delay: 0.67s;
+    }
+
+    .flip-card-inner[data-letter='D'] {
+        animation-delay: 1s;
+    }
+
+    .flip-card-inner[data-letter='I'] {
+        animation-delay: 1.33s;
+    }
+
+    .flip-card-inner[data-letter='N'] {
+        animation-delay: 1.67s;
+    }
+
+    .flip-card-inner[data-letter='G'] {
+        animation-delay: 2s;
+    }
+
+.flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.flip-card-front {
+    background-color: var(--slate-500);
+}
+
+.flip-card-back {
+    background-color: var(--green);
+    transform: rotateX(180deg);
+
+}
+
+@keyframes flippyDoodle {
+    
+    0% { 
+        transform: rotateX(0deg);
+    }
+
+    5%, 50% {
+        transform: rotateX(180deg);
+    }
+
+    55%, 100% {
+        transform: rotateX(0deg);
+    }
 }
