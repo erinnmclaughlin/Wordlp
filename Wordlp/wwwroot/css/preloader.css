@@ -1,7 +1,7 @@
 ﻿#preloader {
     display: flex;
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
     justify-content: center;
     align-items: center;
     background-color: var(--slate-200);
@@ -10,16 +10,16 @@
 
 .preloader-container {
     display: grid;
-    grid-template-columns: repeat(7, 48px);
+    grid-template-columns: repeat(7, 40px);
     gap: 8px;
     margin: auto;
 }
 
 .flip-card {
     background-color: transparent;
-    width: 48px;
-    height: 48px;
-    font-size: 32px;
+    width: 40px;
+    height: 40px;
+    font-size: 28px;
     font-weight: bold;
     perspective: 1000px;
 }
