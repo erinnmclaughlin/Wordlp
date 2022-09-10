@@ -1,4 +1,8 @@
-﻿<header class="app-header">
+﻿@implements IDisposable
+@inject IGamePersistence Persistence
+@inject Game Game
+
+<header class="app-header">
     <div class="header-start">
         @if (CurrentPage != AppPages.Game)
         {
@@ -9,7 +13,7 @@
     </div>
     <div class="app-title"><a href="?">@GetAppTitle()</a></div>
     <div class="header-end">
-        @if (CurrentPage != AppPages.History)
+        @if (CurrentPage != AppPages.History && PlayerHasHistory)
         {
             <a class="icon-button" href="?page=history">
                 <i class="fa-solid fa-clock-rotate-left fa-lg" />
@@ -26,6 +30,24 @@
     [CascadingParameter] private AppPages CurrentPage { get; set; }
     [CascadingParameter] public DarkModeService DarkMode { get; set; } = null!;
 
+    private bool PlayerHasHistory { get; set; }
+
+    public void Dispose()
+    {
+        Game.OnGameOver -= OnGameOver;
+        GC.SuppressFinalize(this);
+    }
+
+    protected override void OnInitialized()
+    {
+        Game.OnGameOver += OnGameOver;
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        PlayerHasHistory = await Persistence.HasGameHistory();
+    }
+
     private string GetAppTitle()
     {
         return CurrentPage switch
@@ -33,5 +55,13 @@
             AppPages.History => "HISTORY",
             _ => "WORDLP"
         };
+    }
+
+    private void OnGameOver(object? o, EventArgs e)
+    {
+        if (PlayerHasHistory) return;
+
+        PlayerHasHistory = true;
+        StateHasChanged();
     }
 }

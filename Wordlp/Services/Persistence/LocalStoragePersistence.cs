@@ -30,6 +30,11 @@ public class LocalStoragePersistence : IGamePersistence
 		return await LocalStorage.GetItemAsync<SavedGame>(Keys.SavedGame);
     }
 
+	public async Task<bool> HasGameHistory()
+	{
+		return await LocalStorage.ContainKeyAsync(Keys.PlayerHistory);
+	}
+
 	public async Task<List<GameResult>> LoadHistory()
 	{
         return await LocalStorage.GetItemAsync<List<GameResult>>(Keys.PlayerHistory) ?? new();
