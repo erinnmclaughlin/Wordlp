@@ -100,6 +100,11 @@
     <script>navigator.serviceWorker.register('service-worker.js');</script>
 
     <script>
+
+        if (localStorage.getItem('darkMode') == 'true') {
+            document.getElementById('preloader').classList.add('dark-mode');
+        }
+
         window.addEventListener('resize', resized);
 
         function getInnerHeight() {

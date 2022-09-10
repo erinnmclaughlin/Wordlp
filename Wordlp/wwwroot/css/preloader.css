@@ -4,6 +4,8 @@
     width: 100vw;
     justify-content: center;
     align-items: center;
+    background-color: var(--slate-200);
+    color: var(--slate-700);
 }
 
 .preloader-container {
@@ -72,13 +74,12 @@
 }
 
 .flip-card-front {
-    background-color: var(--slate-500);
+    background-color: var(--slate-450);
 }
 
 .flip-card-back {
     background-color: var(--green);
     transform: rotateX(180deg);
-
 }
 
 @keyframes flippyDoodle {
@@ -94,4 +95,18 @@
     55%, 100% {
         transform: rotateX(0deg);
     }
+}
+
+/* Dark Mode */
+#preloader.dark-mode {
+    background-color: var(--slate-900);
+    color: var(--slate-300);
+}
+
+.dark-mode .flip-card-front {
+    background-color: var(--slate-700);
+}
+
+.dark-mode .flip-card-back {
+    background-color: var(--dark-mode-green);
 }
