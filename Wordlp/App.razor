@@ -1,4 +1,6 @@
-﻿<CascadingNavigationState>
+﻿@inject NavigationManager NavigationManager 
+
+<CascadingNavigationState>
     <CascadingDisplaySettings>
         <Router AppAssembly="@typeof(App).Assembly">
             <Found Context="routeData">
@@ -12,3 +14,13 @@
         </Router>
     </CascadingDisplaySettings>
 </CascadingNavigationState>
+
+@code {
+    protected override void OnInitialized()
+    {
+        var baseUri = NavigationManager.BaseUri;
+
+        if (baseUri.Contains("www."))
+            NavigationManager.NavigateTo(baseUri.Replace("www.", ""), true);
+    }
+}
