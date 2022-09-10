@@ -1,0 +1,24 @@
+﻿.letters {
+    align-items: center;
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0 auto;
+}
+
+    .letters > div {
+        align-items: center;
+        background-color: var(--green);
+        color: white;
+        display: flex;
+        justify-content: center;
+        height: 38px;
+        width: 38px;
+    }
+
+/* Dark Mode */
+.dark-mode .letters > div {
+    background-color: var(--dark-mode-green);
+}

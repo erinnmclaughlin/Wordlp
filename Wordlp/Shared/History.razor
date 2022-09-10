@@ -8,12 +8,8 @@
             <div class="number">
                 #@(WordCollection.GetNumber(result.Word.Value).ToString("00"))
             </div>
-            <div class="letters">
-                @foreach (var letter in result.Word.Value)
-                {
-                    <div>@letter</div>
-                }
-            </div>
+
+            <LettersDisplay Word="@result.Word.Value" />
 
             @if (!string.IsNullOrWhiteSpace(result.Word.Description))
             {

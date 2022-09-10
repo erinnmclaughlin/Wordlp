@@ -1,0 +1,10 @@
+﻿<div class="letters">
+    @foreach (var letter in Word)
+    {
+        <div>@letter</div>
+    }
+</div>
+
+@code {
+    [Parameter] public string Word { get; set; } = string.Empty;
+}

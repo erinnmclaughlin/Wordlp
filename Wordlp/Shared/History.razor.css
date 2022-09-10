@@ -37,30 +37,6 @@
             letter-spacing: 0.025rem;
         }
 
-        .history .word .letters {
-            align-items: center;
-            display: flex;
-            gap: 5px;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin: 0 auto;
-        }
-
-            .history .word .letters > div {
-                align-items: center;
-                background-color: var(--slate-450);
-                color: white;
-                display: flex;
-                justify-content: center;
-                height: 38px;
-                width: 38px;
-            }
-
-            .history .word.known .letters > div {
-                background-color: var(--green);
-            }
-
         .history .description {
             font-style: italic;
             font-size: 0.9rem;
