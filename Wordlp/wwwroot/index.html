@@ -8,7 +8,7 @@
     <title>Word-LP</title>
 
     <base href="/" />
-
+    <link href="css/preloader.css" rel="stylesheet" />
     <link href="fontawesome/css/all.min.css" rel="stylesheet" />
     <link href="Wordlp.styles.css" rel="stylesheet" />
     <link href="css/app.css" rel="stylesheet" />
@@ -20,7 +20,17 @@
 </head>
 
 <body>
-    <div id="app">Loading...</div>
+    <div id="app">
+        <div id="pre-loader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
     <script src="_framework/blazor.webassembly.js"></script>
     <script>navigator.serviceWorker.register('service-worker.js');</script>
 
