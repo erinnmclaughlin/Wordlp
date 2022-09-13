@@ -23,7 +23,6 @@ button {
     width: 100%;
     display: flex;
     padding: 1rem;
-    padding-top: 0;
     box-sizing: border-box;
 }
 
@@ -50,6 +49,7 @@ div:not(:last-child), ul, li {
 
 .modal-content {
     padding: 1rem;
+    overflow-y: auto;
 }
 
 /* Dark Mode */
