@@ -1,30 +1,41 @@
 ﻿@inject Game Game
+@inject IGamePersistence Persistence
 @inject NavigationManager NavigationManager
 @implements IDisposable
 
 @if (IsActive)
 {
-    <div class="modal-background" @onclick="Close"></div>
+    <div class="modal-background" @onclick="Close" @onclick:stopPropagation="true"></div>
 
-    <div class="modal">
-        <button class="close" type="button" @onclick="Close">
-            <i class="fa-solid fa-close fa-xl" />
-        </button>
+    <div class="modal-container" @onclick="Close" @onclick:stopPropagation="true">
+        <div class="modal">
+            <div class="close">
+                <button type="button" @onclick="Close">
+                    <i class="fa-solid fa-close fa-lg"></i>
+                </button>
+            </div>
 
-        <div class="solution">
-            <LettersDisplay Word="@Game.Solution.Value" />
+            <div class="modal-content">
+                <div class="solution">
+                    <LettersDisplay Word="@Game.Solution.Value" />
+                </div>
+                <div class="solution-description">
+                    <p>@Game.Solution.Description</p>
+                </div>
+            </div>
+
+            <div class="modal-buttons">
+                <GameOverButtons />
+            </div>         
         </div>
-        <div class="modal-content">
-            <p>@Game.Solution.Description</p>
-        </div>
-
-        <GameOverButtons />
-    </div>
+    </div>   
 }
 
 @code {
 
     private bool IsActive { get; set; }
+    private int SolvedCount { get; set; }
+    private GameResult? Result { get; set; }
 
     public void Dispose()
     {
@@ -40,6 +51,12 @@
         NavigationManager.LocationChanged += OnLocationChanged;
     }
 
+    protected override async Task OnInitializedAsync()
+    {
+        var history = await Persistence.LoadHistory();
+        SolvedCount = history.Count;
+    }
+
     public void Close()
     {
         IsActive = false;
@@ -52,7 +69,13 @@
         StateHasChanged();
     }
 
-    private void OnGameOver(object? o, EventArgs e) => Show();
+    private void OnGameOver(object? o, GameResult result)
+    {
+        Result = result;
+        SolvedCount++;
+        Show();
+    }
+
     private void OnGameStart(object? o, EventArgs e) => Close();
     private void OnLocationChanged(object? o, LocationChangedEventArgs e) => Close();
 }

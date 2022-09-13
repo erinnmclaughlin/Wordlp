@@ -1,5 +1,4 @@
-﻿.restart-game-button,
-.view-history-button {
+﻿a, button {
     padding: 1rem 1.75rem;
     font-size: 1rem;
     font-weight: 500;
@@ -7,6 +6,15 @@
     align-items: center;
     gap: 0.5rem;
     border-radius: 999px;
+}
+
+.icon {
+    width: 0;
+}
+
+a span, button span {
+    flex-grow: 1;
+    text-align: center;
 }
 
 .restart-game-button {

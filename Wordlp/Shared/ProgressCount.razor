@@ -1,0 +1,16 @@
+﻿@inject WordCollection Words
+
+@if (NumberSolved == Words.Answers.Count)
+{
+    <div>Congratulations! You've discovered all @Words.Answers.Count WORD-LP words! Keep playing to see if you can beat your best scores!</div>
+}
+else
+{
+    <div>You've discovered @NumberSolved out of @Words.Answers.Count WORD-LP words!</div>
+}
+
+
+@code {
+
+    [Parameter, EditorRequired] public int NumberSolved { get; set; }
+}

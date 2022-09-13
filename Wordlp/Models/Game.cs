@@ -5,7 +5,7 @@ namespace Wordlp.Models;
 
 public class Game
 {
-    public event EventHandler? OnGameOver;
+    public event EventHandler<GameResult>? OnGameOver;
     public event EventHandler? OnGameStart;
     public event EventHandler? OnInvalidSubmit;
     public event EventHandler? OnValidSubmit;
@@ -84,6 +84,6 @@ public class Game
         OnValidSubmit?.Invoke(this, EventArgs.Empty);
 
         if (IsGameOver())
-            OnGameOver?.Invoke(this, EventArgs.Empty);
+            OnGameOver?.Invoke(this, new GameResult(Solution, Guesses.Count, IsWin()));
     }
 }

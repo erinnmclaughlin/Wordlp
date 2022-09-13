@@ -1,22 +1,18 @@
 ﻿@inject Game Game
 
-<div style="display: flex; height: 200px">
-    <div style="display: flex; margin: auto;">
-        <div style="display: flex; gap: 0.5rem; flex-direction: column;">
-            <button class="restart-game-button" type="button" @onclick="Game.NewGame">
-                <span>
-                    <i class="fa-solid fa-arrows-rotate" />
-                </span>
-                <span style="font-size: 1rem;">Play Again</span>
-            </button>
+<div style="display: flex; gap: 0.5rem; flex-direction: column; width: 100%;">
 
-            <a class="view-history-button" href="?page=history">
-                <span>
-                    <i class="fa-solid fa-history" />
-                </span>
-                <span style="font-size: 1rem;">View History</span>
-            </a>
+    <button class="restart-game-button" type="button" @onclick="Game.NewGame">
+        <div class="icon">
+            <i class="fa-solid fa-arrows-rotate" />
         </div>
-                
-    </div>
+        <span>Play Again</span>
+    </button>
+
+    <a class="view-history-button" href="?page=history">
+        <div class="icon">
+            <i class="fa-solid fa-history" />
+        </div>
+        <span>View History</span>
+    </a>
 </div>
