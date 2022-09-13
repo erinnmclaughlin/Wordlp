@@ -8,7 +8,7 @@ public class WordsTests
     [Fact]
     public void ValidWordListContainsAllWords()
     {
-        var words = File.ReadAllText("../../../../../Wordlp/wwwroot/data/words_v2.json");
+        var words = File.ReadAllText("../../../../../Wordlp/wwwroot/data/words_v3.json");
         var wordCollection = JsonSerializer.Deserialize<List<Word>>(words, new JsonSerializerOptions
         {
             PropertyNameCaseInsensitive = true

@@ -36,7 +36,7 @@ async Task<WordCollection> LoadWords()
         PropertyNameCaseInsensitive = true
     };
 
-    var answers = await http.GetAsync(Path.Combine("data", "words_v2.json"));
+    var answers = await http.GetAsync(Path.Combine("data", "words_v3.json"));
     var validWords = await http.GetAsync(Path.Combine("data", "valid.json"));
 
     return new WordCollection

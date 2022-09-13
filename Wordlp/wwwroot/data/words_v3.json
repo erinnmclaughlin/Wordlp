@@ -1,5 +1,9 @@
 [
   {
+    "value": "ALONE",
+    "description": "Paul and Laurie's favorite series, following contestants trying to survive in the vast wilderness completely alone."
+  },
+  {
     "value": "ARTSY",
     "description": "Artsy indeed! Pouring passion and paint (not to mention sculptures and sketches) into Gallery 717, LP have embraced their love of all things artsy."
   },
@@ -9,7 +13,7 @@
   },
   {
     "value": "BOOZE",
-    "description": "What has five letters and is another way of saying \"beer?"
+    "description": "What has five letters and is another way of saying \"beer?\""
   },
   {
     "value": "BREWS",
@@ -48,6 +52,10 @@
     "description": "Wait, let me show you this new craft we can do! — Laurie"
   },
   {
+    "value": "DISCS",
+    "description": "\"KANJAM,\" Laurie and Paul's go-to outdoor activity in which you try to throw frisbees into a cylinder with a slot, has too many letters to fit into Word-LP, so \"disc\" will have to do."
+  },
+  {
     "value": "DRAFT",
     "description": "How many words can we dig up to represent LP's love of beer? Stay tuned."
   },
@@ -72,6 +80,10 @@
     "description": "*So happy togetherrrrr* — Plus, no trip to LP's place is without a little happy hour fun — crack open a Toppling IPA and sit back for games and laughs."
   },
   {
+    "value": "HORSE",
+    "description": "A dala horse of course! Dala horses are a symbol of Swedish heritage you can find in every corner of 717 Westport."
+  },
+  {
     "value": "HOUSE",
     "description": "Laurie's house (in which Paul also lives) is a wonderful, welcoming place that deserved a spot on Word-lp."
   },
@@ -85,7 +97,7 @@
   },
   {
     "value": "MATES",
-    "description": ""
+    "description": "Laurie and Paul found their mate for life!"
   },
   {
     "value": "MUSIC",
@@ -104,6 +116,10 @@
     "description": "License plates, that is. Paul and Laurie are license plate connoisseur, keeping track of every state plate they see on road trips."
   },
   {
+    "value": "POPPY",
+    "description": "Poppies are a symbol of WWI, Laurie and Paul's favorite corner of history."
+  },
+  {
     "value": "QUIPS",
     "description": "Both Paul and Laurie have a way with words, but Laurie is the quip queen with her sharp wit."
   },
@@ -117,7 +133,7 @@
   },
   {
     "value": "RINGS",
-    "description": "Cue \"here comes the bride!"
+    "description": "Cue \"here comes the bride!\""
   },
   {
     "value": "ROYAL",
@@ -140,8 +156,16 @@
     "description": "They're so sweet together! Have you even seen them?"
   },
   {
+    "value": "TACOS",
+    "description": "Tacos are a staple in the LP dinner lineup. Ask Paul about his Navajo fry bread version."
+  },
+  {
     "value": "TASTY",
     "description": "Tasty food, tasty beer. Tasty."
+  },
+  {
+    "value": "TEACH",
+    "description": "Laurie is a teacher by day, champion of DIY tiny art by night (but also by day too, when is Curator of Gallery 717 finally going to be her full time job?)."
   },
   {
     "value": "TRIPS",
@@ -150,6 +174,10 @@
   {
     "value": "TRUCK",
     "description": "Who would ever have thought that Paul would own a huge white truck? And more importantly, who could ever have predicted it would be completely decked out in Chiefs regalia but not the \"I heart my granddog\" magnet Paul conveniently \"lost?"
+  },
+  {
+    "value": "WALKS",
+    "description": "Laurie and Paul love long walks."
   },
   {
     "value": "WATCH",
