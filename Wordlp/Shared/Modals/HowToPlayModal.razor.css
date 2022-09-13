@@ -2,7 +2,7 @@
     padding: 1rem;
     border-top: 2px solid var(--green);
     border-bottom: 2px solid var(--green);
-    background: rgba(0,0,0,0.4);
+    background-color: rgba(255,255,255,0.4);
 }
 
 button {
@@ -16,8 +16,8 @@ button {
     background-color: var(--green);
     width: 100%;
     justify-content: center;
+    color: var(--slate-100);
 }
-
 
 .buttons {
     width: 100%;
@@ -39,10 +39,12 @@ div:not(:last-child), ul, li {
 }
 
 .green {
+    color: var(--slate-250);
     background-color: var(--green);
 }
 
 .yellow {
+    color: var(--slate-250);
     background-color: var(--yellow);
 }
 
@@ -52,6 +54,7 @@ div:not(:last-child), ul, li {
 
 /* Dark Mode */
 .dark-mode header {
+    background-color: rgba(0,0,0,0.4);
     border-top: 2px solid var(--dark-mode-green);
     border-bottom: 2px solid var(--dark-mode-green);
 }
@@ -65,11 +68,9 @@ div:not(:last-child), ul, li {
 }
 
 .dark-mode .green {
-    color: var(--slate-250);
     background-color: var(--dark-mode-green);
 }
 
 .dark-mode .yellow {
-    color: var(--slate-250);
     background-color: var(--dark-mode-yellow);
 }
