@@ -1,6 +1,7 @@
 ﻿.modal-background {
     background-color: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     height: 100%;
     position: absolute;
     top: 0;
@@ -88,6 +89,10 @@
 
 
 /* Dark Mode */
+.dark-mode .modal-background {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
 .dark-mode .modal {
     background-color: var(--slate-900);
     box-shadow: 0 0 32px 4px rgba(0,0,0,0.75);
