@@ -6,6 +6,7 @@
     width: 100%;
     align-items: center;
     overflow-y: auto;
+    justify-content: space-evenly;
 }
 
 #wordlp {
