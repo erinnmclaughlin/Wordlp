@@ -13,6 +13,9 @@
     </div>
     <div class="app-title"><a href="?">@GetAppTitle()</a></div>
     <div class="header-end">
+        <button class="icon-button" @onclick="() => ShowHowToPlay = true">
+            <i class="fas fa-question fa-lg"></i>
+        </button>
         @if (CurrentPage != AppPages.History && PlayerHasHistory)
         {
             <a class="icon-button" href="?page=history">
@@ -25,12 +28,15 @@
     </div>        
 </header>
 
+<HowToPlayModal IsActive="ShowHowToPlay" OnClose="() => ShowHowToPlay = false" />
+
 @code {
 
     [CascadingParameter] private AppPages CurrentPage { get; set; }
     [CascadingParameter] public DarkModeService DarkMode { get; set; } = null!;
 
     private bool PlayerHasHistory { get; set; }
+    private bool ShowHowToPlay { get; set; }
 
     public void Dispose()
     {

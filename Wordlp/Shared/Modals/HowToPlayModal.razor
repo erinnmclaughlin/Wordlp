@@ -1,0 +1,34 @@
+﻿@if (IsActive)
+{
+    <Modal OnClose="OnClose">
+        <header>
+            <div style="font-weight: 700; font-size: 1.5rem;">Welcome to WORD-LP</div>
+            <div>The custom Worlde game all about Laurie and Paul!</div>
+        </header>
+        <div class="modal-content">
+            <div style="font-weight: 700; font-size: 1.25rem;">HOW TO PLAY</div>
+            <div class="instructions">
+                <div>Guess the word in 6 tries.</div>
+                <div>Each guess must be a valid 5-letter word. Hit the enter button to submit.</div>
+                <div>After each guess, the color of the tiles will change to show how close your guess was to the word:</div>
+                <ul style="margin-left: 2rem;">
+                    <li>A <span class="text-background green">GREEN</span> tile means your letter is in the right place.</li>
+                    <li>A <span class="text-background yellow">YELLOW</span> tile means your letter appears somewhere in the word, but is in the wrong place.</li>
+                    <li>A <span class="text-background grey">GREY</span> tile means your letter is not in the word at all.</li>
+                </ul>
+                <div>There are <span>50</span> total Word-LPs. Can you beat the game?</div>
+            </div>                
+
+            <div>Good luck, and congratulations to Laurie and Paul!</div>
+        </div>
+        <div class="buttons">
+            <button @onclick="OnClose">Continue to Game</button>
+        </div>
+    </Modal>
+}
+
+@code {
+
+    [Parameter] public bool IsActive { get; set; }
+    [Parameter] public EventCallback OnClose { get; set; }
+}

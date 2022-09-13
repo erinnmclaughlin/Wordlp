@@ -1,0 +1,75 @@
+﻿header {
+    padding: 1rem;
+    border-top: 2px solid var(--green);
+    border-bottom: 2px solid var(--green);
+    background: rgba(0,0,0,0.4);
+}
+
+button {
+    padding: 1rem 1.75rem;
+    font-size: 1rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 999px;
+    background-color: var(--green);
+    width: 100%;
+    justify-content: center;
+}
+
+
+.buttons {
+    width: 100%;
+    display: flex;
+    padding: 1rem;
+    padding-top: 0;
+    box-sizing: border-box;
+}
+
+div:not(:last-child), ul, li {
+    margin-bottom: 0.5rem;
+}
+
+.text-background {
+    padding: 0.1rem 0.25rem;
+    font-weight: 500;
+    letter-spacing: 0.05rem;
+    font-size: 1.1rem;
+}
+
+.green {
+    background-color: var(--green);
+}
+
+.yellow {
+    background-color: var(--yellow);
+}
+
+.modal-content {
+    padding: 1rem;
+}
+
+/* Dark Mode */
+.dark-mode header {
+    border-top: 2px solid var(--dark-mode-green);
+    border-bottom: 2px solid var(--dark-mode-green);
+}
+
+.dark-mode button {
+    background-color: var(--dark-mode-green);
+}
+
+.dark-mode .instructions {
+    color: var(--slate-400);
+}
+
+.dark-mode .green {
+    color: var(--slate-250);
+    background-color: var(--dark-mode-green);
+}
+
+.dark-mode .yellow {
+    color: var(--slate-250);
+    background-color: var(--dark-mode-yellow);
+}
