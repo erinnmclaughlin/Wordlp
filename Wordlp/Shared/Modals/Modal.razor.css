@@ -30,6 +30,7 @@
     min-height: 400px;
     display: flex;
     flex-direction: column;
+    max-height: 98%;
 }
 
     .modal .close {
