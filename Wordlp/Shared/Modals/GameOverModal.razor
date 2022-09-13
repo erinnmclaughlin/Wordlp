@@ -5,30 +5,20 @@
 
 @if (IsActive)
 {
-    <div class="modal-background" @onclick="Close" @onclick:stopPropagation="true"></div>
-
-    <div class="modal-container" @onclick="Close" @onclick:stopPropagation="true">
-        <div class="modal">
-            <div class="close">
-                <button type="button" @onclick="Close">
-                    <i class="fa-solid fa-close fa-lg"></i>
-                </button>
+    <Modal OnClose="Close">
+        <div class="modal-content">
+            <div class="solution">
+                <LettersDisplay Word="@Game.Solution.Value" />
             </div>
-
-            <div class="modal-content">
-                <div class="solution">
-                    <LettersDisplay Word="@Game.Solution.Value" />
-                </div>
-                <div class="solution-description">
-                    <p>@Game.Solution.Description</p>
-                </div>
+            <div class="solution-description">
+                <p>@Game.Solution.Description</p>
             </div>
-
-            <div class="modal-buttons">
-                <GameOverButtons />
-            </div>         
         </div>
-    </div>   
+
+        <div class="modal-buttons">
+            <GameOverButtons />
+        </div>   
+    </Modal>
 }
 
 @code {

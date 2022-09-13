@@ -1,0 +1,53 @@
+﻿.modal-content {
+    background-color: rgba(255,255,255,0.4);
+    padding: 2rem 0;
+    margin-top: 0.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+
+    border-top: 2px solid var(--green);
+    border-bottom: 2px solid var(--green);
+}
+
+.modal-buttons {
+    padding: 2rem 1.5rem;
+    display: flex;
+    width: 90%;
+    align-self: center;
+    box-sizing: border-box;
+    margin: auto;
+}
+
+.solution {
+}
+
+.solution ::deep .letters {
+    gap: 10px;
+}
+
+.solution ::deep .letters div {
+    height: 48px;
+    width: 48px;
+    border: 2px solid black inset;
+}
+
+.solution-description {
+    color: var(--slate-500);
+    font-style: italic;
+    padding: 0 1rem;
+    text-align: center;
+    font-size: 0.95rem;
+}
+
+
+/* Dark Mode */
+.dark-mode .modal-content {
+    background-color: rgba(0,0,0,0.4);
+    border-top: 2px solid var(--dark-mode-green);
+    border-bottom: 2px solid var(--dark-mode-green);
+}
+
+.dark-mode .solution-description {
+    color: var(--slate-400);
+}
