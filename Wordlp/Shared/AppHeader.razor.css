@@ -12,8 +12,9 @@
     .app-header > .header-end {
         display: flex;
         width: 120px;
-        gap: 8px;
+        gap: 10px;
         height: 100%;
+        align-items: center;
     }
 
     .app-header > .header-start {
@@ -26,9 +27,6 @@
 
     .app-header > .app-title {
         cursor: default;
-        
-        
-        -spacing: 5px;
         font-size: 18px;
         font-weight: bold;
     }
@@ -36,10 +34,8 @@
     .app-header .icon-button {
         color: var(--slate-700);
         background: transparent;
-    }
-
-    .app-header a.icon-button {
-        margin: auto 0;
+        width: 20px;
+        font-size: 0.9rem;
     }
 
 /* Dark Mode */

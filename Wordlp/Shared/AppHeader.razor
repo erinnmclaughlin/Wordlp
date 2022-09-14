@@ -1,6 +1,7 @@
 ﻿@implements IDisposable
 @inject IGamePersistence Persistence
 @inject Game Game
+@inject NavigationManager Navigation
 
 <header class="app-header">
     <div class="header-start">
@@ -14,7 +15,7 @@
     <div class="app-title"><a href="?">@GetAppTitle()</a></div>
     <div class="header-end">
         <button class="icon-button" @onclick="() => ShowHowToPlay = true">
-            <i class="fas fa-question fa-lg"></i>
+            <i class="fas fa-question-circle fa-lg"></i>
         </button>
         @if (CurrentPage != AppPages.History && PlayerHasHistory)
         {
@@ -23,7 +24,7 @@
             </a>
         }       
         <button class="icon-button" @onclick="() => DarkMode.Toggle()">
-            <i class="@(DarkMode.IsEnabled ? "fa-solid" : "fa-regular") fa-moon fa-xl" />
+            <i class="@(DarkMode.IsEnabled ? "fa-solid" : "fa-regular") fa-moon fa-lg" />
         </button>
     </div>        
 </header>
