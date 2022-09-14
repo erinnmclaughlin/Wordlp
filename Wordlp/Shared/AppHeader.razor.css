@@ -4,7 +4,7 @@
     display: flex;
     height: var(--header-height);
     min-height: 40px;
-    padding: 0rem 1.25rem;
+    padding: 0rem 1rem;
     justify-content: space-between;
 }
 
@@ -12,7 +12,7 @@
     .app-header > .header-end {
         display: flex;
         width: 120px;
-        gap: 10px;
+        gap: 8px;
         height: 100%;
         align-items: center;
     }
@@ -35,7 +35,8 @@
         color: var(--slate-700);
         background: transparent;
         width: 20px;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
+        text-align: center;
     }
 
 /* Dark Mode */
