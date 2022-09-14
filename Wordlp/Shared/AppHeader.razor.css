@@ -3,7 +3,7 @@
     border-bottom: 1px solid var(--slate-400);
     display: flex;
     height: var(--header-height);
-    min-height: 40px;
+    min-height: 44px;
     padding: 0rem 1rem;
     justify-content: space-between;
 }
