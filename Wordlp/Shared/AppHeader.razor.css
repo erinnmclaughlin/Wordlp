@@ -3,9 +3,10 @@
     border-bottom: 1px solid var(--slate-400);
     display: flex;
     height: var(--header-height);
-    min-height: 44px;
-    padding: 0rem 1rem;
+    min-height: var(--header-height);
+    padding: 2px 1rem;
     justify-content: space-between;
+    box-sizing: border-box;
 }
 
     .app-header > .header-start,
@@ -37,7 +38,6 @@
         width: 20px;
         font-size: 0.85rem;
         text-align: center;
-        margin-top: 2px;
     }
 
 /* Dark Mode */
