@@ -38,6 +38,7 @@
         width: 20px;
         font-size: 0.85rem;
         text-align: center;
+        display: flex;
     }
 
 /* Dark Mode */
