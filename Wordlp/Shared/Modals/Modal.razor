@@ -1,22 +1,18 @@
 ﻿<div class="modal-background @(IsActive ? "show" : "hide")" @onclick="Close" @onclick:stopPropagation="true"></div>
 
-@if (IsActive)
-{
-    <div class="modal-container @(IsActive ? "show" : "hide")" @onclick="Close" @onclick:stopPropagation="true">
-        <div class="modal">
-            <div class="close">
-                <button type="button" @onclick="Close">
-                    <i class="fa-solid fa-close fa-lg"></i>
-                </button>
-            </div>
-
-            <CascadingValue Value="this">
-                @ChildContent
-            </CascadingValue>            
+<div class="modal-container @(IsActive ? "show" : "hide")" @onclick="Close" @onclick:stopPropagation="true">
+    <div class="modal">
+        <div class="close">
+            <button type="button" @onclick="Close">
+                <i class="fa-solid fa-close fa-lg"></i>
+            </button>
         </div>
-    </div>
-}
 
+        <CascadingValue Value="this">
+            @ChildContent
+        </CascadingValue>            
+    </div>
+</div>
 
 @code {
 

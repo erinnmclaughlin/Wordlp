@@ -24,7 +24,13 @@
     align-items: center;
     width: 100%;
     justify-content: center;
+    margin-top: calc(100vh + 100px);
+    transition: margin 0.2s ease-in-out;
 }
+
+    .modal-container.show {
+        margin-top: 0;
+    }
 
 .modal {
     width: 100%;
