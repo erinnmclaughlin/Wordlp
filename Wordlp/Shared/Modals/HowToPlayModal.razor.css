@@ -61,6 +61,7 @@ button {
     display: flex;
     padding: 1rem;
     box-sizing: border-box;
+    box-shadow: 0 0 16px 2px rgb(0 0 0 / 20%);
 }
 
 div:not(:last-child), ul, li {
@@ -110,6 +111,10 @@ div:not(:last-child), ul, li {
 
 .dark-mode button {
     background-color: var(--dark-mode-green);
+}
+
+.dark-mode .buttons {
+    box-shadow: 0 0 16px 2px rgb(0 0 0 / 50%);
 }
 
 .dark-mode .instructions {
