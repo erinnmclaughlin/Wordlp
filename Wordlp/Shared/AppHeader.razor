@@ -29,7 +29,9 @@
     </div>        
 </header>
 
-<HowToPlayModal IsActive="ShowHowToPlay" OnClose="() => ShowHowToPlay = false" />
+<Modal @bind-IsActive="ShowHowToPlay">
+    <HowToPlayModal />
+</Modal>
 
 @code {
 
@@ -50,9 +52,21 @@
         Game.OnGameOver += OnGameOver;
     }
 
-    protected override async Task OnParametersSetAsync()
+    protected override async Task OnInitializedAsync()
     {
         PlayerHasHistory = await Persistence.HasGameHistory();
+
+        if (!PlayerHasHistory)
+        {
+            await Task.Delay(750);
+            ShowHowToPlay = true;
+        }
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (!PlayerHasHistory)
+            PlayerHasHistory = await Persistence.HasGameHistory();
     }
 
     private string GetAppTitle()

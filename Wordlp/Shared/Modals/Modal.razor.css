@@ -1,5 +1,5 @@
 ﻿.modal-background {
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(0, 0, 0, 0);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     height: 100%;
@@ -7,8 +7,14 @@
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1;
+    z-index: -1;
+    transition: all 0.15s linear;
 }
+
+    .modal-background.show {
+        background-color: rgba(0, 0, 0, 0.6);
+        z-index: 1;
+    }
 
 .modal-container {
     position: absolute;
@@ -48,7 +54,7 @@
         }
 
 /* Dark Mode */
-.dark-mode .modal-background {
+.dark-mode .modal-background.show {
     background-color: rgba(0, 0, 0, 0.8);
 }
 

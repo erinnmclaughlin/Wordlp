@@ -1,40 +1,33 @@
-﻿@if (IsActive)
-{
-    <Modal OnClose="OnClose">
-        <header>
-            <h1>Welcome to WORD-LP</h1>
-            <div>The custom Worlde game all about Laurie and Paul!</div>
-        </header>
+﻿<header>
+    <h1>Welcome to WORD-LP</h1>
+    <div>The custom Worlde game all about Laurie and Paul!</div>
+</header>
 
-        <div class="modal-content">
-            <section id="how-to-play">
-                <h2>HOW TO PLAY</h2>
-                <p>Guess the word in 6 tries.</p>
-                <p>Each guess must be a valid 5-letter word. Hit the enter button to submit.</p>
-            </section>
+<div class="modal-content">
+    <section id="how-to-play">
+        <h2>HOW TO PLAY</h2>
+        <p>Guess the word in 6 tries.</p>
+        <p>Each guess must be a valid 5-letter word. Hit the enter button to submit.</p>
+    </section>
 
-            <section id="examples">                
-                <div>After each guess, the color of the tiles will change to show how close your guess was to the word:</div>
-                <ul style="margin-left: 2rem;">
-                    <li>A <span class="text-background green">GREEN</span> tile means your letter is in the right place.</li>
-                    <li>A <span class="text-background yellow">YELLOW</span> tile means your letter appears somewhere in the word, but is in the wrong place.</li>
-                    <li>A <span class="text-background grey">GREY</span> tile means your letter is not in the word at all.</li>
-                </ul>
-            </section>
+    <section id="examples">                
+        <div>After each guess, the color of the tiles will change to show how close your guess was to the word:</div>
+        <ul style="margin-left: 2rem;">
+            <li>A <span class="text-background green">GREEN</span> tile means your letter is in the right place.</li>
+            <li>A <span class="text-background yellow">YELLOW</span> tile means your letter appears somewhere in the word, but is in the wrong place.</li>
+            <li>A <span class="text-background grey">GREY</span> tile means your letter is not in the word at all.</li>
+        </ul>
+    </section>
             
-            <section>
-                <p>There are <span style="font-weight: 500;">50</span> total Word-LPs. <span style="font-weight: 500; font-style: italic;">Can you beat the game?</span></p>
-            </section>
+    <section>
+        <p>There are <span style="font-weight: 500;">50</span> total Word-LPs. <span style="font-weight: 500; font-style: italic;">Can you beat the game?</span></p>
+    </section>
             
-        </div>
-        <div class="buttons">
-            <button @onclick="OnClose">Continue to Game</button>
-        </div>
-    </Modal>
-}
+</div>
+<div class="buttons">
+    <button @onclick="Modal.Close">Continue to Game</button>
+</div>
 
-@code {
-
-    [Parameter] public bool IsActive { get; set; }
-    [Parameter] public EventCallback OnClose { get; set; }
+@code{
+    [CascadingParameter] public Modal Modal { get; set; } = null!;
 }

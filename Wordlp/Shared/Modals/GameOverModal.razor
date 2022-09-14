@@ -3,23 +3,20 @@
 @inject NavigationManager NavigationManager
 @implements IDisposable
 
-@if (IsActive)
-{
-    <Modal OnClose="Close">
-        <div class="modal-content">
-            <div class="solution">
-                <LettersDisplay Word="@Game.Solution.Value" />
-            </div>
-            <div class="solution-description">
-                <p>@Game.Solution.Description</p>
-            </div>
+<Modal @bind-IsActive="IsActive">
+    <div class="modal-content">
+        <div class="solution">
+            <LettersDisplay Word="@Game.Solution.Value" />
         </div>
+        <div class="solution-description">
+            <p>@Game.Solution.Description</p>
+        </div>
+    </div>
 
-        <div class="modal-buttons">
-            <GameOverButtons />
-        </div>   
-    </Modal>
-}
+    <div class="modal-buttons">
+        <GameOverButtons />
+    </div>   
+</Modal>
 
 @code {
 
