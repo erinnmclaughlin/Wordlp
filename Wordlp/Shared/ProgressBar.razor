@@ -1,0 +1,15 @@
+﻿<div class="box-progress-wrapper">
+    <p class="box-progress-header">Progress</p>
+    <div class="box-progress-bar">
+        <span class="box-progress" style="width: @(Width)%;"></span>
+    </div>
+    <p class="box-progress-percentage">@NumberSolved / 50 Solved</p>
+</div>
+
+
+@code {
+
+    [Parameter] public int NumberSolved { get; set; }
+
+    private double Width => 100.0 * NumberSolved / 50.0;
+}

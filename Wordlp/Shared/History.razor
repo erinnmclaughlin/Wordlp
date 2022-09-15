@@ -2,6 +2,9 @@
 @inject WordCollection WordCollection
 
 <div class="history">
+
+    <ProgressBar NumberSolved="PreviousResults.Count" />
+
     @foreach (var result in PreviousResults)
     {
         <div class="word known">

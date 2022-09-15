@@ -1,0 +1,51 @@
+﻿* {
+    box-sizing: border-box;
+}
+
+.box-progress-wrapper {
+    max-width: 600px;
+    width: 100%;
+    padding: 16px 12px;
+    padding-top: 0;
+    margin: auto;
+}
+
+.box-progress {
+    display: block;
+    height: 4px;
+    border-radius: 6px;
+    background-color: var(--green);
+}
+
+.box-progress-header {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 16px;
+    margin: 0;
+}
+
+.box-progress-bar {
+    width: 100%;
+    height: 4px;
+    border-radius: 6px;
+    overflow: hidden;
+    background-color: #fff;
+    margin: 8px 0;
+}
+
+.box-progress-percentage {
+    text-align: right;
+    margin: 0;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 16px;
+}
+
+/* Dark Mode */
+.dark-mode .box-progress {
+    background-color: var(--dark-mode-green);
+}
+
+.dark-mode .box-progress-bar {
+    background-color: var(--slate-300);
+}
