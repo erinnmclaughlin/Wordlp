@@ -90,6 +90,7 @@ div:not(:last-child), ul, li {
 
 .modal-content {
     overflow-y: auto;
+    margin-bottom: 0 !important;
 }
 
 /* Dark Mode */
