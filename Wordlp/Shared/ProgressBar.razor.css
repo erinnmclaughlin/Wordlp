@@ -15,6 +15,7 @@
     height: 4px;
     border-radius: 6px;
     background-color: var(--green);
+    transition: width 1s;
 }
 
 .box-progress-header {

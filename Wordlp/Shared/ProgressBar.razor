@@ -11,5 +11,11 @@
 
     [Parameter] public int NumberSolved { get; set; }
 
-    private double Width => 100.0 * NumberSolved / 50.0;
+    private double Width { get; set; } = 0;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await Task.Delay(100);
+        Width = 100.0 * NumberSolved / 50.0;
+    }
 }
