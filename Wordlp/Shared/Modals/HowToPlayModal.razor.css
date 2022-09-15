@@ -13,6 +13,7 @@
 section {
     margin: 1rem 0.75rem;
     margin-top: 0;
+    font-size: 14px;
 }
 
     section:first-child {
@@ -29,7 +30,7 @@ section#examples {
     border: 1px solid var(--slate-400);
     padding: 0.5rem;
     background: var(--slate-300);
-    font-size: 14px;
+    font-size: 13px;
 }
 
 hr {

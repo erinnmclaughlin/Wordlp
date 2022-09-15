@@ -4,22 +4,25 @@
 @implements IDisposable
 
 <Modal @bind-IsActive="IsActive">
-    <div class="modal-content">
-        <div class="solution">
-            <LettersDisplay Word="@Game.Solution.Value" />
+    @if (Result != null)
+    {
+        <div class="modal-content">
+            <div class="solution">
+                <LettersDisplay Word="@Game.Solution.Value" />
+            </div>
+            <div class="solution-description">
+                <p>@Game.Solution.Description</p>
+            </div>
         </div>
-        <div class="solution-description">
-            <p>@Game.Solution.Description</p>
+
+        <div style="padding: 1.5rem 1rem; font-size: 0.9rem; text-align: center; font-style: italic;">
+            <ProgressCount NumberSolved="SolvedCount" />
         </div>
-    </div>
 
-    <div style="padding: 1.5rem 1rem; font-size: 0.9rem; text-align: center; font-style: italic;">
-        <ProgressCount NumberSolved="SolvedCount" />
-    </div>
-
-    <div class="modal-buttons" style="padding-top: 0;">
-        <GameOverButtons />
-    </div>   
+        <div class="modal-buttons" style="padding-top: 0;">
+            <GameOverButtons />
+        </div>
+    }    
 </Modal>
 
 @code {
@@ -50,6 +53,7 @@
 
     public void Close()
     {
+        Result = null;
         IsActive = false;
         StateHasChanged();
     }
