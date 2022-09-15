@@ -38,7 +38,7 @@
     border-radius: 8px;
     width: 100%;
     z-index: 10;
-    margin: auto 1.25rem;
+    margin: auto 0.5rem;
     min-height: 400px;
     display: flex;
     flex-direction: column;
