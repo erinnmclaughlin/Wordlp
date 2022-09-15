@@ -32,7 +32,7 @@ public class DarkModeService
     public async Task InitializeAsync()
     {
         if (!await LocalStorage.ContainKeyAsync(Keys.DarkMode))
-            await Enable();
+            await Disable();
         else
             IsEnabled = await LocalStorage.GetItemAsync<bool>(Keys.DarkMode);
     }
