@@ -11,18 +11,27 @@
                 <i class="fa-solid fa-arrow-left fa-lg" />
             </a>
         }
+        else
+        {
+            <button class="icon-button" @onclick="() => ShowInfo = true">
+                <i class="fa-solid fa-info-circle fa-lg"></i>
+            </button>
+        }
     </div>
     <div class="app-title"><a href="?">@GetAppTitle()</a></div>
     <div class="header-end">
+
         <button class="icon-button" @onclick="() => ShowHowToPlay = true">
-            <i class="fas fa-question-circle fa-lg"></i>
+            <i class="fa-regular fa-question-circle fa-lg"></i>
         </button>
+        
         @if (CurrentPage != AppPages.History && PlayerHasHistory)
         {
             <a class="icon-button" href="?page=history">
                 <i class="fa-solid fa-clock-rotate-left fa-lg" />
             </a>
-        }       
+        }
+
         <button class="icon-button" @onclick="() => DarkMode.Toggle()">
             <i class="@(DarkMode.IsEnabled ? "fa-solid" : "fa-regular") fa-moon fa-lg" />
         </button>
@@ -33,6 +42,10 @@
     <HowToPlayModal />
 </Modal>
 
+<Modal @bind-IsActive="ShowInfo">
+    <InfoModal />
+</Modal>
+
 @code {
 
     [CascadingParameter] private AppPages CurrentPage { get; set; }
@@ -40,6 +53,7 @@
 
     private bool PlayerHasHistory { get; set; }
     private bool ShowHowToPlay { get; set; }
+    private bool ShowInfo { get; set; }
 
     public void Dispose()
     {
