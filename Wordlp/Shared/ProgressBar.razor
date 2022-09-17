@@ -1,36 +1,24 @@
-﻿<div class="box-progress-wrapper @GameOverCss">
-    <div class="progress">
-        <p class="box-progress-header">Progress</p>
-        <div class="box-progress-bar">
-            <span class="box-progress" style="width: @(Width)%;"></span>
-        </div>
-        <p class="box-progress-percentage">@NumberSolved / 50 Solved</p>
+﻿<div class="box-progress-wrapper">
+    <p class="box-progress-header">Progress</p>
+    <div class="box-progress-bar">
+        <span class="box-progress" style="width: @Width%"></span>
     </div>
-    <div class="game-over">
-        <p><span style="font-weight: 500">Congratulations!</span> You got all 50 words in Word-LP. Thanks for playing!</p>
-    </div>
+    <p class="box-progress-percentage">@SolvedCount / 50 Solved</p>
 </div>
 
 @code {
 
     [Parameter] public int NumberSolved { get; set; }
 
+    private int SolvedCount { get; set; }
     private double Width { get; set; } = 0;
-    private string GameOverCss { get; set; } = "";
 
     protected override async Task OnParametersSetAsync()
     {
-        NumberSolved = Math.Min(NumberSolved, 50);
-
-        await Task.Delay(100);
-        Width = 100.0 * NumberSolved / 50.0;
+        SolvedCount = Math.Min(NumberSolved, 50);
         StateHasChanged();
 
-        if (NumberSolved == 50)
-        {
-            await Task.Delay(1000);
-            GameOverCss = "game-over-wrapper";
-            StateHasChanged();
-        }
+        await Task.Delay(200);
+        Width = 100.0 * SolvedCount / 50.0;
     }
 }
