@@ -8,6 +8,7 @@
     padding: 16px 12px;
     padding-top: 0;
     margin: auto;
+    height: 68px;
 }
 
 .box-progress {
@@ -42,6 +43,29 @@
     line-height: 16px;
 }
 
+.progress {
+    transform: rotateY(0deg);
+    transition: transform 0.5s;
+}
+
+.game-over-wrapper .progress {
+    transform: rotateY(90deg);
+    animation: hideDoodle 0.5s forwards;
+}
+
+.box-progress-wrapper:not(.game-over-wrapper) .game-over {
+    display: none;
+}
+
+.game-over-wrapper .game-over {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    animation: flipInDoodle 1.25s forwards;
+    text-align: center;
+}
+
 /* Dark Mode */
 .dark-mode .box-progress {
     background-color: var(--dark-mode-green);
@@ -49,4 +73,25 @@
 
 .dark-mode .box-progress-bar {
     background-color: var(--slate-300);
+}
+
+@keyframes hideDoodle {
+    from {
+        display: block;
+    }
+
+    to {
+        display: none;
+        height: 0px;
+    }
+}
+
+@keyframes flipInDoodle {
+    0%, 33% {
+        transform: rotateX(90deg);
+    }
+
+    100% {
+        transform: rotateX(0deg);
+    }
 }
