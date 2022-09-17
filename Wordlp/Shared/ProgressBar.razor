@@ -1,10 +1,21 @@
-﻿<div class="box-progress-wrapper">
-    <p class="box-progress-header">Progress</p>
-    <div class="box-progress-bar">
-        <span class="box-progress" style="width: @Width%"></span>
+﻿<div class="flip-container @FlipContainerCss">
+    <div class="flipper">
+        <div class="front">
+            <div class="box-progress-wrapper">
+                <p class="box-progress-header">Progress</p>
+                <div class="box-progress-bar">
+                    <span class="box-progress" style="width: @Width%"></span>
+                </div>
+                <p class="box-progress-percentage">@SolvedCount / 50 Solved</p>
+            </div>
+        </div>
+        <div class="back">
+            <p style="font-size: 0.9rem; text-align: center"><span style="font-weight: 500;">Congratulations!</span> You got all 50 words in Word-LP. Thanks for playing!</p>
+        </div>
     </div>
-    <p class="box-progress-percentage">@SolvedCount / 50 Solved</p>
 </div>
+
+
 
 @code {
 
@@ -13,12 +24,21 @@
     private int SolvedCount { get; set; }
     private double Width { get; set; } = 0;
 
+    private string FlipContainerCss { get; set; } = "";
+
     protected override async Task OnParametersSetAsync()
     {
         SolvedCount = Math.Min(NumberSolved, 50);
         StateHasChanged();
 
-        await Task.Delay(200);
+        await Task.Delay(100);
         Width = 100.0 * SolvedCount / 50.0;
+        StateHasChanged();
+
+        if (NumberSolved == 50)
+        {
+            await Task.Delay(1000);
+            FlipContainerCss = "flipped";
+        }
     }
 }
